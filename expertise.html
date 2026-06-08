@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0048)file:///C:/Users/Greg/Downloads/expertise_7.html -->
+<!-- saved from url=(0048)file:///C:/Users/Greg/Downloads/expertise_9.html -->
 <html lang="fr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
@@ -80,6 +80,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-se
 .cswatch.on{border-color:#1F4E79;transform:scale(1.18)}
 .szbtn{width:30px;height:30px;border-radius:7px;border:1px solid #D6DBE0;background:#fff;cursor:pointer;padding:0;touch-action:manipulation;-webkit-appearance:none;display:flex;align-items:center;justify-content:center}
 .szbtn.on{background:#DEEBF7;border-color:#2E75B6}
+.psize-btn{background:#fff;color:#5a7894}
+.psize-btn.on{background:#1F4E79;color:#fff;border-color:#1F4E79!important}
 .sp{flex:1}
 .toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%);background:#1F4E79;color:#fff;padding:11px 22px;border-radius:24px;font-size:14px;opacity:0;pointer-events:none;transition:opacity .25s;z-index:9999;white-space:nowrap;max-width:90vw;text-align:center;box-shadow:0 4px 12px rgba(0,0,0,.2)}
 .toast.show{opacity:1}
@@ -98,7 +100,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-se
 
 <div class="topbar">
   <span class="topbar-title">🏗 Expertise</span>
-  <span class="save-status" id="save-status">✓ 15:54</span>
+  <span class="save-status" id="save-status">✓ 14:07</span>
   <button class="tbtn b" onclick="triggerLoad()">↩ Reprendre</button>
   <button class="tbtn g" onclick="saveJSON()">💾 JSON</button>
   <button class="tbtn" onclick="exportWord()">📄 Word</button>
@@ -119,13 +121,18 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-se
   </div>
   <div id="zones"><div id="z1-w"><div class="zone-card"><div class="zone-hdr"><span class="zone-num">Zone 1</span><input id="z1-ti" type="text" placeholder="Façade, Appartement R+1…" value="" oninput="scheduleAutoSave()"><button class="tbtn" style="padding:7px 10px;font-size:13px;background:rgba(220,60,60,.2);border-color:rgba(220,60,60,.35)" onclick="rmEl(&#39;z1-w&#39;);scheduleAutoSave()">✕</button></div><div class="zone-body"><div class="sec">Description de la zone</div><textarea class="zone-desc" id="z1-desc" placeholder="Contexte, accès, état général…" rows="2" oninput="scheduleAutoSave()"></textarea><div class="sec" style="margin-top:16px">Plan de la zone <span class="sec-note"> — tapez sur le plan pour poser un repère</span></div><button class="iobtn" id="z1-pe" onclick="importPlan(&#39;z1&#39;)">📐  Importer un plan</button><div id="z1-pw" style="display:none"><div class="plan-wrap" id="z1-pcw"><canvas id="z1-pc"></canvas></div><div class="plan-btns"><button class="abtn" onclick="undoMk(&#39;z1&#39;)">↩ Annuler</button><button class="abtn" onclick="clearMk(&#39;z1&#39;)">🗑 Effacer</button><button class="abtn red" onclick="removePlan(&#39;z1&#39;)">✕ Changer</button></div></div><div class="sec" style="margin-top:16px">Photos générales de la zone</div><div class="row2"><button class="abtn" onclick="addZP(&#39;z1&#39;,true)">📷 Prendre</button><button class="abtn" onclick="addZP(&#39;z1&#39;,false)">🖼 Photothèque</button></div><div class="photo-grid" id="z1-zpg"></div><div class="hr"></div><div id="z1-ds"><div class="desordre" id="z1_d1"><div class="d-hdr"><span class="dbadge">Désordre 1</span><input id="z1_d1-ti" type="text" placeholder="Fissure, Infiltration…" value="" oninput="scheduleAutoSave()"><button class="tbtn" style="padding:6px 10px;font-size:12px;background:rgba(220,60,60,.15);border-color:rgba(220,60,60,.3)" onclick="rmEl(&#39;z1_d1&#39;);scheduleAutoSave()">✕</button></div><div class="d-body"><div class="loc-field"><input type="text" id="z1_d1-loc" placeholder="📍 Localisation du désordre (ex: angle nord, mur salon…)" value="" oninput="scheduleAutoSave()"></div><div class="sec">Observations</div><div id="z1_d1-obs"><div class="obs-row"><textarea rows="1" placeholder="Décrire l&#39;observation…" oninput="this.style.height=&#39;auto&#39;;this.style.height=this.scrollHeight+&#39;px&#39;;scheduleAutoSave()"></textarea><button class="xbtn2" onclick="this.parentElement.remove();scheduleAutoSave()">✕</button></div></div><button class="abtn" onclick="addObs(&#39;z1_d1&#39;)" style="margin-bottom:14px">+ Ajouter une observation</button><div class="hr"></div><div class="sec">Localiser sur plan <span class="sec-note"> — importez/prenez un plan, tapez pour poser le repère</span></div><button class="iobtn" id="z1_d1-dpe" onclick="importDPlan(&#39;z1_d1&#39;,false)">📐 Importer un plan</button><div class="row2" id="z1_d1-dpe2"><button class="abtn" onclick="importDPlan(&#39;z1_d1&#39;,true)">📷 Photo du plan</button><button class="abtn" onclick="importDPlan(&#39;z1_d1&#39;,false)">🖼 Photothèque</button></div><div id="z1_d1-dpw" style="display:none"><div class="plan-wrap" id="z1_d1-dpcw"><canvas id="z1_d1-dpc"></canvas></div><div class="plan-btns"><button class="abtn" onclick="undoDMk(&#39;z1_d1&#39;)">↩ Annuler</button><button class="abtn" onclick="clearDMk(&#39;z1_d1&#39;)">🗑 Effacer</button><button class="abtn red" onclick="removeDPlan(&#39;z1_d1&#39;)">✕ Changer</button></div></div><div class="hr"></div><div class="sec">Photos annotées <span class="sec-note"> — dessinez sur la photo</span></div><div class="row2"><button class="abtn" onclick="addAP(&#39;z1_d1&#39;,true)">📷 Prendre</button><button class="abtn" onclick="addAP(&#39;z1_d1&#39;,false)">🖼 Photothèque</button></div><div id="z1_d1-al" style="margin-top:10px"></div><div class="hr"></div><div class="sec">Conclusion / Préconisation</div><textarea class="conclu" id="z1_d1-conclu" rows="2" placeholder="Réparation préconisée, urgence…" oninput="scheduleAutoSave()"></textarea></div></div></div><button class="abtn blue" style="padding:13px;margin-top:2px" onclick="addDesordre(&#39;z1&#39;)">+ Ajouter un désordre</button></div></div></div></div>
   <button class="abtn blue" onclick="addZone()" style="padding:15px;font-size:15px;margin-top:4px">+ Ajouter une zone</button>
+
+  <div class="card" style="margin-top:20px;border-color:#F0C878;background:#FFFDF8">
+    <div class="card-title" style="color:#A05010">Conclusion générale du rapport</div>
+    <div class="field"><textarea id="m-conclu-gen" rows="4" placeholder="Synthèse globale, recommandations générales, suite à donner…" style="background:#FFF3DC;border-color:#F0C878;color:#7a4a08" oninput="scheduleAutoSave()"></textarea></div>
+  </div>
 </div>
 
 <div class="toast" id="toast"></div>
 <div class="modal" id="restore-modal">
   <div class="modal-box">
     <h3>Reprendre votre travail ?</h3>
-    <p id="restore-text">Une session sauvegardée automatiquement a été trouvée. Voulez-vous la reprendre ?</p>
+    <p id="restore-text">Une session a été sauvegardée automatiquement (1 zone(s)). Voulez-vous la reprendre ?</p>
     <div class="modal-btns">
       <button class="cancel" onclick="discardAuto()">Nouveau</button>
       <button class="ok" onclick="restoreAuto()">Reprendre</button>
@@ -149,11 +156,14 @@ function setVal(id,v){var e=document.getElementById(id);if(e)e.value=v||''}
 function rmEl(id){var e=document.getElementById(id);if(e)e.remove()}
 
 /* ════ AUTOSAVE (localStorage) ════ */
+var isLoading=false;
 function scheduleAutoSave(){
+  if(isLoading)return;
   if(autoSaveTimer)clearTimeout(autoSaveTimer);
   autoSaveTimer=setTimeout(doAutoSave,1500);
 }
 function doAutoSave(){
+  if(isLoading)return;
   try{
     var data=collect();
     localStorage.setItem(AUTOSAVE_KEY,JSON.stringify(data));
@@ -402,11 +412,17 @@ function addAP(did,cam){pickFile('image/*',!cam,cam?'environment':false,function
 
 function buildAnno(did,p,restored){
   var idx=AD[did].length;var aid=did+'_a'+idx;
-  var entry={src:p.src,name:p.name,annotated:p.annotated||null,canvasRef:null,state:null};
+  var entry={src:p.src,name:p.name,annotated:p.annotated||null,photoSize:p.photoSize||'standard',canvasRef:null,state:null};
   AD[did].push(entry);
   var block=document.createElement('div');block.className='anno-block';block.id=aid;
   var hdr=document.createElement('div');hdr.className='anno-hdr';
-  hdr.innerHTML='<span>'+esc(p.name)+'</span><button onclick="AD[\''+did+'\']['+idx+']=null;rmEl(\''+aid+'\');scheduleAutoSave()">✕</button>';
+  var stdSel=entry.photoSize==='standard'?'on':'';
+  var grdSel=entry.photoSize==='grande'?'on':'';
+  hdr.innerHTML='<span>'+esc(p.name)+'</span>'+
+    '<span style="font-size:10px;color:#5a7894;margin-right:4px">Taille :</span>'+
+    '<button id="'+aid+'-ps-standard" class="psize-btn '+stdSel+'" onclick="setPhotoSize(\''+aid+'\',\'standard\')" style="padding:4px 8px;font-size:11px;border-radius:6px;border:1px solid #BDD7EE;cursor:pointer;-webkit-appearance:none;font-family:inherit">Std</button>'+
+    '<button id="'+aid+'-ps-grande" class="psize-btn '+grdSel+'" onclick="setPhotoSize(\''+aid+'\',\'grande\')" style="padding:4px 8px;font-size:11px;border-radius:6px;border:1px solid #BDD7EE;cursor:pointer;-webkit-appearance:none;font-family:inherit;margin-right:6px">Grande</button>'+
+    '<button onclick="AD[\''+did+'\']['+idx+']=null;rmEl(\''+aid+'\');scheduleAutoSave()">✕</button>';
   block.appendChild(hdr);
   var cw=document.createElement('div');cw.className='anno-cv-wrap';
   var cv=document.createElement('canvas');cw.appendChild(cv);block.appendChild(cw);
@@ -477,7 +493,21 @@ function drawSh(ctx,s,x1,y1,x2,y2){
   if(s.tool==='circle'){var rx=Math.abs(x2-x1)/2;var ry=Math.abs(y2-y1)/2;ctx.beginPath();ctx.ellipse(x1+(x2-x1)/2,y1+(y2-y1)/2,Math.max(rx,4),Math.max(ry,4),0,0,Math.PI*2);ctx.stroke()}
   else if(s.tool==='arrow'){ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();var a=Math.atan2(y2-y1,x2-x1);var l=Math.min(24,Math.hypot(x2-x1,y2-y1)*0.4);ctx.beginPath();ctx.moveTo(x2,y2);ctx.lineTo(x2-l*Math.cos(a-Math.PI/6),y2-l*Math.sin(a-Math.PI/6));ctx.lineTo(x2-l*Math.cos(a+Math.PI/6),y2-l*Math.sin(a+Math.PI/6));ctx.closePath();ctx.fillStyle=s.color;ctx.fill()}
 }
-function findEntry(aid){for(var did in AD){if(!AD[did])continue;var idx=parseInt(aid.split('_a')[1]);if(AD[did][idx]&&did+'_a'+idx===aid)return AD[did][idx]}return null}
+function findEntry(aid){
+  var p=aid.lastIndexOf('_a');
+  var did=aid.substring(0,p);
+  var idx=parseInt(aid.substring(p+2));
+  if(AD[did]&&AD[did][idx])return AD[did][idx];
+  return null;
+}
+function setPhotoSize(aid,size){
+  var e=findEntry(aid);if(e)e.photoSize=size;
+  var sb=document.getElementById(aid+'-ps-standard');
+  var gb=document.getElementById(aid+'-ps-grande');
+  if(sb)sb.className='psize-btn '+(size==='standard'?'on':'');
+  if(gb)gb.className='psize-btn '+(size==='grande'?'on':'');
+  scheduleAutoSave();
+}
 function setTool(aid,tool){TOOLS.forEach(function(t){var b=document.getElementById(aid+'-t-'+t);if(b)b.className='toolbtn'+(t===tool?' on':'')});var e=findEntry(aid);if(e&&e.state)e.state.tool=tool}
 function setCol(aid,col){COLS.forEach(function(c){var d=document.getElementById(aid+'-col-'+c.replace('#',''));if(d)d.className='cswatch'+(c===col?' on':'')});var e=findEntry(aid);if(e&&e.state)e.state.color=col}
 function setSz(aid,sz){SIZES.forEach(function(s){var b=document.getElementById(aid+'-sz-'+s);if(b)b.className='szbtn'+(s===sz?' on':'')});var e=findEntry(aid);if(e&&e.state)e.state.size=sz}
@@ -493,7 +523,7 @@ function undoA(aid){
 
 /* ════ COLLECT ════ */
 function collect(){
-  var meta={adresse:val('m-adr'),date:val('m-date'),client:val('m-client'),expert:val('m-expert'),contexte:val('m-ctx')};
+  var meta={adresse:val('m-adr'),date:val('m-date'),client:val('m-client'),expert:val('m-expert'),contexte:val('m-ctx'),conclusion_generale:val('m-conclu-gen')};
   var zones=[];
   document.querySelectorAll('[id$="-w"]').forEach(function(w){
     if(!w.querySelector('.zone-card'))return;
@@ -505,7 +535,7 @@ function collect(){
     w.querySelectorAll('.desordre').forEach(function(db,i){
       var did=db.id;
       var obs=[];db.querySelectorAll('.obs-row textarea').forEach(function(ta){if(ta.value.trim())obs.push(ta.value.trim())});
-      var photos=(AD[did]||[]).filter(Boolean).map(function(p){return{name:p.name,src:p.src,annotated:p.canvasRef?p.canvasRef.toDataURL('image/jpeg',.82):p.src}});
+      var photos=(AD[did]||[]).filter(Boolean).map(function(p){return{name:p.name,src:p.src,photoSize:p.photoSize||'standard',annotated:p.canvasRef?p.canvasRef.toDataURL('image/jpeg',.82):p.src}});
       var dpd=DPD[did];var dplanImg=null;
       if(dpd&&dpd.canvas&&dpd.img)dplanImg=dpd.canvas.toDataURL('image/jpeg',.82);
       desordres.push({numero:i+1,titre:val(did+'-ti'),localisation:val(did+'-loc'),observations:obs,photos:photos,dplan:{image:dplanImg,markers:dpd?dpd.markers:[]},conclusion:val(did+'-conclu')});
@@ -516,11 +546,14 @@ function collect(){
 }
 
 function loadData(data){
+  isLoading=true;
   setVal('m-adr',data.meta.adresse);setVal('m-date',data.meta.date);
   setVal('m-client',data.meta.client);setVal('m-expert',data.meta.expert);setVal('m-ctx',data.meta.contexte);
+  setVal('m-conclu-gen',data.meta.conclusion_generale||'');
   document.getElementById('zones').innerHTML='';
   ZC=0;DC={};PD={};ZPH={};AD={};DPD={};
   data.zones.forEach(function(z){addZone(z)});
+  setTimeout(function(){isLoading=false;doAutoSave();},800);
 }
 
 /* ════ SAVE / LOAD JSON ════ */
@@ -566,9 +599,12 @@ function exportWord(){
   c+='.zbody{border:1px solid #BDD7EE;border-top:none;padding:12px;margin-bottom:14px;background:#F2F7FC;border-radius:0 0 4px 4px}';
   c+='.zdesc{font-style:italic;color:#595959;font-size:9.5pt;margin-bottom:10px}';
   c+='.lab{font-size:8.5pt;font-weight:bold;color:#2E75B6;text-transform:uppercase;letter-spacing:.05em;margin:10px 0 6px}';
-  c+='.plan{text-align:center;margin:8px 0}.plan img{max-width:480px;border:1px solid #BDD7EE;border-radius:4px}';
+  c+='.plan{text-align:center;margin:8px 0}.plan img{max-width:480px;height:auto;border:1px solid #BDD7EE;border-radius:4px}';
   c+='.cap{font-size:9pt;color:#595959;margin-top:4px}';
-  c+='.photos{margin:8px 0}.photos img{max-width:240px;max-height:200px;border:1px solid #BDD7EE;border-radius:4px;margin:4px 6px 4px 0}';
+  c+='.photos{margin:8px 0}';
+  c+='.photos img{height:auto;width:auto;border:1px solid #BDD7EE;border-radius:4px;margin:4px 6px 4px 0;vertical-align:top}';
+  c+='.photos img.std{max-width:240px;max-height:200px}';
+  c+='.photos img.grd{max-width:380px;max-height:320px}';
   c+='.dw{border:1px solid #BDD7EE;border-radius:4px;overflow:hidden;margin-bottom:14px}';
   c+='.dh{background:#DEEBF7;padding:8px 12px;border-bottom:1px solid #BDD7EE}';
   c+='.dh .b{background:#1F4E79;color:#fff;border-radius:20px;padding:2px 10px;font-size:9pt;font-weight:bold;margin-right:8px}';
@@ -597,18 +633,22 @@ function exportWord(){
       h+='<div class="lab">Plan de la zone</div><div class="plan"><img src="'+zone.plan.image+'"></div>';
       if(zone.plan.markers&&zone.plan.markers.length)h+='<div class="cap">Repères : '+zone.plan.markers.map(function(m){return'Repère '+m.num}).join(' — ')+'</div>';
     }
-    if(zone.photos_zone&&zone.photos_zone.length){h+='<div class="lab">Photos générales de la zone</div><div class="photos">';zone.photos_zone.forEach(function(p){h+='<img src="'+p.src+'">'});h+='</div>';}
+    if(zone.photos_zone&&zone.photos_zone.length){h+='<div class="lab">Photos générales de la zone</div><div class="photos">';zone.photos_zone.forEach(function(p){h+='<img class="std" src="'+p.src+'">'});h+='</div>';}
     zone.desordres.forEach(function(d){
       h+='<div class="dw"><div class="dh"><span class="b">Désordre '+d.numero+'</span><span class="t">'+esc(d.titre)+'</span></div><div class="dbody">';
       if(d.localisation)h+='<div class="loc">📍 Localisation : '+esc(d.localisation)+'</div>';
       if(d.observations&&d.observations.length){h+='<div class="lab">Observations</div><table class="obs">';d.observations.forEach(function(o,oi){h+='<tr><td class="n">'+(oi+1)+'</td><td>'+esc(o)+'</td></tr>'});h+='</table>';}
       if(d.dplan&&d.dplan.image){h+='<div class="lab">Localisation sur plan</div><div class="plan"><img src="'+d.dplan.image+'" style="max-width:360px"></div>';if(d.dplan.markers&&d.dplan.markers.length)h+='<div class="cap">Repère(s) : '+d.dplan.markers.map(function(m){return m.num}).join(', ')+'</div>';}
-      if(d.photos&&d.photos.length){h+='<div class="lab">Photos</div><div class="photos">';d.photos.forEach(function(p){h+='<img src="'+(p.annotated||p.src)+'">'});h+='</div>';}
+      if(d.photos&&d.photos.length){h+='<div class="lab">Photos</div><div class="photos">';d.photos.forEach(function(p){var cls=p.photoSize==='grande'?'grd':'std';h+='<img class="'+cls+'" src="'+(p.annotated||p.src)+'">'});h+='</div>';}
       if(d.conclusion)h+='<div class="conclu"><div class="h">Conclusion / Préconisation</div>'+esc(d.conclusion)+'</div>';
       h+='</div></div>';
     });
     h+='</div>';
   });
+  if(data.meta.conclusion_generale){
+    h+='<div class="zb" style="background:#1F4E79">Conclusion générale</div>';
+    h+='<div class="zbody" style="background:#FFF3DC;border-color:#F0C878"><div style="font-size:10pt;color:#5a3a08;white-space:pre-line">'+esc(data.meta.conclusion_generale)+'</div></div>';
+  }
   h+='<div class="foot">'+esc(data.meta.expert)+' | '+esc(data.meta.adresse)+' | Rapport du '+now+'</div>';
   h+='</body></html>';
 
@@ -629,4 +669,4 @@ if(!checkAutoSave()){addZone();}
 </script>
 
 
-</body></html>
+<input type="file" id="__fp" accept="image/*" style="position: fixed; top: 0px; left: 0px; width: 100%; height: 100%; opacity: 0; z-index: 9990;"></body></html>
