@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0048)file:///C:/Users/Greg/Downloads/expertise_9.html -->
+<!-- saved from url=(0049)file:///C:/Users/Greg/Downloads/expertise_10.html -->
 <html lang="fr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
@@ -100,7 +100,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-se
 
 <div class="topbar">
   <span class="topbar-title">🏗 Expertise</span>
-  <span class="save-status" id="save-status">✓ 14:07</span>
+  <span class="save-status" id="save-status">—</span>
   <button class="tbtn b" onclick="triggerLoad()">↩ Reprendre</button>
   <button class="tbtn g" onclick="saveJSON()">💾 JSON</button>
   <button class="tbtn" onclick="exportWord()">📄 Word</button>
@@ -212,12 +212,17 @@ function pickFile(accept,multiple,capture,cb){
   inp.type='file';inp.id='__fp';inp.accept=accept||'*/*';
   if(multiple)inp.multiple=true;
   if(capture)inp.setAttribute('capture',capture);
-  inp.style.cssText='position:fixed;top:0;left:0;width:100%;height:100%;opacity:0;z-index:9990';
+  // input minuscule et invisible — n'intercepte JAMAIS les clics
+  inp.style.cssText='position:absolute;width:1px;height:1px;opacity:0;overflow:hidden;left:-9999px;top:0';
   document.body.appendChild(inp);
+  var done=false;
+  function cleanup(){if(done)return;done=true;if(inp.parentNode)inp.remove();}
   inp.addEventListener('change',function(){
     if(inp.files&&inp.files.length)cb(inp.files);
-    setTimeout(function(){if(inp.parentNode)inp.remove()},600);
+    cleanup();
   });
+  // filet de sécurité : si l'utilisateur annule, on nettoie au prochain focus
+  window.addEventListener('focus',function fk(){window.removeEventListener('focus',fk);setTimeout(cleanup,1500);});
   inp.click();
 }
 
@@ -669,4 +674,4 @@ if(!checkAutoSave()){addZone();}
 </script>
 
 
-<input type="file" id="__fp" accept="image/*" style="position: fixed; top: 0px; left: 0px; width: 100%; height: 100%; opacity: 0; z-index: 9990;"></body></html>
+</body></html>
