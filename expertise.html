@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0049)file:///C:/Users/Greg/Downloads/expertise_11.html -->
+<!-- saved from url=(0049)file:///C:/Users/Greg/Downloads/expertise_14.html -->
 <html lang="fr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
@@ -37,7 +37,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-se
 .sec::after{content:'';flex:1;height:1px;background:#DEEBF7}
 .sec-note{text-transform:none;letter-spacing:0;font-size:11px;color:#aaa;font-weight:400}
 textarea.std{width:100%;background:#fff;border:1px solid #D6DBE0;border-radius:8px;padding:9px 11px;font-size:14px;color:#222;resize:none;min-height:46px;line-height:1.5;font-family:inherit;-webkit-appearance:none;outline:none}
-.iobtn{width:100%;padding:13px;border-radius:8px;border:1.5px dashed #B8C4D0;background:#F2F7FC;color:#5a7894;font-size:14px;text-align:center;cursor:pointer;font-family:inherit;-webkit-appearance:none;touch-action:manipulation;display:block;margin-bottom:8px}
+.iobtn{width:100%;padding:13px;border-radius:8px;border:1.5px dashed #B8C4D0;background:#F2F7FC;color:#5a7894;font-size:14px;text-align:center;cursor:pointer;font-family:inherit;-webkit-appearance:none;touch-action:manipulation;display:block;margin-bottom:8px;transition:background .15s,border-color .15s}
+.iobtn.drag-over,.abtn.drag-over{background:#D9EEFB!important;border-color:#2E75B6!important;color:#1F4E79!important}
 .iobtn:active{background:#e2ecf6}
 .row2{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}
 .row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:4px}
@@ -115,7 +116,7 @@ textarea.std{width:100%;background:#fff;border:1px solid #D6DBE0;border-radius:8
 
 <div class="topbar">
   <span class="topbar-title">🏗 Expertise</span>
-  <span class="save-status" id="save-status">—</span>
+  <span class="save-status" id="save-status">✓ 16:15</span>
   <button class="tbtn b" id="btn-load">↩ Reprendre</button>
   <button class="tbtn g" id="btn-json">💾 JSON</button>
   <button class="tbtn" id="btn-word">📄 Word</button>
@@ -135,7 +136,7 @@ textarea.std{width:100%;background:#fff;border:1px solid #D6DBE0;border-radius:8
     </div>
   </div>
 
-  <div id="zones"></div>
+  <div id="zones"><div class="zone-card"><div class="zone-hdr"><span class="zone-num">Zone 1</span><input type="text" placeholder="Façade, Appartement R+1…"><button class="xs" type="button">✕ Supprimer</button></div><div class="zone-body"><div class="sec">Description de la zone</div><textarea class="std" rows="2" placeholder="Contexte, accès, état général…"></textarea><div class="sec">Plan de la zone <span class="sec-note">— tapez sur le plan pour poser un repère</span></div><button class="iobtn" type="button">📐 Importer un plan</button><div style="display: none;"><div class="plan-wrap"><canvas></canvas></div><div class="row3"><button class="abtn" type="button">↩ Annuler</button><button class="abtn" type="button">🗑 Effacer</button><button class="abtn red" type="button">✕ Changer</button></div></div><div class="sec">Photos générales de la zone</div><div class="row2"><button class="abtn" type="button">📷 Prendre</button><button class="abtn" type="button">🖼 Photothèque</button></div><div class="photo-grid"></div><div class="hr"></div><div><div class="desordre"><div class="d-hdr"><span class="dbadge">Désordre 1</span><input type="text" placeholder="Fissure, Infiltration…"><button class="xs" type="button">✕</button></div><div class="d-body"><input type="text" class="loc-input" placeholder="📍 Localisation du désordre (ex: angle nord, mur salon…)"><div class="sec">Observations</div><div><div class="obs-row"><textarea rows="1" placeholder="Décrire l&#39;observation…"></textarea><button class="xbtn2" type="button">✕</button></div></div><button class="abtn" type="button" style="margin-bottom: 14px;">+ Ajouter une observation</button><div class="hr"></div><div class="sec">Localiser sur plan <span class="sec-note">— tapez sur le plan pour poser un repère</span></div><button class="iobtn" type="button">📐 Importer un plan</button><div class="row2"><button class="abtn" type="button">📷 Photo du plan</button><button class="abtn" type="button">🖼 Photothèque</button></div><div style="display: none;"><div class="plan-wrap"><canvas></canvas></div><div class="row3"><button class="abtn" type="button">↩ Annuler</button><button class="abtn" type="button">🗑 Effacer</button><button class="abtn red" type="button">✕ Changer</button></div></div><div class="hr"></div><div class="sec">Photos annotées <span class="sec-note">— dessinez sur la photo</span></div><div class="row2"><button class="abtn" type="button">📷 Prendre</button><button class="abtn" type="button">🖼 Photothèque</button></div><div style="margin-top: 10px;"></div><div class="hr"></div><div class="card fiche-synth"><div class="card-title">Fiche de synthèse <span class="sec-note">— alimente le tableau récapitulatif</span></div><div class="fiche-row"><div class="fiche-label">Type de désordre</div><div class="fiche-auto">—</div></div><div class="fiche-row"><div class="fiche-label">Origine du désordre</div><textarea class="std" rows="2" placeholder="Cause identifiée (ex : défaut d&#39;étanchéité, tassement, corrosion…)"></textarea></div><div class="fiche-row"><div class="fiche-label">Urgence</div><div class="urg-row"><button class="urgbtn uf" type="button">Faible</button><button class="urgbtn um active" type="button">Moyenne</button><button class="urgbtn ue" type="button">Élevée</button></div></div><div class="fiche-row"><div class="fiche-label">Principe de réparation</div><textarea class="std" rows="2" placeholder="Solution technique préconisée…"></textarea></div><div class="fiche-row"><div class="fiche-label">Conclusion</div><textarea class="std" rows="2" placeholder="Conclusion propre à ce désordre (avis, niveau de risque, suite à donner…)"></textarea></div></div></div></div></div><button class="abtn blue" type="button" style="padding: 13px;">+ Ajouter un désordre</button></div></div></div>
   <button class="abtn blue" id="btn-add-zone" style="padding:15px;font-size:15px;margin-top:4px">+ Ajouter une zone</button>
 
   <div class="card" style="margin-top:20px;border-color:#F0C878;background:#FFFDF8">
@@ -23363,6 +23364,28 @@ function pickFile(opts,cb){
 }
 function readAsDataURL(file,cb){var r=new FileReader();r.onload=function(e){cb(e.target.result)};r.readAsDataURL(file)}
 
+/* ── Drag-and-drop générique ──────────────────────────────────────────
+   Ajoute le dépôt de fichiers sur n'importe quel élément.
+   accept : 'image/*' | '.json' | null (tout) */
+function makeDraggable(el,onFiles,accept){
+  function filter(files){
+    var arr=Array.from(files);
+    if(accept==='image/*')arr=arr.filter(function(f){return f.type.startsWith('image/')});
+    if(accept==='.json')arr=arr.filter(function(f){return f.name.endsWith('.json')||f.type==='application/json'});
+    return arr;
+  }
+  el.addEventListener('dragover',function(e){e.preventDefault();e.stopPropagation();el.classList.add('drag-over')});
+  el.addEventListener('dragenter',function(e){e.preventDefault();e.stopPropagation();el.classList.add('drag-over')});
+  el.addEventListener('dragleave',function(e){e.stopPropagation();el.classList.remove('drag-over')});
+  el.addEventListener('drop',function(e){
+    e.preventDefault();e.stopPropagation();el.classList.remove('drag-over');
+    var files=e.dataTransfer&&e.dataTransfer.files;if(!files||!files.length)return;
+    var filtered=filter(files);if(!filtered.length)return;
+    var dt=new DataTransfer();filtered.forEach(function(f){dt.items.add(f)});
+    onFiles(dt.files);
+  });
+}
+
 /* ═══ PLAN générique (zone ou désordre) ═══ */
 function makePlanState(){return{img:null,markers:[],imgObj:null,canvas:null,ctx:null}}
 function loadPlanImage(plan,src,markers){
@@ -23405,8 +23428,10 @@ function buildPlanUI(plan,container,labelText,withCamera){
     container.appendChild(row);
     camBtn.addEventListener('click',function(){pickFile({capture:'environment'},function(fs){readAsDataURL(fs[0],function(src){loadPlanImage(plan,src,[]);markDirty()})})});
     libBtn.addEventListener('click',function(){pickFile({},function(fs){readAsDataURL(fs[0],function(src){loadPlanImage(plan,src,[]);markDirty()})})});
+    makeDraggable(libBtn,function(fs){readAsDataURL(fs[0],function(src){loadPlanImage(plan,src,[]);markDirty()});},'image/*');
   }
   importBtn.addEventListener('click',function(){pickFile({},function(fs){readAsDataURL(fs[0],function(src){loadPlanImage(plan,src,[]);markDirty()})})});
+  makeDraggable(importBtn,function(fs){readAsDataURL(fs[0],function(src){loadPlanImage(plan,src,[]);markDirty()});},'image/*');
 
   var planBox=el('div');planBox.style.display='none';
   var wrap=el('div','plan-wrap');
@@ -23491,6 +23516,7 @@ function createZone(){
   });
   pc.addEventListener('click',function(){pickFile({capture:'environment'},function(fs){Array.prototype.forEach.call(fs,function(f){readAsDataURL(f,function(src){addZonePhotoObj(zone,{src:src,name:f.name});markDirty()})})})});
   pl.addEventListener('click',function(){pickFile({multiple:true},function(fs){Array.prototype.forEach.call(fs,function(f){readAsDataURL(f,function(src){addZonePhotoObj(zone,{src:src,name:f.name});markDirty()})})})});
+  makeDraggable(pl,function(fs){Array.prototype.forEach.call(fs,function(f){readAsDataURL(f,function(src){addZonePhotoObj(zone,{src:src,name:f.name});markDirty()})});},'image/*');
   addD.addEventListener('click',function(){createDesordre(zone);markDirty()});
 
   if(!isLoading)createDesordre(zone);
@@ -23623,6 +23649,7 @@ function createDesordre(zone){
   addO.addEventListener('click',function(){addObs(d,'');markDirty()});
   pc.addEventListener('click',function(){pickFile({capture:'environment'},function(fs){Array.prototype.forEach.call(fs,function(f){readAsDataURL(f,function(src){addAnnoPhoto(d,{src:src,name:f.name},false);markDirty()})})})});
   pl.addEventListener('click',function(){pickFile({multiple:true},function(fs){Array.prototype.forEach.call(fs,function(f){readAsDataURL(f,function(src){addAnnoPhoto(d,{src:src,name:f.name},false);markDirty()})})})});
+  makeDraggable(pl,function(fs){Array.prototype.forEach.call(fs,function(f){readAsDataURL(f,function(src){addAnnoPhoto(d,{src:src,name:f.name},false);markDirty()})});},'image/*');
 
   if(!isLoading)addObs(d,'');
   return d;
@@ -24001,15 +24028,62 @@ function buildDocx(){
   function pushSync(fn){chain=chain.then(function(){fn()})}
 
   pushSync(function(){
-    push(para([txt(data.meta.expert||"Rapport d'expertise",{bold:true,color:BLUE,size:34})],{spacing:{after:60},border:{bottom:{style:D.BorderStyle.SINGLE,size:18,color:BLUE}}}));
-    push(para([txt("Rapport d'expertise chantier — "+dateStr+" — Réf : "+(data.meta.adresse||''),{color:GRAY,size:18,italics:true})],{spacing:{after:160}}));
-    push(banner("RAPPORT D'EXPERTISE",BLUE));
-    push(gap(160));
-    var rows=[metaRow('Chantier / Adresse',data.meta.adresse,'Date de visite',dateStr),
-              metaRow("Donneur d'ordre",data.meta.client,'Expert / Rédacteur',data.meta.expert)];
-    if(data.meta.contexte)rows.push(metaFull('Contexte général',data.meta.contexte));
-    push(new D.Table({width:{size:W,type:D.WidthType.DXA},columnWidths:[Math.floor(W/4),Math.floor(W/4),Math.floor(W/4),Math.floor(W/4)],rows:rows}));
-    push(gap(200));
+    /* ── Espace logo (zone réservée, à remplir dans Word) ── */
+    push(para([txt('')],{spacing:{after:0}}));
+    push(new D.Table({width:{size:W,type:D.WidthType.DXA},columnWidths:[W],rows:[new D.TableRow({children:[new D.TableCell({
+      borders:{top:{style:D.BorderStyle.SINGLE,size:4,color:'BFBFBF'},bottom:{style:D.BorderStyle.SINGLE,size:4,color:'BFBFBF'},left:{style:D.BorderStyle.SINGLE,size:4,color:'BFBFBF'},right:{style:D.BorderStyle.SINGLE,size:4,color:'BFBFBF'}},
+      width:{size:W,type:D.WidthType.DXA},shading:{fill:'F9FBFD',type:D.ShadingType.CLEAR},
+      margins:{top:340,bottom:340,left:200,right:200},
+      children:[para([txt('[ Insérer le logo ici ]',{color:'BFBFBF',size:19,italics:true})],{alignment:D.AlignmentType.CENTER})]
+    })]})]}))
+    push(gap(180));
+    /* ── Tagline ── */
+    push(para([txt('Études béton armé · Structures · Métrés · Expertise construction',{color:GRAY,size:18,italics:true})],{alignment:D.AlignmentType.CENTER,spacing:{after:360}}));
+    /* ── Bureau ── */
+    push(para([txt("BUREAU D'ÉTUDES STRUCTURES",{bold:true,color:BLUE_L,size:22})],{alignment:D.AlignmentType.CENTER,spacing:{after:140}}));
+    /* ── Titre ── */
+    push(para([txt("RAPPORT D'EXPERTISE STRUCTURELLE",{bold:true,color:BLUE,size:42})],{alignment:D.AlignmentType.CENTER,spacing:{after:100}}));
+    /* ── Objet / sous-titre ── */
+    if(data.meta.contexte){
+      push(para([txt(data.meta.contexte,{color:GRAY,size:20})],{alignment:D.AlignmentType.CENTER,spacing:{after:60}}));
+    }
+    /* ── Date de réunion ── */
+    push(para([txt('Réunion d\'expertise du '+dateStr,{italics:true,bold:true,color:'222222',size:21})],{alignment:D.AlignmentType.CENTER,spacing:{after:360}}));
+    /* ── Tableau d'informations 2 colonnes ── */
+    var bdsI={top:{style:D.BorderStyle.SINGLE,size:4,color:'BFBFBF'},bottom:{style:D.BorderStyle.SINGLE,size:4,color:'BFBFBF'},left:{style:D.BorderStyle.SINGLE,size:4,color:'BFBFBF'},right:{style:D.BorderStyle.SINGLE,size:4,color:'BFBFBF'}};
+    var lW=2500,vW=W-lW;
+    function iCell(t,isL){return new D.TableCell({borders:bdsI,width:{size:isL?lW:vW,type:D.WidthType.DXA},
+      shading:{fill:isL?'F2F2F2':'FFFFFF',type:D.ShadingType.CLEAR},margins:{top:100,bottom:100,left:150,right:150},
+      children:[para([txt(t||'—',{bold:isL,size:19,color:isL?BLUE:'222222'})])]})}
+    var infoRows=[];
+    infoRows.push(new D.TableRow({cantSplit:true,children:[iCell('OUVRAGE',true),iCell(data.meta.adresse||'',false)]}));
+    infoRows.push(new D.TableRow({cantSplit:true,children:[iCell('ADRESSE',true),iCell(data.meta.adresse||'',false)]}));
+    infoRows.push(new D.TableRow({cantSplit:true,children:[iCell('DEMANDEUR',true),iCell(data.meta.client||'',false)]}));
+    if(data.meta.expert)infoRows.push(new D.TableRow({cantSplit:true,children:[iCell('EXPERT',true),iCell(data.meta.expert,false)]}));
+    infoRows.push(new D.TableRow({cantSplit:true,children:[iCell("DATE D'INTERVENTION",true),iCell(dateStr,false)]}));
+    infoRows.push(new D.TableRow({cantSplit:true,children:[iCell('DATE DU RAPPORT',true),iCell(now,false)]}));
+    push(new D.Table({width:{size:W,type:D.WidthType.DXA},columnWidths:[lW,vW],rows:infoRows}));
+    push(gap(300));
+    /* ── Historique des diffusions ── */
+    var hW=[1400,1800,6160];
+    function hHdr(t,w){return new D.TableCell({borders:bdsI,width:{size:w,type:D.WidthType.DXA},shading:{fill:BLUE,type:D.ShadingType.CLEAR},margins:{top:80,bottom:80,left:120,right:120},children:[para([txt(t,{bold:true,color:'FFFFFF',size:18})],{alignment:D.AlignmentType.CENTER})]})}
+    function hCell(t,w){return new D.TableCell({borders:bdsI,width:{size:w,type:D.WidthType.DXA},margins:{top:80,bottom:80,left:120,right:120},children:[para([txt(t||'',{size:18})])]})}
+    push(para([txt('HISTORIQUE DES DIFFUSIONS',{bold:true,color:BLUE,size:18})],{spacing:{before:0,after:80}}));
+    push(new D.Table({width:{size:W,type:D.WidthType.DXA},columnWidths:hW,rows:[
+      new D.TableRow({children:[hHdr('IND.',hW[0]),hHdr('DATE',hW[1]),hHdr('OBJET DE LA MODIFICATION',hW[2])]}),
+      new D.TableRow({children:[hCell('M0',hW[0]),hCell(now,hW[1]),hCell('Première diffusion',hW[2])]}),
+      new D.TableRow({children:[hCell('M1',hW[0]),hCell('',hW[1]),hCell('',hW[2])]}),
+      new D.TableRow({children:[hCell('M2',hW[0]),hCell('',hW[1]),hCell('',hW[2])]}),
+      new D.TableRow({children:[hCell('M3',hW[0]),hCell('',hW[1]),hCell('',hW[2])]})
+    ]}));
+    push(gap(280));
+    /* ── Signature ── */
+    push(para([txt("L'Expert",{italics:true,size:19,color:GRAY})],{spacing:{after:50}}));
+    push(para([txt(data.meta.expert||'Grégory TEDDE',{bold:true,size:26})],{spacing:{after:50}}));
+    push(para([txt('Bureau d\'études structures — MASSILIA INGÉNIERIE',{italics:true,size:19,color:GRAY})],{spacing:{after:340}}));
+    push(para([txt('SASU MASSILIA INGÉNIERIE · 74, rue Edmond Rostand, 13006 MARSEILLE · Tél. 04 94 05 70 74 · contact@massiliaingenierie.fr',{size:16,color:GRAY})],
+      {border:{top:{style:D.BorderStyle.SINGLE,size:4,color:BLUE_L,space:4}},spacing:{before:60,after:40}}));
+    push(para([txt('Capital social 1 000 € · N° SIRET 884 381 930 · Code APE 7112B',{size:15,color:GRAY,italics:true})],{spacing:{after:0}}));
   });
 
   data.zones.forEach(function(zone,zi){
@@ -24144,6 +24218,12 @@ $('btn-add-zone').addEventListener('click',function(){createZone();markDirty()})
 $('btn-json').addEventListener('click',saveJSON);
 $('btn-word').addEventListener('click',exportWord);
 $('btn-load').addEventListener('click',function(){$('session-file').click()});
+makeDraggable($('btn-load'),function(fs){
+  var f=fs[0];if(!f)return;
+  var r=new FileReader();
+  r.onload=function(e){try{loadFromJSON(JSON.parse(e.target.result));toast('Session rechargée ✓')}catch(err){toast('Fichier JSON invalide')}};
+  r.readAsText(f);
+},'.json');
 $('session-file').addEventListener('change',function(){
   var f=this.files&&this.files[0];if(!f)return;
   var r=new FileReader();
