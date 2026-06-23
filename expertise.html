@@ -45,6 +45,23 @@ textarea.std{width:100%;background:#fff;border:1px solid #D6DBE0;border-radius:8
 .abtn:active{background:#e2ecf6}
 .abtn.blue{background:#1F4E79;border-color:#1F4E79;color:#fff}
 .abtn.red{background:#FCEFEE;border-color:#E8C5C4;color:#C0504D}
+.urg-row{display:flex;gap:8px;margin-bottom:4px}
+.urgbtn{flex:1;padding:11px 6px;border-radius:8px;border:1.5px solid #D6DBE0;background:#fff;font-size:13px;font-weight:700;text-align:center;cursor:pointer;font-family:inherit;-webkit-appearance:none;touch-action:manipulation}
+.urgbtn.uf{color:#70AD47;border-color:#bfe0ae}
+.urgbtn.um{color:#ED7D31;border-color:#f5cca0}
+.urgbtn.ue{color:#C00000;border-color:#eba8a8}
+.urgbtn.active{color:#fff}
+.urgbtn.uf.active{background:#70AD47;border-color:#70AD47}
+.urgbtn.um.active{background:#ED7D31;border-color:#ED7D31}
+.urgbtn.ue.active{background:#C00000;border-color:#C00000}
+.urgbtn:active{opacity:.75}
+.fiche-synth{margin-top:4px}
+.fiche-row{margin-bottom:10px}
+.fiche-row:last-child{margin-bottom:0}
+.fiche-label{font-size:11px;color:#2E75B6;text-transform:uppercase;letter-spacing:.05em;font-weight:700;margin-bottom:4px}
+.fiche-auto{background:#fff;border:1px solid #D6DBE0;border-radius:8px;padding:9px 11px;font-size:15px;color:#1F4E79;font-weight:600}
+.fiche-row textarea{width:100%;background:#fff;border:1px solid #D6DBE0;border-radius:8px;padding:9px 11px;font-size:14px;color:#222;resize:none;min-height:46px;line-height:1.5;font-family:inherit;-webkit-appearance:none;outline:none}
+.fiche-row textarea:focus{border-color:#2E75B6}
 .xs{padding:6px 10px;font-size:12px;border-radius:7px;border:1px solid rgba(220,60,60,.35);background:rgba(220,60,60,.12);color:#C0504D;cursor:pointer;font-family:inherit;-webkit-appearance:none;touch-action:manipulation;white-space:nowrap}
 .photo-grid{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 4px}
 .pthumb{position:relative;width:82px;height:82px;border-radius:8px;overflow:hidden;border:1px solid #BDD7EE;flex-shrink:0}
@@ -128,7 +145,7 @@ textarea.std{width:100%;background:#fff;border:1px solid #D6DBE0;border-radius:8
 </div>
 
 <div class="toast" id="toast"></div>
-<div class="modal show" id="restore-modal">
+<div class="modal" id="restore-modal">
   <div class="modal-box">
     <h3>Reprendre votre travail ?</h3>
     <p id="restore-text">Une session sauvegardée automatiquement a été trouvée (1 zone(s)). La reprendre ?</p>
@@ -23270,9 +23287,12 @@ function serialize(){
           return {
             numero:di+1, titre:d.titre, localisation:d.localisation,
             observations:d.observations.slice(),
+            urgence:d.urgence||'MOYENNE',
+            origine:d.origine||'',
             dplan:{ image:d.dplan.canvas&&d.dplan.img?d.dplan.canvas.toDataURL('image/jpeg',.82):null, markers:d.dplan.markers.slice() },
             photos:d.photos.map(function(p){return{name:p.name,src:p.src,photoSize:p.photoSize,annotated:p.canvas?p.canvas.toDataURL('image/jpeg',.82):(p.annotated||p.src)}}),
-            conclusion:d.conclusion
+            conclusion:d.conclusion,
+            conclusionDesordre:d.conclusionDesordre||''
           };
         })
       };
@@ -23306,10 +23326,14 @@ function loadFromJSON(data){
     (zd.photos_zone||[]).forEach(function(p){addZonePhotoObj(zone,p)});
     (zd.desordres||[]).forEach(function(dd){
       var d=createDesordre(zone);
-      d.titre=dd.titre||'';d.localisation=dd.localisation||'';d.conclusion=dd.conclusion||'';
+      d.titre=dd.titre||'';d.localisation=dd.localisation||'';d.conclusion=dd.conclusion||'';d.origine=dd.origine||'';d.conclusionDesordre=dd.conclusionDesordre||'';
       d.dom.titleInput.value=d.titre;
+      d.dom.typeVal.textContent=d.titre||'—';
       d.dom.locInput.value=d.localisation;
       d.dom.concluInput.value=d.conclusion;
+      d.dom.origineInput.value=d.origine;
+      d.dom.conclusionDesordreInput.value=d.conclusionDesordre;
+      if(d.dom.setUrgence)d.dom.setUrgence(dd.urgence||'MOYENNE');
       (dd.observations||[]).forEach(function(o){addObs(d,o)});
       if(dd.dplan&&dd.dplan.image)loadPlanImage(d.dplan,dd.dplan.image,dd.dplan.markers||[]);
       (dd.photos||[]).forEach(function(p){addAnnoPhoto(d,p,true)});
@@ -23492,7 +23516,7 @@ function addZonePhotoObj(zone,p){
 
 /* ═══ DÉSORDRE ═══ */
 function createDesordre(zone){
-  var d={titre:'',localisation:'',observations:[],dplan:makePlanState(),photos:[],conclusion:'',dom:{}};
+  var d={titre:'',localisation:'',observations:[],dplan:makePlanState(),photos:[],conclusion:'',origine:'',conclusionDesordre:'',urgence:'MOYENNE',dom:{}};
   zone.desordres.push(d);
 
   var box=el('div','desordre');
@@ -23528,18 +23552,69 @@ function createDesordre(zone){
   d.dom.annoList=aList;
 
   body.appendChild(el('div','hr'));
-  body.appendChild(el('div','sec','Conclusion / Préconisation'));
-  var conclu=document.createElement('textarea');conclu.className='conclu';conclu.rows=2;conclu.placeholder='Réparation préconisée, urgence…';
-  body.appendChild(conclu);
+  var fiche=el('div','card fiche-synth');
+  fiche.appendChild(el('div','card-title','Fiche de synthèse <span class="sec-note">— alimente le tableau récapitulatif</span>'));
+
+  var rType=el('div','fiche-row');
+  rType.appendChild(el('div','fiche-label','Type de désordre'));
+  var typeVal=el('div','fiche-auto','—');
+  rType.appendChild(typeVal);
+  fiche.appendChild(rType);
+
+  var rOrig=el('div','fiche-row');
+  rOrig.appendChild(el('div','fiche-label','Origine du désordre'));
+  var origineTa=document.createElement('textarea');origineTa.className='std';origineTa.rows=2;
+  origineTa.placeholder='Cause identifiée (ex : défaut d\'étanchéité, tassement, corrosion…)';
+  rOrig.appendChild(origineTa);
+  fiche.appendChild(rOrig);
+
+  var rUrg=el('div','fiche-row');
+  rUrg.appendChild(el('div','fiche-label','Urgence'));
+  var urgRow=el('div','urg-row');
+  var urgFaible=el('button','urgbtn uf','Faible');urgFaible.type='button';
+  var urgMoyenne=el('button','urgbtn um','Moyenne');urgMoyenne.type='button';
+  var urgElevee=el('button','urgbtn ue','Élevée');urgElevee.type='button';
+  urgRow.appendChild(urgFaible);urgRow.appendChild(urgMoyenne);urgRow.appendChild(urgElevee);
+  rUrg.appendChild(urgRow);
+  fiche.appendChild(rUrg);
+  d.dom.urgBtns={'FAIBLE':urgFaible,'MOYENNE':urgMoyenne,'ÉLEVÉE':urgElevee};
+  function setUrgence(val){
+    if(!d.dom.urgBtns[val])val='MOYENNE';
+    d.urgence=val;
+    Object.keys(d.dom.urgBtns).forEach(function(k){d.dom.urgBtns[k].classList.toggle('active',k===val)});
+    markDirty();
+  }
+  d.dom.setUrgence=setUrgence;
+  urgFaible.addEventListener('click',function(){setUrgence('FAIBLE')});
+  urgMoyenne.addEventListener('click',function(){setUrgence('MOYENNE')});
+  urgElevee.addEventListener('click',function(){setUrgence('ÉLEVÉE')});
+  setUrgence('MOYENNE');
+
+  var rPrinc=el('div','fiche-row');
+  rPrinc.appendChild(el('div','fiche-label','Principe de réparation'));
+  var conclu=document.createElement('textarea');conclu.className='std';conclu.rows=2;conclu.placeholder='Solution technique préconisée…';
+  rPrinc.appendChild(conclu);
+  fiche.appendChild(rPrinc);
+
+  var rConclD=el('div','fiche-row');
+  rConclD.appendChild(el('div','fiche-label','Conclusion'));
+  var conclDesTa=document.createElement('textarea');conclDesTa.className='std';conclDesTa.rows=2;
+  conclDesTa.placeholder='Conclusion propre à ce désordre (avis, niveau de risque, suite à donner…)';
+  rConclD.appendChild(conclDesTa);
+  fiche.appendChild(rConclD);
+
+  body.appendChild(fiche);
 
   box.appendChild(body);
   zone.dom.dList.appendChild(box);
 
-  d.dom.box=box;d.dom.titleInput=ti;d.dom.locInput=loc;d.dom.concluInput=conclu;d.dom.badge=badge;
+  d.dom.box=box;d.dom.titleInput=ti;d.dom.locInput=loc;d.dom.concluInput=conclu;d.dom.origineInput=origineTa;d.dom.conclusionDesordreInput=conclDesTa;d.dom.typeVal=typeVal;d.dom.badge=badge;
 
-  ti.addEventListener('input',function(){d.titre=ti.value;markDirty()});
+  ti.addEventListener('input',function(){d.titre=ti.value;typeVal.textContent=ti.value||'—';markDirty()});
   loc.addEventListener('input',function(){d.localisation=loc.value;markDirty()});
   conclu.addEventListener('input',function(){d.conclusion=conclu.value;markDirty()});
+  origineTa.addEventListener('input',function(){d.origine=origineTa.value;markDirty()});
+  conclDesTa.addEventListener('input',function(){d.conclusionDesordre=conclDesTa.value;markDirty()});
   delB.addEventListener('click',function(){
     var i=zone.desordres.indexOf(d);
     if(i>=0)zone.desordres.splice(i,1);
@@ -23839,12 +23914,17 @@ function buildDocx(){
       children:[para([txt(text,{bold:true,color:'FFFFFF',size:22})])]
     })]})]});
   }
-  function dHeader(num,titre){
-    return new D.Table({width:{size:W,type:D.WidthType.DXA},columnWidths:[1440,W-1440],rows:[new D.TableRow({children:[
-      new D.TableCell({borders:bds,width:{size:1440,type:D.WidthType.DXA},shading:{fill:BLUE,type:D.ShadingType.CLEAR},margins:{top:70,bottom:70,left:100,right:100},verticalAlign:D.VerticalAlign.CENTER,
+  function dHeader(num,titre,urgence){
+    var URG_COLORS={'FAIBLE':'70AD47','MOYENNE':'ED7D31','ÉLEVÉE':'C00000'};
+    var ucol=URG_COLORS[urgence]||'999999';
+    var numW=1440,urgW=1500,titW=W-numW-urgW;
+    return new D.Table({width:{size:W,type:D.WidthType.DXA},columnWidths:[numW,titW,urgW],rows:[new D.TableRow({children:[
+      new D.TableCell({borders:bds,width:{size:numW,type:D.WidthType.DXA},shading:{fill:BLUE,type:D.ShadingType.CLEAR},margins:{top:70,bottom:70,left:100,right:100},verticalAlign:D.VerticalAlign.CENTER,
         children:[para([txt('Désordre '+num,{bold:true,color:'FFFFFF',size:18})],{alignment:D.AlignmentType.CENTER})]}),
-      new D.TableCell({borders:bds,width:{size:W-1440,type:D.WidthType.DXA},shading:{fill:BLUE_BG,type:D.ShadingType.CLEAR},margins:{top:70,bottom:70,left:120,right:120},verticalAlign:D.VerticalAlign.CENTER,
-        children:[para([txt(titre||'',{bold:true,color:BLUE,size:20})])]})
+      new D.TableCell({borders:bds,width:{size:titW,type:D.WidthType.DXA},shading:{fill:BLUE_BG,type:D.ShadingType.CLEAR},margins:{top:70,bottom:70,left:120,right:120},verticalAlign:D.VerticalAlign.CENTER,
+        children:[para([txt(titre||'',{bold:true,color:BLUE,size:20})])]}),
+      new D.TableCell({borders:bds,width:{size:urgW,type:D.WidthType.DXA},shading:{fill:ucol,type:D.ShadingType.CLEAR},margins:{top:70,bottom:70,left:80,right:80},verticalAlign:D.VerticalAlign.CENTER,
+        children:[para([txt(urgence||'—',{bold:true,color:'FFFFFF',size:16})],{alignment:D.AlignmentType.CENTER})]})
     ]})]});
   }
   function label(t){
@@ -23875,11 +23955,18 @@ function buildDocx(){
       ]})})
     });
   }
-  function concluBlock(text){
+  function ficheSynthBlock(d){
+    var URG_COLORS={'FAIBLE':'70AD47','MOYENNE':'ED7D31','ÉLEVÉE':'C00000'};
+    var ucol=URG_COLORS[d.urgence]||'999999';
+    var content=[para([txt('FICHE DE SYNTHÈSE',{bold:true,color:BLUE,size:18})],{spacing:{after:90}})];
+    content.push(para([txt('Origine du désordre  ',{bold:true,color:GRAY,size:17}),txt(d.origine||'—',{size:18})],{spacing:{after:60}}));
+    content.push(para([txt('Urgence  ',{bold:true,color:GRAY,size:17}),txt(d.urgence||'—',{bold:true,color:ucol,size:18})],{spacing:{after:60}}));
+    content.push(para([txt('Principe de réparation  ',{bold:true,color:GRAY,size:17}),txt(d.conclusion||'—',{size:18})],{spacing:{after:60}}));
+    content.push(para([txt('Conclusion  ',{bold:true,color:GRAY,size:17}),txt(d.conclusionDesordre||'—',{size:18})],{spacing:{after:0}}));
     return new D.Table({width:{size:W,type:D.WidthType.DXA},columnWidths:[W],rows:[new D.TableRow({children:[new D.TableCell({
-      borders:{top:bd,bottom:bd,right:bd,left:{style:D.BorderStyle.SINGLE,size:14,color:AMBER}},
-      width:{size:W,type:D.WidthType.DXA},shading:{fill:AMBER_BG,type:D.ShadingType.CLEAR},margins:{top:70,bottom:70,left:150,right:150},
-      children:[para([txt('CONCLUSION / PRÉCONISATION',{bold:true,color:AMBER_TX,size:16})],{spacing:{after:40}})].concat(multiline(text))
+      borders:{top:bd,bottom:bd,right:bd,left:{style:D.BorderStyle.SINGLE,size:14,color:BLUE_L}},
+      width:{size:W,type:D.WidthType.DXA},shading:{fill:BLUE_BG2,type:D.ShadingType.CLEAR},margins:{top:90,bottom:90,left:150,right:150},
+      children:content
     })]})]});
   }
   function locBlock(text){
@@ -23945,7 +24032,7 @@ function buildDocx(){
     zone.desordres.forEach(function(d){
       pushSync(function(){
         push(gap(100));
-        push(dHeader(d.numero,d.titre));
+        push(dHeader(d.numero,d.titre,d.urgence));
         if(d.localisation){push(gap(50));push(locBlock(d.localisation))}
         if(d.observations&&d.observations.length){push(label('Observations'));push(obsTable(d.observations))}
       });
@@ -23963,10 +24050,54 @@ function buildDocx(){
         });
       }
       pushSync(function(){
-        if(d.conclusion){push(gap(50));push(concluBlock(d.conclusion))}
+        push(gap(50));push(ficheSynthBlock(d));
       });
     });
     pushSync(function(){push(gap(160))});
+  });
+
+  pushSync(function(){
+    var URG_COLORS={'FAIBLE':'70AD47','MOYENNE':'ED7D31','ÉLEVÉE':'C00000'};
+    var allD=[];
+    data.zones.forEach(function(zone,zi){
+      zone.desordres.forEach(function(d){
+        if(d.titre||d.origine||d.conclusion)allD.push({d:d,ref:'Z'+(zi+1)+'-D'+(d.numero||'?')});
+      });
+    });
+    if(!allD.length)return;
+    push(new D.Paragraph({children:[new D.PageBreak()]}));
+    push(banner('TABLEAU RÉCAPITULATIF DES DÉSORDRES', BLUE));
+    push(gap(100));
+    var cw=[800,1850,2250,1200,3260];
+    function hCell(t,w){return new D.TableCell({borders:bds,width:{size:w,type:D.WidthType.DXA},shading:{fill:BLUE,type:D.ShadingType.CLEAR},
+      margins:{top:80,bottom:80,left:100,right:100},verticalAlign:D.VerticalAlign.CENTER,
+      children:[para([txt(t,{bold:true,color:'FFFFFF',size:16})],{alignment:D.AlignmentType.CENTER})]})}
+    var headerRow=new D.TableRow({tableHeader:true,children:[hCell('N°',cw[0]),hCell('DÉSORDRE',cw[1]),hCell('ORIGINE',cw[2]),hCell('URGENCE',cw[3]),hCell('PRINCIPE DE RÉPARATION',cw[4])]});
+    var dataRows=allD.map(function(item,idx){
+      var d=item.d;
+      var bg=idx%2===1?'F2F2F2':'FFFFFF';
+      function tCell(t,w,opts){return new D.TableCell({borders:bds,width:{size:w,type:D.WidthType.DXA},shading:{fill:bg,type:D.ShadingType.CLEAR},
+        margins:{top:80,bottom:80,left:110,right:110},verticalAlign:(opts&&opts.center)?D.VerticalAlign.CENTER:undefined,
+        children:(opts&&opts.center)?[para([txt(t||'—',{bold:true,color:BLUE,size:17})],{alignment:D.AlignmentType.CENTER})]:multiline(t||'—',{size:17})})}
+      var ucol=URG_COLORS[d.urgence]||'999999';
+      var uCell=new D.TableCell({borders:bds,width:{size:cw[3],type:D.WidthType.DXA},shading:{fill:ucol,type:D.ShadingType.CLEAR},
+        margins:{top:80,bottom:80,left:80,right:80},verticalAlign:D.VerticalAlign.CENTER,
+        children:[para([txt(d.urgence||'—',{bold:true,color:'FFFFFF',size:16})],{alignment:D.AlignmentType.CENTER})]});
+      return new D.TableRow({cantSplit:true,children:[tCell(item.ref,cw[0],{center:true}),tCell(d.titre,cw[1]),tCell(d.origine,cw[2]),uCell,tCell(d.conclusion,cw[4])]});
+    });
+    push(new D.Table({width:{size:W,type:D.WidthType.DXA},columnWidths:cw,rows:[headerRow].concat(dataRows)}));
+    push(para([
+      txt('N° = référence Zone-Désordre (ex. Z1-D2 = Zone 1, Désordre 2), à recouper avec les en-têtes de la section constats.',{color:GRAY,size:15,italics:true})
+    ],{spacing:{after:80}}));
+    push(para([
+      txt('Légende — ',{color:GRAY,size:16,italics:true}),
+      txt('FAIBLE',{bold:true,color:'70AD47',size:16}),
+      txt(' : entretien sans urgence  ·  ',{color:GRAY,size:16,italics:true}),
+      txt('MOYENNE',{bold:true,color:'ED7D31',size:16}),
+      txt(' : à programmer à court terme  ·  ',{color:GRAY,size:16,italics:true}),
+      txt('ÉLEVÉE',{bold:true,color:'C00000',size:16}),
+      txt(' : intervention prioritaire', {color:GRAY,size:16,italics:true})
+    ],{spacing:{before:100,after:160}}));
   });
 
   pushSync(function(){
