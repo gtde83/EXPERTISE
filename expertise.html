@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0049)file:///C:/Users/Greg/Downloads/expertise_14.html -->
+<!-- saved from url=(0049)file:///C:/Users/Greg/Downloads/expertise_15.html -->
 <html lang="fr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
@@ -116,7 +116,7 @@ textarea.std{width:100%;background:#fff;border:1px solid #D6DBE0;border-radius:8
 
 <div class="topbar">
   <span class="topbar-title">🏗 Expertise</span>
-  <span class="save-status" id="save-status">✓ 16:15</span>
+  <span class="save-status" id="save-status">✓ 16:20</span>
   <button class="tbtn b" id="btn-load">↩ Reprendre</button>
   <button class="tbtn g" id="btn-json">💾 JSON</button>
   <button class="tbtn" id="btn-word">📄 Word</button>
@@ -24080,10 +24080,10 @@ function buildDocx(){
     /* ── Signature ── */
     push(para([txt("L'Expert",{italics:true,size:19,color:GRAY})],{spacing:{after:50}}));
     push(para([txt(data.meta.expert||'Grégory TEDDE',{bold:true,size:26})],{spacing:{after:50}}));
-    push(para([txt('Bureau d\'études structures — MASSILIA INGÉNIERIE',{italics:true,size:19,color:GRAY})],{spacing:{after:340}}));
-    push(para([txt('SASU MASSILIA INGÉNIERIE · 74, rue Edmond Rostand, 13006 MARSEILLE · Tél. 04 94 05 70 74 · contact@massiliaingenierie.fr',{size:16,color:GRAY})],
+    push(para([txt('Bureau d\'études structures',{italics:true,size:19,color:GRAY})],{spacing:{after:340}}));
+    push(para([txt('',{size:16,color:GRAY})],
       {border:{top:{style:D.BorderStyle.SINGLE,size:4,color:BLUE_L,space:4}},spacing:{before:60,after:40}}));
-    push(para([txt('Capital social 1 000 € · N° SIRET 884 381 930 · Code APE 7112B',{size:15,color:GRAY,italics:true})],{spacing:{after:0}}));
+    push(para([txt('',{size:15,color:GRAY,italics:true})],{spacing:{after:0}}));
   });
 
   data.zones.forEach(function(zone,zi){
