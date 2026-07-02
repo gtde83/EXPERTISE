@@ -23267,10 +23267,34 @@ function markDirty(){
 function saveLocal(){
   if(isLoading)return;
   try{
-    localStorage.setItem(AUTOSAVE_KEY,JSON.stringify(serialize()));
+    var data=serialize();
+    var json=JSON.stringify(data);
+    /* Tente de sauvegarder */
+    try{
+      localStorage.setItem(AUTOSAVE_KEY,json);
+    }catch(e){
+      /* localStorage saturé (souvent à cause des photos en base64) :
+         on sauvegarde une version allégée sans les photos pour ne pas perdre les textes */
+      try{
+        var light=JSON.parse(json);
+        light.zones.forEach(function(z){
+          z.photos_zone=[];
+          z.plan={image:null,markers:z.plan?z.plan.markers:[]};
+          (z.desordres||[]).forEach(function(d){
+            d.photos=[];
+            d.dplan={image:null,markers:d.dplan?d.dplan.markers:[]};
+          });
+        });
+        localStorage.setItem(AUTOSAVE_KEY,JSON.stringify(light));
+        $('save-status').textContent='⚠ sauvé (sans photos)';
+        return;
+      }catch(e2){/* rien à faire */}
+      $('save-status').textContent='⚠ mémoire';
+      return;
+    }
     var n=new Date();
     $('save-status').textContent='✓ '+n.getHours()+':'+('0'+n.getMinutes()).slice(-2);
-  }catch(e){$('save-status').textContent='⚠ mémoire'}
+  }catch(e){$('save-status').textContent='⚠ erreur'}
 }
 setInterval(saveLocal,30000);
 
@@ -23345,22 +23369,45 @@ function loadFromJSON(data){
 
 /* ── file picker (iPad-safe : input 1px hors écran) ── */
 function pickFile(opts,cb){
+  /* Supprime l'éventuel ancien input orphelin */
   var old=$('__fp');if(old)old.remove();
   var inp=document.createElement('input');
   inp.type='file';inp.id='__fp';
   inp.accept=opts.accept||'image/*';
   if(opts.multiple)inp.multiple=true;
   if(opts.capture)inp.setAttribute('capture',opts.capture);
-  inp.style.cssText='position:absolute;left:-9999px;top:0;width:1px;height:1px;opacity:0';
+  inp.style.cssText='position:absolute;left:-9999px;top:0;width:1px;height:1px;opacity:0;pointer-events:none';
   document.body.appendChild(inp);
+
   var done=false;
-  function clean(){if(done)return;done=true;if(inp.parentNode)inp.remove()}
+  /* Nettoyage unique — appelé UNE SEULE FOIS quelle que soit la voie */
+  function clean(){
+    if(done)return;done=true;
+    setTimeout(function(){if(inp.parentNode)inp.remove()},200);
+  }
+
   inp.addEventListener('change',function(){
     if(inp.files&&inp.files.length)cb(inp.files);
     clean();
   });
-  window.addEventListener('focus',function fh(){window.removeEventListener('focus',fh);setTimeout(clean,1200)});
-  inp.click();
+
+  /* Sur mobile le focus window est peu fiable.
+     On utilise à la place visibilitychange + pageshow + un délai long de sécurité. */
+  function onVisible(){
+    document.removeEventListener('visibilitychange',onVisible);
+    window.removeEventListener('pageshow',onVisible);
+    /* Petit délai pour laisser le 'change' se déclencher s'il doit l'être */
+    setTimeout(clean,1800);
+  }
+  document.addEventListener('visibilitychange',onVisible);
+  window.addEventListener('pageshow',onVisible);
+
+  /* Délai de sécurité absolu : si rien ne s'est passé après 5 min, on nettoie */
+  var safetyTimer=setTimeout(clean,300000);
+  var origClean=clean;
+  clean=function(){clearTimeout(safetyTimer);origClean()};
+
+  try{inp.click();}catch(e){clean();}
 }
 function readAsDataURL(file,cb){var r=new FileReader();r.onload=function(e){cb(e.target.result)};r.readAsDataURL(file)}
 
@@ -23704,6 +23751,7 @@ function addAnnoPhoto(d,p,restored){
     var b=el('button','toolbtn'+(t[0]==='pen'?' on':''),t[1]);b.type='button';
     toolBtns[t[0]]=b;tb.appendChild(b);
     b.addEventListener('click',function(){
+      if(!photo.state)return;
       photo.state.tool=t[0];
       TOOLS.forEach(function(tt){toolBtns[tt[0]].className='toolbtn'+(tt[0]===t[0]?' on':'')});
     });
@@ -23715,6 +23763,7 @@ function addAnnoPhoto(d,p,restored){
     s.style.background=c;if(c==='#ffffff')s.style.outline='1px solid #ccc';
     colDots[c]=s;tb.appendChild(s);
     s.addEventListener('click',function(){
+      if(!photo.state)return;
       photo.state.color=c;
       COLS.forEach(function(cc){colDots[cc].className='cswatch'+(cc===c?' on':'')});
     });
@@ -23727,6 +23776,7 @@ function addAnnoPhoto(d,p,restored){
     b.innerHTML='<svg width="'+ss+'" height="'+ss+'"><circle cx="'+(ss/2)+'" cy="'+(ss/2)+'" r="'+(sz/2+1)+'" fill="currentColor"/></svg>';
     szBtns[sz]=b;tb.appendChild(b);
     b.addEventListener('click',function(){
+      if(!photo.state)return;
       photo.state.size=sz;
       BRUSH.forEach(function(z){szBtns[z].className='szbtn'+(z===sz?' on':'')});
     });
@@ -23759,6 +23809,19 @@ function addAnnoPhoto(d,p,restored){
       ctx.drawImage(img,0,0,cv.width,cv.height);
       initState();
     }
+  };
+  img.onerror=function(){
+    /* L'image n'a pas pu être chargée (format HEIC, fichier corrompu, mémoire…)
+       On initialise quand même un canvas vide pour ne pas bloquer l'interface. */
+    cv.width=320;cv.height=240;
+    var ctx=cv.getContext('2d');
+    ctx.fillStyle='#f0f0f0';ctx.fillRect(0,0,320,240);
+    ctx.fillStyle='#999';ctx.font='14px sans-serif';ctx.textAlign='center';
+    ctx.fillText('Photo non disponible',160,120);
+    photo.state={tool:'pen',color:'#d93025',size:3,drawing:false,sx:0,sy:0,snap:null,
+      history:[ctx.getImageData(0,0,cv.width,cv.height)]};
+    setupDrawing(cv,photo);
+    toast('⚠ Impossible de charger : '+photo.name);
   };
   img.src=photo.src;
 
@@ -23821,7 +23884,7 @@ function setupDrawing(cv,photo){
       drawShape(ctx,st,st.sx,st.sy,p.x,p.y);
     }
     st.history.push(ctx.getImageData(0,0,cv.width,cv.height));
-    if(st.history.length>25)st.history.shift();
+    if(st.history.length>15)st.history.shift();
     markDirty();
   }
   cv.addEventListener('mousedown',dn);
