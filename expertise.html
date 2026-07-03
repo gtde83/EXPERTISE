@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0049)file:///C:/Users/Greg/Downloads/expertise_21.html -->
+<!-- saved from url=(0049)file:///C:/Users/Greg/Downloads/expertise_15.html -->
 <html lang="fr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
@@ -122,7 +122,7 @@ textarea.std{width:100%;background:#fff;border:1px solid #D6DBE0;border-radius:8
 
 <div class="topbar">
   <span class="topbar-title">🏗 Expertise</span>
-  <span class="save-status" id="save-status">✓ 17:10</span>
+  <span class="save-status" id="save-status">✓ 16:20</span>
   <button class="tbtn b" id="btn-load">↩ Reprendre</button>
   <button class="tbtn g" id="btn-json">💾 JSON</button>
   <button class="tbtn" id="btn-word">📄 Word</button>
@@ -142,7 +142,7 @@ textarea.std{width:100%;background:#fff;border:1px solid #D6DBE0;border-radius:8
     </div>
   </div>
 
-  <div id="zones"><div class="zone-card"><div class="zone-hdr"><span class="zone-num">Désordre 1</span><input type="text" placeholder="Façade, Appartement R+1…"><button class="zone-toggle" type="button" title="Déplier / Replier">▼</button><button class="xs" type="button">✕ Supprimer</button></div><div class="zone-body"><div class="sec">Description sommaire du désordre</div><textarea class="std" rows="2" placeholder="Contexte, accès, état général…"></textarea><div class="sec">Plan de la zone <span class="sec-note">— tapez sur le plan pour poser un repère</span></div><button class="iobtn" type="button">📐 Importer un plan</button><div style="display: none;"><div class="plan-wrap"><canvas></canvas></div><div class="row3"><button class="abtn" type="button">↩ Annuler</button><button class="abtn" type="button">🗑 Effacer</button><button class="abtn red" type="button">✕ Changer</button></div></div><div class="sec">Photos générales de la zone</div><div class="row2"><button class="abtn" type="button">📷 Prendre</button><button class="abtn" type="button">🖼 Photothèque</button></div><div class="photo-grid"></div><div class="hr"></div><div><div class="desordre"><div class="d-hdr"><span class="dbadge">Désordre 1</span><input type="text" placeholder="Fissure, Infiltration…"><button class="d-toggle" type="button" title="Déplier / Replier">▼</button><button class="xs" type="button">✕</button></div><div class="d-body"><input type="text" class="loc-input" placeholder="📍 Localisation du désordre (ex: angle nord, mur salon…)"><div class="sec">Observations</div><div><div class="obs-row"><textarea rows="1" placeholder="Décrire l&#39;observation…"></textarea><button class="xbtn2" type="button">✕</button></div></div><button class="abtn" type="button" style="margin-bottom: 14px;">+ Ajouter une observation</button><div class="hr"></div><div class="sec">Localiser sur plan <span class="sec-note">— tapez sur le plan pour poser un repère</span></div><button class="iobtn" type="button">📐 Importer un plan</button><div class="row2"><button class="abtn" type="button">📷 Photo du plan</button><button class="abtn" type="button">🖼 Photothèque</button></div><div style="display: none;"><div class="plan-wrap"><canvas></canvas></div><div class="row3"><button class="abtn" type="button">↩ Annuler</button><button class="abtn" type="button">🗑 Effacer</button><button class="abtn red" type="button">✕ Changer</button></div></div><div class="hr"></div><div class="sec">Photos annotées <span class="sec-note">— dessinez sur la photo</span></div><div class="row2"><button class="abtn" type="button">📷 Prendre</button><button class="abtn" type="button">🖼 Photothèque</button></div><div style="margin-top: 10px;"></div><div class="hr"></div><div class="card fiche-synth"><div class="card-title">Fiche de synthèse <span class="sec-note">— alimente le tableau récapitulatif</span></div><div class="fiche-row"><div class="fiche-label">Type de désordre</div><div class="fiche-auto">—</div></div><div class="fiche-row"><div class="fiche-label">Origine du désordre</div><textarea class="std" rows="2" placeholder="Cause identifiée (ex : défaut d&#39;étanchéité, tassement, corrosion…)"></textarea></div><div class="fiche-row"><div class="fiche-label">Urgence</div><div class="urg-row"><button class="urgbtn uf" type="button">Faible</button><button class="urgbtn um active" type="button">Moyenne</button><button class="urgbtn ue" type="button">Élevée</button></div></div><div class="fiche-row"><div class="fiche-label">Principe de réparation</div><textarea class="std" rows="2" placeholder="Solution technique préconisée…"></textarea></div><div class="fiche-row"><div class="fiche-label">Conclusion</div><textarea class="std" rows="2" placeholder="Conclusion propre à ce désordre (avis, niveau de risque, suite à donner…)"></textarea></div></div></div></div></div><button class="abtn blue" type="button" style="padding: 13px;">+ Ajouter un désordre</button></div></div></div>
+  <div id="zones"></div>
   <button class="abtn blue" id="btn-add-zone" style="padding:15px;font-size:15px;margin-top:4px">+ Ajouter un désordre</button>
 
   <div class="card" style="margin-top:20px;border-color:#F0C878;background:#FFFDF8">
@@ -23253,6 +23253,46 @@ var AUTOSAVE_KEY='expertise_v2_autosave';
 var isLoading=false;
 var autoTimer=null;
 
+/* ══════════════════════════════════════════════════════════════════════
+   STOCKAGE — IndexedDB (sans limite de taille, contrairement à localStorage
+   qui plafonne à 5-10 Mo et fait perdre le travail quand les photos saturent).
+   Fallback localStorage (sans photos) si IndexedDB indisponible.
+   ══════════════════════════════════════════════════════════════════════ */
+var _IDB_NAME='expertise-idb-v1', _IDB_STORE='state', _idb=null;
+function _getIDB(){
+  if(_idb)return Promise.resolve(_idb);
+  return new Promise(function(resolve,reject){
+    var req=indexedDB.open(_IDB_NAME,1);
+    req.onupgradeneeded=function(e){e.target.result.createObjectStore(_IDB_STORE)};
+    req.onsuccess=function(e){_idb=e.target.result;resolve(_idb)};
+    req.onerror=function(){reject(req.error)};
+  });
+}
+function _idbPut(value){
+  return _getIDB().then(function(db){return new Promise(function(resolve,reject){
+    var tx=db.transaction(_IDB_STORE,'readwrite');
+    tx.objectStore(_IDB_STORE).put(value,AUTOSAVE_KEY);
+    tx.oncomplete=function(){resolve()};
+    tx.onerror=function(){reject(tx.error)};
+  })});
+}
+function _idbGet(){
+  return _getIDB().then(function(db){return new Promise(function(resolve,reject){
+    var tx=db.transaction(_IDB_STORE,'readonly');
+    var req=tx.objectStore(_IDB_STORE).get(AUTOSAVE_KEY);
+    req.onsuccess=function(){resolve(req.result||null)};
+    req.onerror=function(){reject(req.error)};
+  })});
+}
+function _idbDelete(){
+  return _getIDB().then(function(db){return new Promise(function(resolve){
+    var tx=db.transaction(_IDB_STORE,'readwrite');
+    tx.objectStore(_IDB_STORE).delete(AUTOSAVE_KEY);
+    tx.oncomplete=function(){resolve()};
+    tx.onerror=function(){resolve()};
+  })}).catch(function(){});
+}
+
 var COLS=['#d93025','#e67e22','#27ae60','#2980d9','#ffffff','#1c1c1a'];
 var BRUSH=[3,7,14];
 var TOOLS=[['pen','✏️'],['circle','⭕'],['arrow','↗️'],['eraser','⌫']];
@@ -23272,18 +23312,28 @@ function markDirty(){
 }
 function saveLocal(){
   if(isLoading)return;
+  var data,json;
   try{
-    var data=serialize();
-    var json=JSON.stringify(data);
-    /* Tente de sauvegarder */
+    data=serialize();
+    json=JSON.stringify(data);
+  }catch(e){$('save-status').textContent='⚠ erreur';return;}
+
+  /* Priorité : IndexedDB (aucune limite pratique de taille) */
+  _idbPut(JSON.parse(json)).then(function(){
+    /* Nettoie une éventuelle ancienne sauvegarde localStorage devenue obsolète */
+    try{localStorage.removeItem(AUTOSAVE_KEY);}catch(e){}
+    var n=new Date();
+    $('save-status').textContent='✓ '+n.getHours()+':'+('0'+n.getMinutes()).slice(-2);
+  }).catch(function(){
+    /* IndexedDB indisponible : fallback localStorage, complet puis allégé */
     try{
       localStorage.setItem(AUTOSAVE_KEY,json);
+      var n=new Date();
+      $('save-status').textContent='✓ '+n.getHours()+':'+('0'+n.getMinutes()).slice(-2);
     }catch(e){
-      /* localStorage saturé (souvent à cause des photos en base64) :
-         on sauvegarde une version allégée sans les photos pour ne pas perdre les textes */
       try{
         var light=JSON.parse(json);
-        light.zones.forEach(function(z){
+        (light.zones||[]).forEach(function(z){
           z.photos_zone=[];
           z.plan={image:null,markers:z.plan?z.plan.markers:[]};
           (z.desordres||[]).forEach(function(d){
@@ -23293,14 +23343,9 @@ function saveLocal(){
         });
         localStorage.setItem(AUTOSAVE_KEY,JSON.stringify(light));
         $('save-status').textContent='⚠ sauvé (sans photos)';
-        return;
-      }catch(e2){/* rien à faire */}
-      $('save-status').textContent='⚠ mémoire';
-      return;
+      }catch(e2){$('save-status').textContent='⚠ mémoire';}
     }
-    var n=new Date();
-    $('save-status').textContent='✓ '+n.getHours()+':'+('0'+n.getMinutes()).slice(-2);
-  }catch(e){$('save-status').textContent='⚠ erreur'}
+  });
 }
 setInterval(saveLocal,30000);
 
@@ -24291,21 +24336,32 @@ function buildDocx(){
 }
 
 /* ═══ RESTAURATION AUTO ═══ */
+/* Lit la sauvegarde depuis IndexedDB (ou localStorage en secours), affiche la
+   modale de reprise si une session existe. Asynchrone. Résout avec true si une
+   session a été proposée, false sinon. */
 function checkAutoSave(){
-  try{
-    var saved=localStorage.getItem(AUTOSAVE_KEY);
-    if(saved){
-      var data=JSON.parse(saved);
+  return _idbGet().then(function(idbData){
+    var data=idbData;
+    if(!data){
+      /* Migration : ancienne sauvegarde localStorage éventuelle */
+      try{
+        var raw=localStorage.getItem(AUTOSAVE_KEY);
+        if(raw)data=JSON.parse(raw);
+      }catch(e){}
+    }
+    if(data){
       var nb=data.zones?data.zones.length:0;
       if(nb>0||(data.meta&&data.meta.adresse)){
-        $('restore-text').textContent='Une session sauvegardée automatiquement a été trouvée ('+nb+' zone(s)'+(data.meta&&data.meta.adresse?' — '+data.meta.adresse:'')+'). La reprendre ?';
+        _pendingRestore=data;
+        $('restore-text').textContent='Une session sauvegardée automatiquement a été trouvée ('+nb+' désordre(s)'+(data.meta&&data.meta.adresse?' — '+data.meta.adresse:'')+'). La reprendre ?';
         $('restore-modal').className='modal show';
         return true;
       }
     }
-  }catch(e){}
-  return false;
+    return false;
+  }).catch(function(){return false;});
 }
+var _pendingRestore=null;
 
 /* ═══ ÉVÉNEMENTS GLOBAUX ═══ */
 $('btn-add-zone').addEventListener('click',function(){createZone();markDirty()});
@@ -24329,21 +24385,40 @@ $('session-file').addEventListener('change',function(){
 });
 $('btn-restore').addEventListener('click',function(){
   $('restore-modal').className='modal';
-  try{loadFromJSON(JSON.parse(localStorage.getItem(AUTOSAVE_KEY)));toast('Session reprise ✓')}
-  catch(e){toast('Erreur de récupération');createZone()}
+  try{
+    if(!_pendingRestore)throw new Error('vide');
+    loadFromJSON(_pendingRestore);
+    toast('Session reprise ✓');
+  }catch(e){
+    toast('Erreur de récupération');
+    startFreshSession();
+  }
 });
 $('btn-discard').addEventListener('click',function(){
   $('restore-modal').className='modal';
-  localStorage.removeItem(AUTOSAVE_KEY);
-  createZone();
+  _pendingRestore=null;
+  _idbDelete();
+  try{localStorage.removeItem(AUTOSAVE_KEY);}catch(e){}
+  startFreshSession();
 });
 ['m-adr','m-date','m-client','m-expert','m-ctx','m-conclu-gen'].forEach(function(id){
   $(id).addEventListener('input',markDirty);
 });
 
 /* ═══ INIT ═══ */
+/* Démarre une session vierge de façon déterministe :
+   vide TOUJOURS le conteneur et l'état avant de créer le premier désordre,
+   ce qui empêche tout doublon même en cas d'état résiduel. */
+function startFreshSession(){
+  S.zones=[];
+  $('zones').innerHTML='';
+  createZone();
+}
+
 $('m-date').value=new Date().toISOString().slice(0,10);
-if(!checkAutoSave())createZone();
+checkAutoSave().then(function(hasSession){
+  if(!hasSession)startFreshSession();
+});
 </script>
 
 
