@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0049)file:///C:/Users/Greg/Downloads/expertise_23.html -->
+<!-- saved from url=(0049)file:///C:/Users/Greg/Downloads/expertise_24.html -->
 <html lang="fr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
@@ -26,6 +26,15 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-se
 .field input,.field textarea{width:100%;background:#fff;border:1px solid #D6DBE0;border-radius:8px;padding:9px 11px;font-size:15px;color:#222;font-family:inherit;-webkit-appearance:none;outline:none}
 .field textarea{resize:none;min-height:48px;line-height:1.5}
 .field input:focus,.field textarea:focus{border-color:#2E75B6}
+.lieu-card{background:#EAF1F8;border:1px solid #8FB6DA;border-radius:14px;overflow:hidden;margin-bottom:24px;padding:8px}
+.lieu-hdr{background:#12324A;color:#fff;padding:13px 15px;border-radius:9px;display:flex;align-items:center;gap:10px}
+.lieu-hdr input{flex:1;background:transparent;border:none;color:#fff;font-size:16px;font-weight:700;font-family:inherit;outline:none;min-width:0}
+.lieu-hdr input::placeholder{color:rgba(255,255,255,.45);font-weight:400}
+.lieu-toggle{background:none;border:none;color:#fff;font-size:15px;cursor:pointer;padding:0 2px;opacity:.8;flex-shrink:0;-webkit-appearance:none;transition:transform .18s;display:inline-block;line-height:1}
+.lieu-toggle.collapsed{transform:rotate(-90deg)}
+.lieu-body.collapsed{display:none}
+.lieu-num{font-size:11px;opacity:.65;white-space:nowrap;text-transform:uppercase;letter-spacing:.08em;font-weight:700}
+.lieu-body{padding:14px 6px 4px}
 .zone-card{background:#fff;border:1px solid #BDD7EE;border-radius:12px;overflow:hidden;margin-bottom:20px}
 .zone-hdr{background:#1F4E79;color:#fff;padding:12px 15px;display:flex;align-items:center;gap:10px}
 .zone-hdr input{flex:1;background:transparent;border:none;color:#fff;font-size:15px;font-family:inherit;outline:none;min-width:0}
@@ -122,7 +131,7 @@ textarea.std{width:100%;background:#fff;border:1px solid #D6DBE0;border-radius:8
 
 <div class="topbar">
   <span class="topbar-title">🏗 Expertise</span>
-  <span class="save-status" id="save-status">✓ 9:07</span>
+  <span class="save-status" id="save-status">✓ 11:23</span>
   <button class="tbtn b" id="btn-load">↩ Reprendre</button>
   <button class="tbtn g" id="btn-json">💾 JSON</button>
   <button class="tbtn" id="btn-word">📄 Word</button>
@@ -142,8 +151,8 @@ textarea.std{width:100%;background:#fff;border:1px solid #D6DBE0;border-radius:8
     </div>
   </div>
 
-  <div id="zones"><div class="zone-card"><div class="zone-hdr"><span class="zone-num">Désordre 1</span><input type="text" placeholder="Façade, Appartement R+1…"><button class="zone-toggle" type="button" title="Déplier / Replier">▼</button><button class="xs" type="button">✕ Supprimer</button></div><div class="zone-body"><div class="sec">Description sommaire du désordre</div><textarea class="std" rows="2" placeholder="Contexte, accès, état général…"></textarea><div class="sec">Plan de la zone <span class="sec-note">— tapez sur le plan pour poser un repère</span></div><button class="iobtn" type="button">📐 Importer un plan</button><div style="display: none;"><div class="plan-wrap"><canvas></canvas></div><div class="row3"><button class="abtn" type="button">↩ Annuler</button><button class="abtn" type="button">🗑 Effacer</button><button class="abtn red" type="button">✕ Changer</button></div></div><div class="sec">Photos générales de la zone</div><div class="row2"><button class="abtn" type="button">📷 Prendre</button><button class="abtn" type="button">🖼 Photothèque</button></div><div class="photo-grid"></div><div class="hr"></div><div><div class="desordre"><div class="d-hdr"><span class="dbadge">Observation 1.1</span><input type="text" placeholder="Fissure, Infiltration…"><button class="d-toggle" type="button" title="Déplier / Replier">▼</button><button class="xs" type="button">✕</button></div><div class="d-body"><input type="text" class="loc-input" placeholder="📍 Localisation de l&#39;observation (ex: angle nord, mur salon…)"><div class="sec">Constats</div><div><div class="obs-row"><textarea rows="1" placeholder="Décrire l&#39;observation…"></textarea><button class="xbtn2" type="button">✕</button></div></div><button class="abtn" type="button" style="margin-bottom: 14px;">+ Ajouter un constat</button><div class="hr"></div><div class="sec">Localiser sur plan <span class="sec-note">— tapez sur le plan pour poser un repère</span></div><button class="iobtn" type="button">📐 Importer un plan</button><div class="row2"><button class="abtn" type="button">📷 Photo du plan</button><button class="abtn" type="button">🖼 Photothèque</button></div><div style="display: none;"><div class="plan-wrap"><canvas></canvas></div><div class="row3"><button class="abtn" type="button">↩ Annuler</button><button class="abtn" type="button">🗑 Effacer</button><button class="abtn red" type="button">✕ Changer</button></div></div><div class="hr"></div><div class="sec">Photos annotées <span class="sec-note">— dessinez sur la photo</span></div><div class="row2"><button class="abtn" type="button">📷 Prendre</button><button class="abtn" type="button">🖼 Photothèque</button></div><div style="margin-top: 10px;"></div></div></div></div><button class="abtn blue" type="button" style="padding: 13px;">+ Ajouter une observation</button><div class="hr"></div><div class="card fiche-synth"><div class="card-title">Fiche de synthèse <span class="sec-note">— alimente le tableau récapitulatif</span></div><div class="fiche-row"><div class="fiche-label">Type de désordre</div><div class="fiche-auto">—</div></div><div class="fiche-row"><div class="fiche-label">Origine du désordre</div><textarea class="std" rows="2" placeholder="Cause identifiée (ex : défaut d&#39;étanchéité, tassement, corrosion…)"></textarea></div><div class="fiche-row"><div class="fiche-label">Urgence</div><div class="urg-row"><button class="urgbtn uf" type="button">Faible</button><button class="urgbtn um active" type="button">Moyenne</button><button class="urgbtn ue" type="button">Élevée</button></div></div><div class="fiche-row"><div class="fiche-label">Principe de réparation</div><textarea class="std" rows="2" placeholder="Solution technique préconisée…"></textarea></div><div class="fiche-row"><div class="fiche-label">Conclusion</div><textarea class="std" rows="2" placeholder="Conclusion propre à ce désordre (avis, niveau de risque, suite à donner…)"></textarea></div></div></div></div></div>
-  <button class="abtn blue" id="btn-add-zone" style="padding:15px;font-size:15px;margin-top:4px">+ Ajouter un désordre</button>
+  <div id="zones"><div class="lieu-card"><div class="lieu-hdr"><span class="lieu-num">Lieu 1</span><input type="text" placeholder="Façade, Appartement R+1, Courette, Toiture…"><button class="lieu-toggle" type="button" title="Déplier / Replier">▼</button><button class="xs" type="button">✕ Supprimer</button></div><div class="lieu-body"><div><div class="zone-card"><div class="zone-hdr"><span class="zone-num">Désordre 1</span><input type="text" placeholder="Fissuration, Infiltration, Tassement…"><button class="zone-toggle" type="button" title="Déplier / Replier">▼</button><button class="xs" type="button">✕ Supprimer</button></div><div class="zone-body"><div class="sec">Description sommaire du désordre</div><textarea class="std" rows="2" placeholder="Contexte, accès, état général…"></textarea><div class="sec">Plan de la zone <span class="sec-note">— tapez sur le plan pour poser un repère</span></div><button class="iobtn" type="button">📐 Importer un plan</button><div style="display: none;"><div class="plan-wrap"><canvas></canvas></div><div class="row3"><button class="abtn" type="button">↩ Annuler</button><button class="abtn" type="button">🗑 Effacer</button><button class="abtn red" type="button">✕ Changer</button></div></div><div class="sec">Photos générales de la zone</div><div class="row2"><button class="abtn" type="button">📷 Prendre</button><button class="abtn" type="button">🖼 Photothèque</button></div><div class="photo-grid"></div><div class="hr"></div><div><div class="desordre"><div class="d-hdr"><span class="dbadge">Observation 1.1</span><input type="text" placeholder="Fissure, Infiltration…"><button class="d-toggle" type="button" title="Déplier / Replier">▼</button><button class="xs" type="button">✕</button></div><div class="d-body"><input type="text" class="loc-input" placeholder="📍 Localisation de l&#39;observation (ex: angle nord, mur salon…)"><div class="sec">Constats</div><div><div class="obs-row"><textarea rows="1" placeholder="Décrire l&#39;observation…"></textarea><button class="xbtn2" type="button">✕</button></div></div><button class="abtn" type="button" style="margin-bottom: 14px;">+ Ajouter un constat</button><div class="hr"></div><div class="sec">Photos annotées <span class="sec-note">— dessinez sur la photo</span></div><div class="row2"><button class="abtn" type="button">📷 Prendre</button><button class="abtn" type="button">🖼 Photothèque</button></div><div style="margin-top: 10px;"></div></div></div></div><button class="abtn blue" type="button" style="padding: 13px;">+ Ajouter une observation</button><div class="hr"></div><div class="card fiche-synth"><div class="card-title">Fiche de synthèse <span class="sec-note">— alimente le tableau récapitulatif</span></div><div class="fiche-row"><div class="fiche-label">Type de désordre</div><div class="fiche-auto">—</div></div><div class="fiche-row"><div class="fiche-label">Origine du désordre</div><textarea class="std" rows="2" placeholder="Cause identifiée (ex : défaut d&#39;étanchéité, tassement, corrosion…)"></textarea></div><div class="fiche-row"><div class="fiche-label">Urgence</div><div class="urg-row"><button class="urgbtn uf" type="button">Faible</button><button class="urgbtn um active" type="button">Moyenne</button><button class="urgbtn ue" type="button">Élevée</button></div></div><div class="fiche-row"><div class="fiche-label">Principe de réparation</div><textarea class="std" rows="2" placeholder="Solution technique préconisée…"></textarea></div><div class="fiche-row"><div class="fiche-label">Conclusion</div><textarea class="std" rows="2" placeholder="Conclusion propre à ce désordre (avis, niveau de risque, suite à donner…)"></textarea></div></div></div></div></div><button class="abtn blue" type="button" style="padding: 13px;">+ Ajouter un désordre</button></div></div></div>
+  <button class="abtn blue" id="btn-add-lieu" style="padding:15px;font-size:15px;margin-top:4px">+ Ajouter un lieu</button>
 
   <div class="card" style="margin-top:20px;border-color:#F0C878;background:#FFFDF8">
     <div class="card-title" style="color:#A05010">Conclusion générale du rapport</div>
@@ -155,7 +164,7 @@ textarea.std{width:100%;background:#fff;border:1px solid #D6DBE0;border-radius:8
 <div class="modal" id="restore-modal">
   <div class="modal-box">
     <h3>Reprendre votre travail ?</h3>
-    <p id="restore-text">Une session sauvegardée automatiquement a été trouvée (1 désordre(s)). La reprendre ?</p>
+    <p id="restore-text">Une session sauvegardée automatiquement a été trouvée (1 lieu(x), 1 désordre(s)). La reprendre ?</p>
     <div class="modal-btns">
       <button class="cancel" id="btn-discard">Nouveau</button>
       <button class="ok" id="btn-restore">Reprendre</button>
@@ -23248,7 +23257,7 @@ var __async = (__this, __arguments, generator) => {
    Chaque zone/désordre/photo est un objet JS.
    Le DOM référence les objets via closures (pas d'IDs).
 ═══════════════════════════════════════════════ */
-var S = { meta:{adresse:'',date:'',client:'',expert:'',contexte:'',conclusion_generale:''}, zones:[] };
+var S = { meta:{adresse:'',date:'',client:'',expert:'',contexte:'',conclusion_generale:''}, lieux:[] };
 var AUTOSAVE_KEY='expertise_v2_autosave';
 var isLoading=false;
 var autoTimer=null;
@@ -23333,12 +23342,14 @@ function saveLocal(){
     }catch(e){
       try{
         var light=JSON.parse(json);
-        (light.zones||[]).forEach(function(z){
-          z.photos_zone=[];
-          z.plan={image:null,markers:z.plan?z.plan.markers:[]};
-          (z.desordres||[]).forEach(function(d){
-            d.photos=[];
-            d.dplan={image:null,markers:d.dplan?d.dplan.markers:[]};
+        (light.lieux||[]).forEach(function(l){
+          (l.zones||[]).forEach(function(z){
+            z.photos_zone=[];
+            z.plan={image:null,markers:z.plan?z.plan.markers:[]};
+            (z.desordres||[]).forEach(function(d){
+              d.photos=[];
+              d.dplan={image:null,markers:d.dplan?d.dplan.markers:[]};
+            });
           });
         });
         localStorage.setItem(AUTOSAVE_KEY,JSON.stringify(light));
@@ -23354,20 +23365,25 @@ function serialize(){
   syncMeta();
   return {
     meta:{adresse:S.meta.adresse,date:S.meta.date,client:S.meta.client,expert:S.meta.expert,contexte:S.meta.contexte,conclusion_generale:S.meta.conclusion_generale},
-    zones:S.zones.map(function(z){
+    lieux:S.lieux.map(function(l){
       return {
-        zone:z.nom, description:z.description, collapsed:z.collapsed||false,
-        origine:z.origine||'', urgence:z.urgence||'MOYENNE',
-        conclusion:z.conclusion||'', conclusionDesordre:z.conclusionDesordre||'',
-        plan:{ image:z.plan.canvas&&z.plan.img?z.plan.canvas.toDataURL('image/jpeg',.82):null, markers:z.plan.markers.slice() },
-        photos_zone:z.photos.map(function(p){return{src:p.src,name:p.name}}),
-        desordres:z.desordres.map(function(d,di){
+        lieu:l.nom, collapsed:l.collapsed||false,
+        zones:l.zones.map(function(z){
           return {
-            numero:di+1, titre:d.titre, localisation:d.localisation,
-            observations:d.observations.slice(),
-            dplan:{ image:d.dplan.canvas&&d.dplan.img?d.dplan.canvas.toDataURL('image/jpeg',.82):null, markers:d.dplan.markers.slice() },
-            photos:d.photos.map(function(p){return{name:p.name,src:p.src,photoSize:p.photoSize,annotated:p.canvas?p.canvas.toDataURL('image/jpeg',.82):(p.annotated||p.src)}}),
-            collapsed:d.collapsed||false
+            zone:z.nom, description:z.description, collapsed:z.collapsed||false,
+            origine:z.origine||'', urgence:z.urgence||'MOYENNE',
+            conclusion:z.conclusion||'', conclusionDesordre:z.conclusionDesordre||'',
+            plan:{ image:z.plan.canvas&&z.plan.img?z.plan.canvas.toDataURL('image/jpeg',.82):null, markers:z.plan.markers.slice() },
+            photos_zone:z.photos.map(function(p){return{src:p.src,name:p.name}}),
+            desordres:z.desordres.map(function(d,di){
+              return {
+                numero:di+1, titre:d.titre, localisation:d.localisation,
+                observations:d.observations.slice(),
+                dplan:{ image:d.dplan.canvas&&d.dplan.img?d.dplan.canvas.toDataURL('image/jpeg',.82):null, markers:d.dplan.markers.slice() },
+                photos:d.photos.map(function(p){return{name:p.name,src:p.src,photoSize:p.photoSize,annotated:p.canvas?p.canvas.toDataURL('image/jpeg',.82):(p.annotated||p.src)}}),
+                collapsed:d.collapsed||false
+              };
+            })
           };
         })
       };
@@ -23383,7 +23399,7 @@ function syncMeta(){
 /* ── désérialisation (JSON → état + DOM) ── */
 function loadFromJSON(data){
   isLoading=true;
-  S.zones=[];
+  S.lieux=[];
   $('zones').innerHTML='';
   S.meta=data.meta||{};
   $('m-adr').value=S.meta.adresse||'';
@@ -23392,46 +23408,57 @@ function loadFromJSON(data){
   $('m-expert').value=S.meta.expert||'';
   $('m-ctx').value=S.meta.contexte||'';
   $('m-conclu-gen').value=S.meta.conclusion_generale||'';
-  (data.zones||[]).forEach(function(zd){
-    var zone=createZone();
-    zone.nom=zd.zone||'';zone.description=zd.description||'';
-    zone.dom.titleInput.value=zone.nom;
-    zone.dom.typeVal.textContent=zone.nom||'—';
-    zone.dom.descInput.value=zone.description;
-    /* Fiche de synthèse au niveau du désordre (nouveau format) */
-    zone.origine=zd.origine||'';
-    zone.conclusion=zd.conclusion||'';
-    zone.conclusionDesordre=zd.conclusionDesordre||'';
-    var urg=zd.urgence||null;
-    /* Rétrocompatibilité : ancien format où la fiche était portée par chaque
-       sous-désordre — on remonte la première fiche renseignée trouvée. */
-    if(!zone.origine&&!zone.conclusion&&!zone.conclusionDesordre&&!urg){
-      var src=(zd.desordres||[]).filter(function(dd){return dd.origine||dd.conclusion||dd.conclusionDesordre})[0];
-      if(src){
-        zone.origine=src.origine||'';
-        zone.conclusion=src.conclusion||'';
-        zone.conclusionDesordre=src.conclusionDesordre||'';
-        urg=src.urgence||null;
+  /* Rétrocompatibilité : anciennes sauvegardes à plat (sans catégorie LIEU) —
+     on les regroupe dans un lieu unique, non nommé, à préciser par l'utilisateur. */
+  var lieuxData=data.lieux;
+  if(!lieuxData)lieuxData=data.zones?[{lieu:'',zones:data.zones}]:[];
+  lieuxData.forEach(function(ld){
+    var lieu=createLieu();
+    lieu.nom=ld.lieu||'';
+    lieu.dom.titleInput.value=lieu.nom;
+    if(ld.collapsed&&lieu.dom.toggleL)lieu.dom.toggleL.click();
+    (ld.zones||[]).forEach(function(zd){
+      var zone=createZone(lieu);
+      zone.nom=zd.zone||'';zone.description=zd.description||'';
+      zone.dom.titleInput.value=zone.nom;
+      zone.dom.typeVal.textContent=zone.nom||'—';
+      zone.dom.descInput.value=zone.description;
+      /* Fiche de synthèse au niveau du désordre (nouveau format) */
+      zone.origine=zd.origine||'';
+      zone.conclusion=zd.conclusion||'';
+      zone.conclusionDesordre=zd.conclusionDesordre||'';
+      var urg=zd.urgence||null;
+      /* Rétrocompatibilité : ancien format où la fiche était portée par chaque
+         sous-désordre — on remonte la première fiche renseignée trouvée. */
+      if(!zone.origine&&!zone.conclusion&&!zone.conclusionDesordre&&!urg){
+        var src=(zd.desordres||[]).filter(function(dd){return dd.origine||dd.conclusion||dd.conclusionDesordre})[0];
+        if(src){
+          zone.origine=src.origine||'';
+          zone.conclusion=src.conclusion||'';
+          zone.conclusionDesordre=src.conclusionDesordre||'';
+          urg=src.urgence||null;
+        }
       }
-    }
-    zone.dom.origineInput.value=zone.origine;
-    zone.dom.concluInput.value=zone.conclusion;
-    zone.dom.conclusionDesordreInput.value=zone.conclusionDesordre;
-    if(zone.dom.setUrgence)zone.dom.setUrgence(urg||'MOYENNE');
-    if(zd.plan&&zd.plan.image)loadPlanImage(zone.plan,zd.plan.image,zd.plan.markers||[]);
-    (zd.photos_zone||[]).forEach(function(p){addZonePhotoObj(zone,p)});
-    if(zd.collapsed&&zone.dom.toggleZ)zone.dom.toggleZ.click();
-    (zd.desordres||[]).forEach(function(dd){
-      var d=createDesordre(zone);
-      d.titre=dd.titre||'';d.localisation=dd.localisation||'';
-      d.dom.titleInput.value=d.titre;
-      d.dom.locInput.value=d.localisation;
-      (dd.observations||[]).forEach(function(o){addObs(d,o)});
-      if(dd.dplan&&dd.dplan.image)loadPlanImage(d.dplan,dd.dplan.image,dd.dplan.markers||[]);
-      (dd.photos||[]).forEach(function(p){addAnnoPhoto(d,p,true)});
-      if(dd.collapsed&&d.dom.toggleD)d.dom.toggleD.click();
+      zone.dom.origineInput.value=zone.origine;
+      zone.dom.concluInput.value=zone.conclusion;
+      zone.dom.conclusionDesordreInput.value=zone.conclusionDesordre;
+      if(zone.dom.setUrgence)zone.dom.setUrgence(urg||'MOYENNE');
+      if(zd.plan&&zd.plan.image)loadPlanImage(zone.plan,zd.plan.image,zd.plan.markers||[]);
+      (zd.photos_zone||[]).forEach(function(p){addZonePhotoObj(zone,p)});
+      if(zd.collapsed&&zone.dom.toggleZ)zone.dom.toggleZ.click();
+      (zd.desordres||[]).forEach(function(dd){
+        var d=createDesordre(zone);
+        d.titre=dd.titre||'';d.localisation=dd.localisation||'';
+        d.dom.titleInput.value=d.titre;
+        d.dom.locInput.value=d.localisation;
+        (dd.observations||[]).forEach(function(o){addObs(d,o)});
+        if(dd.dplan&&dd.dplan.image)loadPlanImage(d.dplan,dd.dplan.image,dd.dplan.markers||[]);
+        (dd.photos||[]).forEach(function(p){addAnnoPhoto(d,p,true)});
+        if(dd.collapsed&&d.dom.toggleD)d.dom.toggleD.click();
+      });
     });
   });
+  renumberAll();
   setTimeout(function(){isLoading=false;saveLocal()},800);
 }
 
@@ -23580,15 +23607,80 @@ function buildPlanUI(plan,container,labelText,withCamera){
   chgB.addEventListener('click',function(){plan.img=null;plan.markers=[];plan.imgObj=null;plan.ctx=null;plan.hideFn();markDirty()});
 }
 
-/* ═══ ZONE ═══ */
-function createZone(){
+/* ═══ LIEU ═══
+   Catégorie de plus haut niveau : regroupe les désordres constatés à un même
+   endroit (Façade, Appartement R+1, Courette, Toiture…). */
+function createLieu(){
+  var lieu={nom:'',zones:[],dom:{}};
+  S.lieux.push(lieu);
+
+  var card=el('div','lieu-card');
+  var hdr=el('div','lieu-hdr');
+  var numSpan=el('span','lieu-num','Lieu '+S.lieux.length);
+  var ti=document.createElement('input');ti.type='text';ti.placeholder='Façade, Appartement R+1, Courette, Toiture…';
+  var toggleL=el('button','lieu-toggle','▼');toggleL.type='button';toggleL.title='Déplier / Replier';
+  var delB=el('button','xs','✕ Supprimer');delB.type='button';
+  hdr.appendChild(numSpan);hdr.appendChild(ti);hdr.appendChild(toggleL);hdr.appendChild(delB);
+  card.appendChild(hdr);
+
+  var body=el('div','lieu-body');
+  var zList=el('div');
+  body.appendChild(zList);
+  lieu.dom.zList=zList;
+  var addZ=el('button','abtn blue','+ Ajouter un désordre');addZ.type='button';addZ.style.padding='13px';
+  body.appendChild(addZ);
+  card.appendChild(body);
+  $('zones').appendChild(card);
+
+  lieu.dom.card=card;lieu.dom.titleInput=ti;lieu.dom.numSpan=numSpan;lieu.dom.toggleL=toggleL;
+
+  /* ── Toggle collapse lieu ── */
+  function applyLieuCollapse(collapsed){
+    body.classList.toggle('collapsed',collapsed);
+    toggleL.classList.toggle('collapsed',collapsed);
+    toggleL.textContent=collapsed?'▶':'▼';
+    lieu.collapsed=collapsed;
+  }
+  toggleL.addEventListener('click',function(e){e.stopPropagation();applyLieuCollapse(!lieu.collapsed);markDirty()});
+  if(lieu.collapsed)applyLieuCollapse(true);
+
+  ti.addEventListener('input',function(){lieu.nom=ti.value;markDirty()});
+  delB.addEventListener('click',function(){
+    var i=S.lieux.indexOf(lieu);
+    if(i>=0)S.lieux.splice(i,1);
+    card.remove();renumberAll();markDirty();
+  });
+  addZ.addEventListener('click',function(){createZone(lieu);markDirty()});
+
+  if(!isLoading)createZone(lieu);
+
+  return lieu;
+}
+/* Renumérote LIEU (local à S.lieux) et DÉSORDRE (numéro continu, tous lieux
+   confondus, pour rester cohérent avec les repères D1, D2… du rapport Word)
+   ainsi que les badges OBSERVATION qui en dépendent. */
+function renumberAll(){
+  var zi=0;
+  S.lieux.forEach(function(l,li){
+    if(l.dom.numSpan)l.dom.numSpan.textContent='Lieu '+(li+1);
+    l.zones.forEach(function(z){
+      zi++;
+      z._num=zi;
+      if(z.dom.numSpan)z.dom.numSpan.textContent='Désordre '+zi;
+      z.desordres.forEach(function(d,j){if(d.dom.badge)d.dom.badge.textContent='Observation '+zi+'.'+(j+1)});
+    });
+  });
+}
+
+/* ═══ ZONE (DÉSORDRE) ═══ */
+function createZone(lieu){
   var zone={nom:'',description:'',plan:makePlanState(),photos:[],desordres:[],origine:'',urgence:'MOYENNE',conclusion:'',conclusionDesordre:'',dom:{}};
-  S.zones.push(zone);
+  lieu.zones.push(zone);
 
   var card=el('div','zone-card');
   var hdr=el('div','zone-hdr');
-  var numSpan=el('span','zone-num','Désordre '+S.zones.length);
-  var ti=document.createElement('input');ti.type='text';ti.placeholder='Façade, Appartement R+1…';
+  var numSpan=el('span','zone-num','Désordre');
+  var ti=document.createElement('input');ti.type='text';ti.placeholder='Fissuration, Infiltration, Tassement…';
   var toggleZ=el('button','zone-toggle','▼');toggleZ.type='button';toggleZ.title='Déplier / Replier';
   var delB=el('button','xs','✕ Supprimer');delB.type='button';
   hdr.appendChild(numSpan);hdr.appendChild(ti);hdr.appendChild(toggleZ);hdr.appendChild(delB);
@@ -23675,7 +23767,7 @@ function createZone(){
   zone.dom.origineInput=origineTa;zone.dom.concluInput=conclu;zone.dom.conclusionDesordreInput=conclDesTa;zone.dom.typeVal=typeVal;
 
   card.appendChild(body);
-  $('zones').appendChild(card);
+  lieu.dom.zList.appendChild(card);
 
   zone.dom.card=card;zone.dom.titleInput=ti;zone.dom.descInput=desc;zone.dom.numSpan=numSpan;zone.dom.toggleZ=toggleZ;
 
@@ -23695,9 +23787,9 @@ function createZone(){
   conclu.addEventListener('input',function(){zone.conclusion=conclu.value;markDirty()});
   conclDesTa.addEventListener('input',function(){zone.conclusionDesordre=conclDesTa.value;markDirty()});
   delB.addEventListener('click',function(){
-    var i=S.zones.indexOf(zone);
-    if(i>=0)S.zones.splice(i,1);
-    card.remove();renumberZones();markDirty();
+    var i=lieu.zones.indexOf(zone);
+    if(i>=0)lieu.zones.splice(i,1);
+    card.remove();renumberAll();markDirty();
   });
   pc.addEventListener('click',function(){pickFile({capture:'environment'},function(fs){Array.prototype.forEach.call(fs,function(f){readAsDataURL(f,function(src){addZonePhotoObj(zone,{src:src,name:f.name});markDirty()})})})});
   pl.addEventListener('click',function(){pickFile({multiple:true},function(fs){Array.prototype.forEach.call(fs,function(f){readAsDataURL(f,function(src){addZonePhotoObj(zone,{src:src,name:f.name});markDirty()})})})});
@@ -23705,14 +23797,9 @@ function createZone(){
   addD.addEventListener('click',function(){createDesordre(zone);markDirty()});
 
   if(!isLoading)createDesordre(zone);
+  renumberAll();
 
   return zone;
-}
-function renumberZones(){
-  S.zones.forEach(function(z,i){
-    z.dom.numSpan.textContent='Désordre '+(i+1);
-    z.desordres.forEach(function(d,j){d.dom.badge.textContent='Observation '+(i+1)+'.'+(j+1)});
-  });
 }
 function addZonePhotoObj(zone,p){
   var photo={src:p.src,name:p.name||'photo'};
@@ -23735,7 +23822,7 @@ function createDesordre(zone){
 
   var box=el('div','desordre');
   var hdr=el('div','d-hdr');
-  var badge=el('span','dbadge','Observation '+(S.zones.indexOf(zone)+1)+'.'+zone.desordres.length);
+  var badge=el('span','dbadge','Observation');
   var ti=document.createElement('input');ti.type='text';ti.placeholder='Fissure, Infiltration…';
   var toggleD=el('button','d-toggle','▼');toggleD.type='button';toggleD.title='Déplier / Replier';
   var delB=el('button','xs','✕');delB.type='button';
@@ -23751,9 +23838,6 @@ function createDesordre(zone){
   d.dom.obsList=obsList;
   var addO=el('button','abtn','+ Ajouter un constat');addO.type='button';addO.style.marginBottom='14px';
   body.appendChild(addO);
-
-  body.appendChild(el('div','hr'));
-  buildPlanUI(d.dplan,body,'Localiser sur plan',true);
 
   body.appendChild(el('div','hr'));
   body.appendChild(el('div','sec','Photos annotées <span class="sec-note">— dessinez sur la photo</span>'));
@@ -23786,7 +23870,7 @@ function createDesordre(zone){
   delB.addEventListener('click',function(){
     var i=zone.desordres.indexOf(d);
     if(i>=0)zone.desordres.splice(i,1);
-    box.remove();renumberDesordres(zone);markDirty();
+    box.remove();renumberAll();markDirty();
   });
   addO.addEventListener('click',function(){addObs(d,'');markDirty()});
   pc.addEventListener('click',function(){pickFile({capture:'environment'},function(fs){Array.prototype.forEach.call(fs,function(f){readAsDataURL(f,function(src){addAnnoPhoto(d,{src:src,name:f.name},false);markDirty()})})})});
@@ -23794,11 +23878,8 @@ function createDesordre(zone){
   makeDraggable(pl,function(fs){Array.prototype.forEach.call(fs,function(f){readAsDataURL(f,function(src){addAnnoPhoto(d,{src:src,name:f.name},false);markDirty()})});},'image/*');
 
   if(!isLoading)addObs(d,'');
+  renumberAll();
   return d;
-}
-function renumberDesordres(zone){
-  var zi=S.zones.indexOf(zone)+1;
-  zone.desordres.forEach(function(d,i){d.dom.badge.textContent='Observation '+zi+'.'+(i+1)});
 }
 
 /* ═══ OBSERVATIONS ═══ */
@@ -24241,55 +24322,69 @@ function buildDocx(){
     push(para([txt('',{size:15,color:GRAY,italics:true})],{spacing:{after:0}}));
   });
 
-  data.zones.forEach(function(zone,zi){
+  /* Numérotation des désordres continue sur l'ensemble des lieux (D1, D2…),
+     pour rester cohérente avec le tableau récapitulatif final. */
+  var zoneCounter=0;
+  data.lieux.forEach(function(lieu,li){
     pushSync(function(){
-      push(banner((zi+1)+'. Désordre — '+(zone.zone||''),BLUE_L));
-      push(gap(60));
-      if(zone.description){multiline(zone.description,{italics:true,color:GRAY}).forEach(push)}
+      push(banner((li+1)+'. Lieu — '+(lieu.lieu||''),BLUE));
+      push(gap(80));
     });
-    if(zone.plan&&zone.plan.image){
-      pushSync(function(){push(label('Plan de la zone'))});
-      pushImg(zone.plan.image,440);
+    lieu.zones.forEach(function(zone){
+      var zi=zoneCounter++;
       pushSync(function(){
-        if(zone.plan.markers&&zone.plan.markers.length)push(para([txt('Repères : '+zone.plan.markers.map(function(m){return'Repère '+m.num}).join(' — '),{color:GRAY,size:16,italics:true})]));
+        push(banner((zi+1)+'. Désordre — '+(zone.zone||''),BLUE_L));
+        push(gap(60));
+        if(zone.description){multiline(zone.description,{italics:true,color:GRAY}).forEach(push)}
       });
-    }
-    if(zone.photos_zone&&zone.photos_zone.length){
-      pushSync(function(){push(label('Photos générales de la zone'))});
-      zone.photos_zone.forEach(function(p){pushImg(p.src,300)});
-    }
-    zone.desordres.forEach(function(d){
-      pushSync(function(){
-        push(gap(100));
-        push(dHeader('Observation '+(zi+1)+'.'+d.numero,d.titre));
-        if(d.localisation){push(gap(50));push(locBlock(d.localisation))}
-        if(d.observations&&d.observations.length){push(label('Constats'));push(obsTable(d.observations))}
-      });
-      if(d.dplan&&d.dplan.image){
-        pushSync(function(){push(label('Localisation sur plan'))});
-        pushImg(d.dplan.image,340);
+      if(zone.plan&&zone.plan.image){
+        pushSync(function(){push(label('Plan de la zone'))});
+        pushImg(zone.plan.image,440);
         pushSync(function(){
-          if(d.dplan.markers&&d.dplan.markers.length)push(para([txt('Repère(s) : '+d.dplan.markers.map(function(m){return m.num}).join(', '),{color:GRAY,size:16,italics:true})]));
+          if(zone.plan.markers&&zone.plan.markers.length)push(para([txt('Repères : '+zone.plan.markers.map(function(m){return'Repère '+m.num}).join(' — '),{color:GRAY,size:16,italics:true})]));
         });
       }
-      if(d.photos&&d.photos.length){
-        pushSync(function(){push(label('Photos'))});
-        d.photos.forEach(function(p){
-          pushImg(p.annotated||p.src,p.photoSize==='grande'?460:300);
-        });
+      if(zone.photos_zone&&zone.photos_zone.length){
+        pushSync(function(){push(label('Photos générales de la zone'))});
+        zone.photos_zone.forEach(function(p){pushImg(p.src,300)});
       }
-    });
-    pushSync(function(){
-      push(gap(80));push(ficheSynthBlock(zone));
-      push(gap(160));
+      zone.desordres.forEach(function(d){
+        pushSync(function(){
+          push(gap(100));
+          push(dHeader('Observation '+(zi+1)+'.'+d.numero,d.titre));
+          if(d.localisation){push(gap(50));push(locBlock(d.localisation))}
+          if(d.observations&&d.observations.length){push(label('Constats'));push(obsTable(d.observations))}
+        });
+        if(d.dplan&&d.dplan.image){
+          pushSync(function(){push(label('Localisation sur plan'))});
+          pushImg(d.dplan.image,340);
+          pushSync(function(){
+            if(d.dplan.markers&&d.dplan.markers.length)push(para([txt('Repère(s) : '+d.dplan.markers.map(function(m){return m.num}).join(', '),{color:GRAY,size:16,italics:true})]));
+          });
+        }
+        if(d.photos&&d.photos.length){
+          pushSync(function(){push(label('Photos'))});
+          d.photos.forEach(function(p){
+            pushImg(p.annotated||p.src,p.photoSize==='grande'?460:300);
+          });
+        }
+      });
+      pushSync(function(){
+        push(gap(80));push(ficheSynthBlock(zone));
+        push(gap(160));
+      });
     });
   });
 
   pushSync(function(){
     var URG_COLORS={'FAIBLE':'70AD47','MOYENNE':'ED7D31','ÉLEVÉE':'C00000'};
     var allD=[];
-    data.zones.forEach(function(zone,zi){
-      if(zone.zone||zone.origine||zone.conclusion)allD.push({d:{titre:zone.zone,origine:zone.origine,urgence:zone.urgence,conclusion:zone.conclusion},ref:'D'+(zi+1)});
+    var zc=0;
+    data.lieux.forEach(function(lieu){
+      lieu.zones.forEach(function(zone){
+        var zi=zc++;
+        if(zone.zone||zone.origine||zone.conclusion)allD.push({d:{titre:zone.zone,origine:zone.origine,urgence:zone.urgence,conclusion:zone.conclusion},ref:'D'+(zi+1)});
+      });
     });
     if(!allD.length)return;
     push(new D.Paragraph({children:[new D.PageBreak()]}));
@@ -24364,10 +24459,12 @@ function checkAutoSave(){
       }catch(e){}
     }
     if(data){
-      var nb=data.zones?data.zones.length:0;
-      if(nb>0||(data.meta&&data.meta.adresse)){
+      var lieuxArr=data.lieux||(data.zones?[{lieu:'',zones:data.zones}]:[]);
+      var nbLieux=lieuxArr.length;
+      var nb=lieuxArr.reduce(function(s,l){return s+(l.zones?l.zones.length:0)},0);
+      if(nb>0||nbLieux>0||(data.meta&&data.meta.adresse)){
         _pendingRestore=data;
-        $('restore-text').textContent='Une session sauvegardée automatiquement a été trouvée ('+nb+' désordre(s)'+(data.meta&&data.meta.adresse?' — '+data.meta.adresse:'')+'). La reprendre ?';
+        $('restore-text').textContent='Une session sauvegardée automatiquement a été trouvée ('+nbLieux+' lieu(x), '+nb+' désordre(s)'+(data.meta&&data.meta.adresse?' — '+data.meta.adresse:'')+'). La reprendre ?';
         $('restore-modal').className='modal show';
         return true;
       }
@@ -24378,7 +24475,7 @@ function checkAutoSave(){
 var _pendingRestore=null;
 
 /* ═══ ÉVÉNEMENTS GLOBAUX ═══ */
-$('btn-add-zone').addEventListener('click',function(){createZone();markDirty()});
+$('btn-add-lieu').addEventListener('click',function(){createLieu();markDirty()});
 $('btn-json').addEventListener('click',saveJSON);
 $('btn-word').addEventListener('click',exportWord);
 $('btn-load').addEventListener('click',function(){$('session-file').click()});
@@ -24421,12 +24518,12 @@ $('btn-discard').addEventListener('click',function(){
 
 /* ═══ INIT ═══ */
 /* Démarre une session vierge de façon déterministe :
-   vide TOUJOURS le conteneur et l'état avant de créer le premier désordre,
+   vide TOUJOURS le conteneur et l'état avant de créer le premier lieu,
    ce qui empêche tout doublon même en cas d'état résiduel. */
 function startFreshSession(){
-  S.zones=[];
+  S.lieux=[];
   $('zones').innerHTML='';
-  createZone();
+  createLieu();
 }
 
 $('m-date').value=new Date().toISOString().slice(0,10);
