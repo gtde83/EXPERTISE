@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0049)file:///C:/Users/Greg/Downloads/expertise_24.html -->
+<!-- saved from url=(0059)file:///C:/Users/Greg/Downloads/outil-saisie-terrain_2.html -->
 <html lang="fr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
@@ -131,7 +131,7 @@ textarea.std{width:100%;background:#fff;border:1px solid #D6DBE0;border-radius:8
 
 <div class="topbar">
   <span class="topbar-title">🏗 Expertise</span>
-  <span class="save-status" id="save-status">✓ 11:23</span>
+  <span class="save-status" id="save-status">✓ 16:39</span>
   <button class="tbtn b" id="btn-load">↩ Reprendre</button>
   <button class="tbtn g" id="btn-json">💾 JSON</button>
   <button class="tbtn" id="btn-word">📄 Word</button>
@@ -23506,6 +23506,38 @@ function pickFile(opts,cb){
 }
 function readAsDataURL(file,cb){var r=new FileReader();r.onload=function(e){cb(e.target.result)};r.readAsDataURL(file)}
 
+/* ── Photos : réduction à l'import ───────────────────────────────────────
+   Les photos des appareils récents pèsent 3 à 5 Mo pièce. Or le canevas
+   d'annotation comme l'export sont plafonnés à 760 px de large : conserver
+   l'original en pleine résolution n'apporte rien et alourdit la sauvegarde
+   IndexedDB comme le .json exporté (81 Mo pour 17 photos sur la mission 2490).
+   On redimensionne donc dès l'import, au plus grand côté PHOTO_MAX_PX.
+   Les images déjà légères sont conservées telles quelles (pas de
+   recompression inutile) ; en cas d'échec, on retombe sur l'original. */
+var PHOTO_MAX_PX=1600, PHOTO_Q=.85, PHOTO_SKIP_BYTES=700*1024;
+function readImageResized(file,cb){
+  readAsDataURL(file,function(src){
+    var img=new Image();
+    img.onload=function(){
+      try{
+        var m=Math.max(img.width,img.height);
+        if(m<=PHOTO_MAX_PX&&file&&file.size&&file.size<=PHOTO_SKIP_BYTES){cb(src);return;}
+        var sc=Math.min(1,PHOTO_MAX_PX/m);
+        var cv=document.createElement('canvas');
+        cv.width=Math.max(1,Math.round(img.width*sc));
+        cv.height=Math.max(1,Math.round(img.height*sc));
+        var ctx=cv.getContext('2d');
+        ctx.fillStyle='#fff';ctx.fillRect(0,0,cv.width,cv.height);
+        ctx.drawImage(img,0,0,cv.width,cv.height);
+        var out=cv.toDataURL('image/jpeg',PHOTO_Q);
+        cb(out&&out.length>100&&out.length<src.length?out:src);
+      }catch(e){cb(src)}
+    };
+    img.onerror=function(){cb(src)};
+    img.src=src;
+  });
+}
+
 /* ── Drag-and-drop générique ──────────────────────────────────────────
    Ajoute le dépôt de fichiers sur n'importe quel élément.
    accept : 'image/*' | '.json' | null (tout) */
@@ -23568,12 +23600,12 @@ function buildPlanUI(plan,container,labelText,withCamera){
     var libBtn=el('button','abtn','🖼 Photothèque');libBtn.type='button';
     row.appendChild(camBtn);row.appendChild(libBtn);
     container.appendChild(row);
-    camBtn.addEventListener('click',function(){pickFile({capture:'environment'},function(fs){readAsDataURL(fs[0],function(src){loadPlanImage(plan,src,[]);markDirty()})})});
-    libBtn.addEventListener('click',function(){pickFile({},function(fs){readAsDataURL(fs[0],function(src){loadPlanImage(plan,src,[]);markDirty()})})});
-    makeDraggable(libBtn,function(fs){readAsDataURL(fs[0],function(src){loadPlanImage(plan,src,[]);markDirty()});},'image/*');
+    camBtn.addEventListener('click',function(){pickFile({capture:'environment'},function(fs){readImageResized(fs[0],function(src){loadPlanImage(plan,src,[]);markDirty()})})});
+    libBtn.addEventListener('click',function(){pickFile({},function(fs){readImageResized(fs[0],function(src){loadPlanImage(plan,src,[]);markDirty()})})});
+    makeDraggable(libBtn,function(fs){readImageResized(fs[0],function(src){loadPlanImage(plan,src,[]);markDirty()});},'image/*');
   }
-  importBtn.addEventListener('click',function(){pickFile({},function(fs){readAsDataURL(fs[0],function(src){loadPlanImage(plan,src,[]);markDirty()})})});
-  makeDraggable(importBtn,function(fs){readAsDataURL(fs[0],function(src){loadPlanImage(plan,src,[]);markDirty()});},'image/*');
+  importBtn.addEventListener('click',function(){pickFile({},function(fs){readImageResized(fs[0],function(src){loadPlanImage(plan,src,[]);markDirty()})})});
+  makeDraggable(importBtn,function(fs){readImageResized(fs[0],function(src){loadPlanImage(plan,src,[]);markDirty()});},'image/*');
 
   var planBox=el('div');planBox.style.display='none';
   var wrap=el('div','plan-wrap');
@@ -23791,9 +23823,9 @@ function createZone(lieu){
     if(i>=0)lieu.zones.splice(i,1);
     card.remove();renumberAll();markDirty();
   });
-  pc.addEventListener('click',function(){pickFile({capture:'environment'},function(fs){Array.prototype.forEach.call(fs,function(f){readAsDataURL(f,function(src){addZonePhotoObj(zone,{src:src,name:f.name});markDirty()})})})});
-  pl.addEventListener('click',function(){pickFile({multiple:true},function(fs){Array.prototype.forEach.call(fs,function(f){readAsDataURL(f,function(src){addZonePhotoObj(zone,{src:src,name:f.name});markDirty()})})})});
-  makeDraggable(pl,function(fs){Array.prototype.forEach.call(fs,function(f){readAsDataURL(f,function(src){addZonePhotoObj(zone,{src:src,name:f.name});markDirty()})});},'image/*');
+  pc.addEventListener('click',function(){pickFile({capture:'environment'},function(fs){Array.prototype.forEach.call(fs,function(f){readImageResized(f,function(src){addZonePhotoObj(zone,{src:src,name:f.name});markDirty()})})})});
+  pl.addEventListener('click',function(){pickFile({multiple:true},function(fs){Array.prototype.forEach.call(fs,function(f){readImageResized(f,function(src){addZonePhotoObj(zone,{src:src,name:f.name});markDirty()})})})});
+  makeDraggable(pl,function(fs){Array.prototype.forEach.call(fs,function(f){readImageResized(f,function(src){addZonePhotoObj(zone,{src:src,name:f.name});markDirty()})});},'image/*');
   addD.addEventListener('click',function(){createDesordre(zone);markDirty()});
 
   if(!isLoading)createDesordre(zone);
@@ -23873,9 +23905,9 @@ function createDesordre(zone){
     box.remove();renumberAll();markDirty();
   });
   addO.addEventListener('click',function(){addObs(d,'');markDirty()});
-  pc.addEventListener('click',function(){pickFile({capture:'environment'},function(fs){Array.prototype.forEach.call(fs,function(f){readAsDataURL(f,function(src){addAnnoPhoto(d,{src:src,name:f.name},false);markDirty()})})})});
-  pl.addEventListener('click',function(){pickFile({multiple:true},function(fs){Array.prototype.forEach.call(fs,function(f){readAsDataURL(f,function(src){addAnnoPhoto(d,{src:src,name:f.name},false);markDirty()})})})});
-  makeDraggable(pl,function(fs){Array.prototype.forEach.call(fs,function(f){readAsDataURL(f,function(src){addAnnoPhoto(d,{src:src,name:f.name},false);markDirty()})});},'image/*');
+  pc.addEventListener('click',function(){pickFile({capture:'environment'},function(fs){Array.prototype.forEach.call(fs,function(f){readImageResized(f,function(src){addAnnoPhoto(d,{src:src,name:f.name},false);markDirty()})})})});
+  pl.addEventListener('click',function(){pickFile({multiple:true},function(fs){Array.prototype.forEach.call(fs,function(f){readImageResized(f,function(src){addAnnoPhoto(d,{src:src,name:f.name},false);markDirty()})})})});
+  makeDraggable(pl,function(fs){Array.prototype.forEach.call(fs,function(f){readImageResized(f,function(src){addAnnoPhoto(d,{src:src,name:f.name},false);markDirty()})});},'image/*');
 
   if(!isLoading)addObs(d,'');
   renumberAll();
