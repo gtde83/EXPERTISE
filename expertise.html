@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0059)file:///C:/Users/Greg/Downloads/outil-saisie-terrain_2.html -->
+<!-- saved from url=(0049)file:///C:/Users/Greg/Downloads/expertise_15.html -->
 <html lang="fr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
@@ -26,19 +26,20 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-se
 .field input,.field textarea{width:100%;background:#fff;border:1px solid #D6DBE0;border-radius:8px;padding:9px 11px;font-size:15px;color:#222;font-family:inherit;-webkit-appearance:none;outline:none}
 .field textarea{resize:none;min-height:48px;line-height:1.5}
 .field input:focus,.field textarea:focus{border-color:#2E75B6}
-.lieu-card{background:#EAF1F8;border:1px solid #8FB6DA;border-radius:14px;overflow:hidden;margin-bottom:24px;padding:8px}
-.lieu-hdr{background:#12324A;color:#fff;padding:13px 15px;border-radius:9px;display:flex;align-items:center;gap:10px}
-.lieu-hdr input{flex:1;background:transparent;border:none;color:#fff;font-size:16px;font-weight:700;font-family:inherit;outline:none;min-width:0}
+.lieu-card{background:#fff;border:2px solid #1F4E79;border-radius:13px;overflow:hidden;margin-bottom:24px}
+.lieu-hdr{background:#1F4E79;color:#fff;padding:13px 15px;display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.lieu-hdr input{flex:1 1 150px;background:transparent;border:none;color:#fff;font-size:15.5px;font-weight:600;font-family:inherit;outline:none;min-width:120px;border-bottom:1px solid rgba(255,255,255,.25);padding-bottom:2px}
 .lieu-hdr input::placeholder{color:rgba(255,255,255,.45);font-weight:400}
+.lieu-num{font-size:11px;opacity:.6;white-space:nowrap;text-transform:uppercase;letter-spacing:.06em;font-weight:700}
 .lieu-toggle{background:none;border:none;color:#fff;font-size:15px;cursor:pointer;padding:0 2px;opacity:.8;flex-shrink:0;-webkit-appearance:none;transition:transform .18s;display:inline-block;line-height:1}
 .lieu-toggle.collapsed{transform:rotate(-90deg)}
+.lieu-body{padding:14px}
 .lieu-body.collapsed{display:none}
-.lieu-num{font-size:11px;opacity:.65;white-space:nowrap;text-transform:uppercase;letter-spacing:.08em;font-weight:700}
-.lieu-body{padding:14px 6px 4px}
 .zone-card{background:#fff;border:1px solid #BDD7EE;border-radius:12px;overflow:hidden;margin-bottom:20px}
-.zone-hdr{background:#1F4E79;color:#fff;padding:12px 15px;display:flex;align-items:center;gap:10px}
-.zone-hdr input{flex:1;background:transparent;border:none;color:#fff;font-size:15px;font-family:inherit;outline:none;min-width:0}
+.zone-hdr{background:#2E75B6;color:#fff;padding:12px 15px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.zone-hdr input{flex:1 1 150px;background:transparent;border:none;color:#fff;font-size:15px;font-family:inherit;outline:none;min-width:120px;border-bottom:1px solid rgba(255,255,255,.25);padding-bottom:2px}
 .zone-hdr input::placeholder{color:rgba(255,255,255,.4)}
+.grp-btn{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.35);color:#fff;font-size:11.5px;padding:4px 9px;border-radius:6px;cursor:pointer;-webkit-appearance:none;font-family:inherit;white-space:nowrap;flex-shrink:0;touch-action:manipulation}
 .zone-toggle{background:none;border:none;color:#fff;font-size:15px;cursor:pointer;padding:0 2px;opacity:.8;flex-shrink:0;-webkit-appearance:none;transition:transform .18s;display:inline-block;line-height:1}
 .zone-toggle.collapsed{transform:rotate(-90deg)}
 .zone-body.collapsed{display:none}
@@ -75,6 +76,11 @@ textarea.std{width:100%;background:#fff;border:1px solid #D6DBE0;border-radius:8
 .fiche-auto{background:#fff;border:1px solid #D6DBE0;border-radius:8px;padding:9px 11px;font-size:15px;color:#1F4E79;font-weight:600}
 .fiche-row textarea{width:100%;background:#fff;border:1px solid #D6DBE0;border-radius:8px;padding:9px 11px;font-size:14px;color:#222;resize:none;min-height:46px;line-height:1.5;font-family:inherit;-webkit-appearance:none;outline:none}
 .fiche-row textarea:focus{border-color:#2E75B6}
+.grp-box{display:flex;flex-direction:column;gap:6px}
+.grp-item{display:flex;align-items:center;gap:9px;font-size:13px;padding:8px 10px;background:#fff;border:1px solid #D6DBE0;border-radius:7px;cursor:pointer;user-select:none}
+.grp-item input{width:17px;height:17px;flex-shrink:0}
+.grp-info{background:#FFF8E8;border:1px solid #F0D898;border-radius:8px;padding:11px 12px;font-size:13px;color:#6a5010;line-height:1.5}
+.grp-degroup{margin-top:9px;padding:8px 13px;border-radius:7px;border:1px solid #D9822B;background:#fff;color:#A05010;font-size:12.5px;cursor:pointer;-webkit-appearance:none;font-family:inherit;touch-action:manipulation;display:block}
 .xs{padding:6px 10px;font-size:12px;border-radius:7px;border:1px solid rgba(220,60,60,.35);background:rgba(220,60,60,.12);color:#C0504D;cursor:pointer;font-family:inherit;-webkit-appearance:none;touch-action:manipulation;white-space:nowrap}
 .photo-grid{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 4px}
 .pthumb{position:relative;width:82px;height:82px;border-radius:8px;overflow:hidden;border:1px solid #BDD7EE;flex-shrink:0}
@@ -100,6 +106,19 @@ textarea.std{width:100%;background:#fff;border:1px solid #D6DBE0;border-radius:8
 .conclu{width:100%;background:#FFF3DC;border:1px solid #F0C878;border-radius:8px;padding:10px 12px;font-size:14px;color:#7a4a08;resize:none;min-height:58px;line-height:1.5;font-family:inherit;-webkit-appearance:none;outline:none}
 .anno-block{border:1px solid #BDD7EE;border-radius:8px;margin-bottom:10px;overflow:hidden}
 .anno-hdr{background:#DEEBF7;padding:7px 10px;display:flex;align-items:center;gap:6px;border-bottom:1px solid #BDD7EE;flex-wrap:wrap}
+.ref-badge{background:#1F4E79;color:#fff;font-size:10.5px;padding:3px 8px;border-radius:12px;white-space:nowrap;display:none}
+.ref-badge.on{display:inline-block}
+.ref-panel{background:#F2F7FC;border-bottom:1px solid #BDD7EE;padding:10px 12px;display:none}
+.ref-panel.open{display:block}
+.ref-row{margin-bottom:8px}
+.ref-row:last-child{margin-bottom:0}
+.ref-label{font-size:10.5px;color:#2E75B6;text-transform:uppercase;letter-spacing:.05em;font-weight:700;margin-bottom:3px}
+.ref-panel select{width:100%;padding:8px 10px;border:1px solid #BDD7EE;border-radius:7px;background:#fff;font-size:13px;color:#222;font-family:inherit;-webkit-appearance:none;outline:none}
+.ref-panel select:focus{border-color:#2E75B6}
+.ref-actions{display:flex;gap:8px;margin-top:10px}
+.ref-actions button{flex:1;padding:9px;border-radius:7px;font-size:13px;border:none;cursor:pointer;-webkit-appearance:none;font-family:inherit;touch-action:manipulation}
+.ref-apply{background:#1F4E79;color:#fff}
+.ref-cancel{background:#fff;color:#5a7894;border:1px solid #BDD7EE!important}
 .anno-hdr .fname{flex:1;font-size:12px;color:#5a7894;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:60px}
 .ps-btn{padding:4px 9px;font-size:11px;border-radius:6px;border:1px solid #BDD7EE;background:#fff;color:#5a7894;cursor:pointer;-webkit-appearance:none;font-family:inherit;touch-action:manipulation}
 .ps-btn.on{background:#1F4E79;color:#fff;border-color:#1F4E79}
@@ -131,7 +150,7 @@ textarea.std{width:100%;background:#fff;border:1px solid #D6DBE0;border-radius:8
 
 <div class="topbar">
   <span class="topbar-title">🏗 Expertise</span>
-  <span class="save-status" id="save-status">✓ 16:39</span>
+  <span class="save-status" id="save-status">✓ 16:20</span>
   <button class="tbtn b" id="btn-load">↩ Reprendre</button>
   <button class="tbtn g" id="btn-json">💾 JSON</button>
   <button class="tbtn" id="btn-word">📄 Word</button>
@@ -151,8 +170,8 @@ textarea.std{width:100%;background:#fff;border:1px solid #D6DBE0;border-radius:8
     </div>
   </div>
 
-  <div id="zones"><div class="lieu-card"><div class="lieu-hdr"><span class="lieu-num">Lieu 1</span><input type="text" placeholder="Façade, Appartement R+1, Courette, Toiture…"><button class="lieu-toggle" type="button" title="Déplier / Replier">▼</button><button class="xs" type="button">✕ Supprimer</button></div><div class="lieu-body"><div><div class="zone-card"><div class="zone-hdr"><span class="zone-num">Désordre 1</span><input type="text" placeholder="Fissuration, Infiltration, Tassement…"><button class="zone-toggle" type="button" title="Déplier / Replier">▼</button><button class="xs" type="button">✕ Supprimer</button></div><div class="zone-body"><div class="sec">Description sommaire du désordre</div><textarea class="std" rows="2" placeholder="Contexte, accès, état général…"></textarea><div class="sec">Plan de la zone <span class="sec-note">— tapez sur le plan pour poser un repère</span></div><button class="iobtn" type="button">📐 Importer un plan</button><div style="display: none;"><div class="plan-wrap"><canvas></canvas></div><div class="row3"><button class="abtn" type="button">↩ Annuler</button><button class="abtn" type="button">🗑 Effacer</button><button class="abtn red" type="button">✕ Changer</button></div></div><div class="sec">Photos générales de la zone</div><div class="row2"><button class="abtn" type="button">📷 Prendre</button><button class="abtn" type="button">🖼 Photothèque</button></div><div class="photo-grid"></div><div class="hr"></div><div><div class="desordre"><div class="d-hdr"><span class="dbadge">Observation 1.1</span><input type="text" placeholder="Fissure, Infiltration…"><button class="d-toggle" type="button" title="Déplier / Replier">▼</button><button class="xs" type="button">✕</button></div><div class="d-body"><input type="text" class="loc-input" placeholder="📍 Localisation de l&#39;observation (ex: angle nord, mur salon…)"><div class="sec">Constats</div><div><div class="obs-row"><textarea rows="1" placeholder="Décrire l&#39;observation…"></textarea><button class="xbtn2" type="button">✕</button></div></div><button class="abtn" type="button" style="margin-bottom: 14px;">+ Ajouter un constat</button><div class="hr"></div><div class="sec">Photos annotées <span class="sec-note">— dessinez sur la photo</span></div><div class="row2"><button class="abtn" type="button">📷 Prendre</button><button class="abtn" type="button">🖼 Photothèque</button></div><div style="margin-top: 10px;"></div></div></div></div><button class="abtn blue" type="button" style="padding: 13px;">+ Ajouter une observation</button><div class="hr"></div><div class="card fiche-synth"><div class="card-title">Fiche de synthèse <span class="sec-note">— alimente le tableau récapitulatif</span></div><div class="fiche-row"><div class="fiche-label">Type de désordre</div><div class="fiche-auto">—</div></div><div class="fiche-row"><div class="fiche-label">Origine du désordre</div><textarea class="std" rows="2" placeholder="Cause identifiée (ex : défaut d&#39;étanchéité, tassement, corrosion…)"></textarea></div><div class="fiche-row"><div class="fiche-label">Urgence</div><div class="urg-row"><button class="urgbtn uf" type="button">Faible</button><button class="urgbtn um active" type="button">Moyenne</button><button class="urgbtn ue" type="button">Élevée</button></div></div><div class="fiche-row"><div class="fiche-label">Principe de réparation</div><textarea class="std" rows="2" placeholder="Solution technique préconisée…"></textarea></div><div class="fiche-row"><div class="fiche-label">Conclusion</div><textarea class="std" rows="2" placeholder="Conclusion propre à ce désordre (avis, niveau de risque, suite à donner…)"></textarea></div></div></div></div></div><button class="abtn blue" type="button" style="padding: 13px;">+ Ajouter un désordre</button></div></div></div>
-  <button class="abtn blue" id="btn-add-lieu" style="padding:15px;font-size:15px;margin-top:4px">+ Ajouter un lieu</button>
+  <div id="zones"></div>
+  <button class="abtn blue" id="btn-add-zone" style="padding:15px;font-size:15px;margin-top:4px">+ Ajouter un lieu</button>
 
   <div class="card" style="margin-top:20px;border-color:#F0C878;background:#FFFDF8">
     <div class="card-title" style="color:#A05010">Conclusion générale du rapport</div>
@@ -164,7 +183,7 @@ textarea.std{width:100%;background:#fff;border:1px solid #D6DBE0;border-radius:8
 <div class="modal" id="restore-modal">
   <div class="modal-box">
     <h3>Reprendre votre travail ?</h3>
-    <p id="restore-text">Une session sauvegardée automatiquement a été trouvée (1 lieu(x), 1 désordre(s)). La reprendre ?</p>
+    <p id="restore-text">Une session sauvegardée automatiquement a été trouvée (1 zone(s)). La reprendre ?</p>
     <div class="modal-btns">
       <button class="cancel" id="btn-discard">Nouveau</button>
       <button class="ok" id="btn-restore">Reprendre</button>
@@ -23261,6 +23280,7 @@ var S = { meta:{adresse:'',date:'',client:'',expert:'',contexte:'',conclusion_ge
 var AUTOSAVE_KEY='expertise_v2_autosave';
 var isLoading=false;
 var autoTimer=null;
+var GID_SEQ=0;
 
 /* ══════════════════════════════════════════════════════════════════════
    STOCKAGE — IndexedDB (sans limite de taille, contrairement à localStorage
@@ -23311,7 +23331,6 @@ function $(id){return document.getElementById(id)}
 function el(tag,cls,html){var e=document.createElement(tag);if(cls)e.className=cls;if(html!==undefined)e.innerHTML=html;return e}
 function toast(m){var t=$('toast');t.textContent=m;t.className='toast show';setTimeout(function(){t.className='toast'},2600)}
 function esc(s){if(!s)return'';return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
-function escBr(s){return esc(s).replace(/\n/g,'<br>')}
 
 /* ── autosave ── */
 function markDirty(){
@@ -23343,12 +23362,11 @@ function saveLocal(){
       try{
         var light=JSON.parse(json);
         (light.lieux||[]).forEach(function(l){
+          l.photos_lieu=[];
+          l.plan={image:null,markers:l.plan?l.plan.markers:[]};
           (l.zones||[]).forEach(function(z){
-            z.photos_zone=[];
-            z.plan={image:null,markers:z.plan?z.plan.markers:[]};
             (z.desordres||[]).forEach(function(d){
               d.photos=[];
-              d.dplan={image:null,markers:d.dplan?d.dplan.markers:[]};
             });
           });
         });
@@ -23363,24 +23381,26 @@ setInterval(saveLocal,30000);
 /* ── sérialisation (état → JSON) ── */
 function serialize(){
   syncMeta();
+  var gi=0; /* numérotation globale des désordres */
   return {
     meta:{adresse:S.meta.adresse,date:S.meta.date,client:S.meta.client,expert:S.meta.expert,contexte:S.meta.contexte,conclusion_generale:S.meta.conclusion_generale},
     lieux:S.lieux.map(function(l){
       return {
-        lieu:l.nom, collapsed:l.collapsed||false,
+        lieu:l.nom, collapsed:l.collapsed||false, gid:l.gid,
+        plan:{ image:l.plan.canvas&&l.plan.img?l.plan.canvas.toDataURL('image/jpeg',.82):null, markers:l.plan.markers.slice() },
+        photos_lieu:l.photos.map(function(p){return{src:p.src,name:p.name}}),
         zones:l.zones.map(function(z){
+          gi++;
           return {
-            zone:z.nom, description:z.description, collapsed:z.collapsed||false,
+            numero:gi, zone:z.nom, description:z.description, collapsed:z.collapsed||false,
+            gid:z.gid,
             origine:z.origine||'', urgence:z.urgence||'MOYENNE',
             conclusion:z.conclusion||'', conclusionDesordre:z.conclusionDesordre||'',
-            plan:{ image:z.plan.canvas&&z.plan.img?z.plan.canvas.toDataURL('image/jpeg',.82):null, markers:z.plan.markers.slice() },
-            photos_zone:z.photos.map(function(p){return{src:p.src,name:p.name}}),
             desordres:z.desordres.map(function(d,di){
               return {
                 numero:di+1, titre:d.titre, localisation:d.localisation,
                 observations:d.observations.slice(),
-                dplan:{ image:d.dplan.canvas&&d.dplan.img?d.dplan.canvas.toDataURL('image/jpeg',.82):null, markers:d.dplan.markers.slice() },
-                photos:d.photos.map(function(p){return{name:p.name,src:p.src,photoSize:p.photoSize,annotated:p.canvas?p.canvas.toDataURL('image/jpeg',.82):(p.annotated||p.src)}}),
+                photos:d.photos.map(function(p){return{name:p.name,src:p.src,photoSize:p.photoSize,annotated:p.canvas?p.canvas.toDataURL('image/jpeg',.82):(p.annotated||p.src),ref:p.ref||null}}),
                 collapsed:d.collapsed||false
               };
             })
@@ -23408,28 +23428,42 @@ function loadFromJSON(data){
   $('m-expert').value=S.meta.expert||'';
   $('m-ctx').value=S.meta.contexte||'';
   $('m-conclu-gen').value=S.meta.conclusion_generale||'';
-  /* Rétrocompatibilité : anciennes sauvegardes à plat (sans catégorie LIEU) —
-     on les regroupe dans un lieu unique, non nommé, à préciser par l'utilisateur. */
-  var lieuxData=data.lieux;
-  if(!lieuxData)lieuxData=data.zones?[{lieu:'',zones:data.zones}]:[];
-  lieuxData.forEach(function(ld){
+
+  /* ── Rétrocompatibilité ────────────────────────────────────────────────
+     Ancien schéma sans niveau LIEU (data.zones à la racine) : tout est
+     regroupé dans un lieu unique ; le plan et les photos du premier niveau
+     remontent au lieu, puisqu'ils ne vivent plus dans le désordre. */
+  var lieux=data.lieux;
+  if(!lieux){
+    var oldZones=data.zones||[];
+    var plan={image:null,markers:[]},photos=[];
+    oldZones.forEach(function(zd){
+      if(!plan.image&&zd.plan&&zd.plan.image){plan={image:zd.plan.image,markers:zd.plan.markers||[]}}
+      (zd.photos_zone||[]).forEach(function(p){photos.push(p)});
+    });
+    lieux=[{lieu:(data.meta&&data.meta.adresse)||'',plan:plan,photos_lieu:photos,zones:oldZones}];
+  }
+
+  lieux.forEach(function(ld){
     var lieu=createLieu();
     lieu.nom=ld.lieu||'';
+    if(ld.gid)lieu.gid=ld.gid;
     lieu.dom.titleInput.value=lieu.nom;
-    if(ld.collapsed&&lieu.dom.toggleL)lieu.dom.toggleL.click();
+    if(ld.plan&&ld.plan.image)loadPlanImage(lieu.plan,ld.plan.image,ld.plan.markers||[]);
+    (ld.photos_lieu||[]).forEach(function(p){addLieuPhotoObj(lieu,p)});
+
     (ld.zones||[]).forEach(function(zd){
       var zone=createZone(lieu);
       zone.nom=zd.zone||'';zone.description=zd.description||'';
+      if(zd.gid)zone.gid=zd.gid;
       zone.dom.titleInput.value=zone.nom;
       zone.dom.typeVal.textContent=zone.nom||'—';
       zone.dom.descInput.value=zone.description;
-      /* Fiche de synthèse au niveau du désordre (nouveau format) */
       zone.origine=zd.origine||'';
       zone.conclusion=zd.conclusion||'';
       zone.conclusionDesordre=zd.conclusionDesordre||'';
       var urg=zd.urgence||null;
-      /* Rétrocompatibilité : ancien format où la fiche était portée par chaque
-         sous-désordre — on remonte la première fiche renseignée trouvée. */
+      /* Ancien schéma : fiche portée par chaque sous-désordre → on la remonte */
       if(!zone.origine&&!zone.conclusion&&!zone.conclusionDesordre&&!urg){
         var src=(zd.desordres||[]).filter(function(dd){return dd.origine||dd.conclusion||dd.conclusionDesordre})[0];
         if(src){
@@ -23443,26 +23477,29 @@ function loadFromJSON(data){
       zone.dom.concluInput.value=zone.conclusion;
       zone.dom.conclusionDesordreInput.value=zone.conclusionDesordre;
       if(zone.dom.setUrgence)zone.dom.setUrgence(urg||'MOYENNE');
-      if(zd.plan&&zd.plan.image)loadPlanImage(zone.plan,zd.plan.image,zd.plan.markers||[]);
-      (zd.photos_zone||[]).forEach(function(p){addZonePhotoObj(zone,p)});
-      if(zd.collapsed&&zone.dom.toggleZ)zone.dom.toggleZ.click();
+
       (zd.desordres||[]).forEach(function(dd){
         var d=createDesordre(zone);
         d.titre=dd.titre||'';d.localisation=dd.localisation||'';
         d.dom.titleInput.value=d.titre;
         d.dom.locInput.value=d.localisation;
         (dd.observations||[]).forEach(function(o){addObs(d,o)});
-        if(dd.dplan&&dd.dplan.image)loadPlanImage(d.dplan,dd.dplan.image,dd.dplan.markers||[]);
-        (dd.photos||[]).forEach(function(p){addAnnoPhoto(d,p,true)});
+        (dd.photos||[]).forEach(function(p){
+          /* ancien repère 'zone' → désormais porté par le plan du lieu */
+          if(p.ref&&p.ref.src==='zone')p.ref={src:'lieu',num:p.ref.num};
+          if(p.ref&&p.ref.src==='obs')p.ref=null; /* le plan d'observation n'existe plus */
+          addAnnoPhoto(d,p,true);
+        });
         if(dd.collapsed&&d.dom.toggleD)d.dom.toggleD.click();
       });
+      if(zd.collapsed&&zone.dom.toggleZ)zone.dom.toggleZ.click();
     });
+    if(ld.collapsed&&lieu.dom.toggleL)lieu.dom.toggleL.click();
   });
   renumberAll();
   setTimeout(function(){isLoading=false;saveLocal()},800);
 }
 
-/* ── file picker (iPad-safe : input 1px hors écran) ── */
 function pickFile(opts,cb){
   /* Supprime l'éventuel ancien input orphelin */
   var old=$('__fp');if(old)old.remove();
@@ -23506,38 +23543,6 @@ function pickFile(opts,cb){
 }
 function readAsDataURL(file,cb){var r=new FileReader();r.onload=function(e){cb(e.target.result)};r.readAsDataURL(file)}
 
-/* ── Photos : réduction à l'import ───────────────────────────────────────
-   Les photos des appareils récents pèsent 3 à 5 Mo pièce. Or le canevas
-   d'annotation comme l'export sont plafonnés à 760 px de large : conserver
-   l'original en pleine résolution n'apporte rien et alourdit la sauvegarde
-   IndexedDB comme le .json exporté (81 Mo pour 17 photos sur la mission 2490).
-   On redimensionne donc dès l'import, au plus grand côté PHOTO_MAX_PX.
-   Les images déjà légères sont conservées telles quelles (pas de
-   recompression inutile) ; en cas d'échec, on retombe sur l'original. */
-var PHOTO_MAX_PX=1600, PHOTO_Q=.85, PHOTO_SKIP_BYTES=700*1024;
-function readImageResized(file,cb){
-  readAsDataURL(file,function(src){
-    var img=new Image();
-    img.onload=function(){
-      try{
-        var m=Math.max(img.width,img.height);
-        if(m<=PHOTO_MAX_PX&&file&&file.size&&file.size<=PHOTO_SKIP_BYTES){cb(src);return;}
-        var sc=Math.min(1,PHOTO_MAX_PX/m);
-        var cv=document.createElement('canvas');
-        cv.width=Math.max(1,Math.round(img.width*sc));
-        cv.height=Math.max(1,Math.round(img.height*sc));
-        var ctx=cv.getContext('2d');
-        ctx.fillStyle='#fff';ctx.fillRect(0,0,cv.width,cv.height);
-        ctx.drawImage(img,0,0,cv.width,cv.height);
-        var out=cv.toDataURL('image/jpeg',PHOTO_Q);
-        cb(out&&out.length>100&&out.length<src.length?out:src);
-      }catch(e){cb(src)}
-    };
-    img.onerror=function(){cb(src)};
-    img.src=src;
-  });
-}
-
 /* ── Drag-and-drop générique ──────────────────────────────────────────
    Ajoute le dépôt de fichiers sur n'importe quel élément.
    accept : 'image/*' | '.json' | null (tout) */
@@ -23561,6 +23566,15 @@ function makeDraggable(el,onFiles,accept){
 }
 
 /* ═══ PLAN générique (zone ou désordre) ═══ */
+/* ── Helpers hiérarchie : LIEU → DÉSORDRE (zone) → Observation (desordre) ── */
+function allZones(){
+  var a=[];S.lieux.forEach(function(l){l.zones.forEach(function(z){a.push(z)})});return a;
+}
+function zoneIndex(zone){return allZones().indexOf(zone)}          /* n° global du DÉSORDRE */
+function zoneLieu(zone){
+  for(var i=0;i<S.lieux.length;i++){if(S.lieux[i].zones.indexOf(zone)>=0)return S.lieux[i]}
+  return null;
+}
 function makePlanState(){return{img:null,markers:[],imgObj:null,canvas:null,ctx:null}}
 function loadPlanImage(plan,src,markers){
   plan.img=src;plan.markers=markers||[];
@@ -23600,12 +23614,12 @@ function buildPlanUI(plan,container,labelText,withCamera){
     var libBtn=el('button','abtn','🖼 Photothèque');libBtn.type='button';
     row.appendChild(camBtn);row.appendChild(libBtn);
     container.appendChild(row);
-    camBtn.addEventListener('click',function(){pickFile({capture:'environment'},function(fs){readImageResized(fs[0],function(src){loadPlanImage(plan,src,[]);markDirty()})})});
-    libBtn.addEventListener('click',function(){pickFile({},function(fs){readImageResized(fs[0],function(src){loadPlanImage(plan,src,[]);markDirty()})})});
-    makeDraggable(libBtn,function(fs){readImageResized(fs[0],function(src){loadPlanImage(plan,src,[]);markDirty()});},'image/*');
+    camBtn.addEventListener('click',function(){pickFile({capture:'environment'},function(fs){readAsDataURL(fs[0],function(src){loadPlanImage(plan,src,[]);markDirty()})})});
+    libBtn.addEventListener('click',function(){pickFile({},function(fs){readAsDataURL(fs[0],function(src){loadPlanImage(plan,src,[]);markDirty()})})});
+    makeDraggable(libBtn,function(fs){readAsDataURL(fs[0],function(src){loadPlanImage(plan,src,[]);markDirty()});},'image/*');
   }
-  importBtn.addEventListener('click',function(){pickFile({},function(fs){readImageResized(fs[0],function(src){loadPlanImage(plan,src,[]);markDirty()})})});
-  makeDraggable(importBtn,function(fs){readImageResized(fs[0],function(src){loadPlanImage(plan,src,[]);markDirty()});},'image/*');
+  importBtn.addEventListener('click',function(){pickFile({},function(fs){readAsDataURL(fs[0],function(src){loadPlanImage(plan,src,[]);markDirty()})})});
+  makeDraggable(importBtn,function(fs){readAsDataURL(fs[0],function(src){loadPlanImage(plan,src,[]);markDirty()});},'image/*');
 
   var planBox=el('div');planBox.style.display='none';
   var wrap=el('div','plan-wrap');
@@ -23639,34 +23653,53 @@ function buildPlanUI(plan,container,labelText,withCamera){
   chgB.addEventListener('click',function(){plan.img=null;plan.markers=[];plan.imgObj=null;plan.ctx=null;plan.hideFn();markDirty()});
 }
 
-/* ═══ LIEU ═══
-   Catégorie de plus haut niveau : regroupe les désordres constatés à un même
-   endroit (Façade, Appartement R+1, Courette, Toiture…). */
+/* ═══ LIEU (niveau racine) ═══ */
 function createLieu(){
-  var lieu={nom:'',zones:[],dom:{}};
+  var lieu={nom:'',plan:makePlanState(),photos:[],zones:[],collapsed:false,
+            gid:'l'+Date.now().toString(36)+'_'+(++GID_SEQ),dom:{}};
   S.lieux.push(lieu);
 
   var card=el('div','lieu-card');
   var hdr=el('div','lieu-hdr');
   var numSpan=el('span','lieu-num','Lieu '+S.lieux.length);
-  var ti=document.createElement('input');ti.type='text';ti.placeholder='Façade, Appartement R+1, Courette, Toiture…';
+  var ti=document.createElement('input');ti.type='text';ti.placeholder='Appartement R+2, Façade sur rue, Cave…';
   var toggleL=el('button','lieu-toggle','▼');toggleL.type='button';toggleL.title='Déplier / Replier';
   var delB=el('button','xs','✕ Supprimer');delB.type='button';
   hdr.appendChild(numSpan);hdr.appendChild(ti);hdr.appendChild(toggleL);hdr.appendChild(delB);
   card.appendChild(hdr);
 
   var body=el('div','lieu-body');
+
+  /* Plan du lieu (avec repères) */
+  buildPlanUI(lieu.plan,body,'Plan du lieu',true);
+
+  /* Photos générales du lieu */
+  body.appendChild(el('div','hr'));
+  body.appendChild(el('div','sec','Photos générales du lieu'));
+  var prow=el('div','row2');
+  var pc=el('button','abtn','📷 Prendre');pc.type='button';
+  var pl=el('button','abtn','🖼 Photothèque');pl.type='button';
+  prow.appendChild(pc);prow.appendChild(pl);
+  body.appendChild(prow);
+  var dropZone=el('div','drop-zone');
+  var pgrid=el('div','photo-grid');
+  dropZone.appendChild(el('div','drop-hint','⬇ Glissez des photos ici'));
+  dropZone.appendChild(pgrid);
+  body.appendChild(dropZone);
+  lieu.dom.photoGrid=pgrid;
+
+  /* Désordres du lieu */
+  body.appendChild(el('div','hr'));
   var zList=el('div');
   body.appendChild(zList);
   lieu.dom.zList=zList;
   var addZ=el('button','abtn blue','+ Ajouter un désordre');addZ.type='button';addZ.style.padding='13px';
   body.appendChild(addZ);
+
   card.appendChild(body);
   $('zones').appendChild(card);
-
   lieu.dom.card=card;lieu.dom.titleInput=ti;lieu.dom.numSpan=numSpan;lieu.dom.toggleL=toggleL;
 
-  /* ── Toggle collapse lieu ── */
   function applyLieuCollapse(collapsed){
     body.classList.toggle('collapsed',collapsed);
     toggleL.classList.toggle('collapsed',collapsed);
@@ -23674,66 +23707,126 @@ function createLieu(){
     lieu.collapsed=collapsed;
   }
   toggleL.addEventListener('click',function(e){e.stopPropagation();applyLieuCollapse(!lieu.collapsed);markDirty()});
-  if(lieu.collapsed)applyLieuCollapse(true);
 
   ti.addEventListener('input',function(){lieu.nom=ti.value;markDirty()});
+  ti.addEventListener('change',function(){renumberAll()});
   delB.addEventListener('click',function(){
     var i=S.lieux.indexOf(lieu);
     if(i>=0)S.lieux.splice(i,1);
     card.remove();renumberAll();markDirty();
   });
+  function addLieuPhotos(fs){Array.prototype.forEach.call(fs,function(f){readAsDataURL(f,function(src){addLieuPhotoObj(lieu,{src:src,name:f.name});markDirty()})})}
+  pc.addEventListener('click',function(){pickFile({capture:'environment'},addLieuPhotos)});
+  pl.addEventListener('click',function(){pickFile({multiple:true},addLieuPhotos)});
+  makeDraggable(pl,addLieuPhotos,'image/*');
+  makeDraggable(dropZone,addLieuPhotos,'image/*');
   addZ.addEventListener('click',function(){createZone(lieu);markDirty()});
 
   if(!isLoading)createZone(lieu);
-
+  if(!isLoading)renumberAll();
   return lieu;
 }
-/* Renumérote LIEU (local à S.lieux) et DÉSORDRE (numéro continu, tous lieux
-   confondus, pour rester cohérent avec les repères D1, D2… du rapport Word)
-   ainsi que les badges OBSERVATION qui en dépendent. */
-function renumberAll(){
-  var zi=0;
-  S.lieux.forEach(function(l,li){
-    if(l.dom.numSpan)l.dom.numSpan.textContent='Lieu '+(li+1);
-    l.zones.forEach(function(z){
-      zi++;
-      z._num=zi;
-      if(z.dom.numSpan)z.dom.numSpan.textContent='Désordre '+zi;
-      z.desordres.forEach(function(d,j){if(d.dom.badge)d.dom.badge.textContent='Observation '+zi+'.'+(j+1)});
-    });
+function addLieuPhotoObj(lieu,p){
+  var photo={src:p.src,name:p.name||'photo'};
+  lieu.photos.push(photo);
+  var th=el('div','photo-thumb');
+  var img=document.createElement('img');img.src=photo.src;
+  var x=el('button','xbtn','✕');x.type='button';
+  th.appendChild(img);th.appendChild(x);
+  lieu.dom.photoGrid.appendChild(th);
+  x.addEventListener('click',function(){
+    var i=lieu.photos.indexOf(photo);
+    if(i>=0)lieu.photos.splice(i,1);
+    th.remove();markDirty();
   });
 }
 
-/* ═══ ZONE (DÉSORDRE) ═══ */
+/* ═══ DÉSORDRE ═══ */
 function createZone(lieu){
-  var zone={nom:'',description:'',plan:makePlanState(),photos:[],desordres:[],origine:'',urgence:'MOYENNE',conclusion:'',conclusionDesordre:'',dom:{}};
+  var zone={nom:'',description:'',desordres:[],origine:'',urgence:'MOYENNE',conclusion:'',conclusionDesordre:'',
+            gid:'g'+Date.now().toString(36)+'_'+(++GID_SEQ),collapsed:false,dom:{}};
   lieu.zones.push(zone);
 
   var card=el('div','zone-card');
   var hdr=el('div','zone-hdr');
-  var numSpan=el('span','zone-num','Désordre');
-  var ti=document.createElement('input');ti.type='text';ti.placeholder='Fissuration, Infiltration, Tassement…';
+  var numSpan=el('span','zone-num','Désordre '+allZones().length);
+  var ti=document.createElement('input');ti.type='text';ti.placeholder='Fissuration, Infiltration, Affaissement…';
+  var grpB=el('button','grp-btn','🔗 Grouper');grpB.type='button';grpB.title='Grouper ce désordre avec un autre';
   var toggleZ=el('button','zone-toggle','▼');toggleZ.type='button';toggleZ.title='Déplier / Replier';
   var delB=el('button','xs','✕ Supprimer');delB.type='button';
-  hdr.appendChild(numSpan);hdr.appendChild(ti);hdr.appendChild(toggleZ);hdr.appendChild(delB);
+  hdr.appendChild(numSpan);hdr.appendChild(ti);hdr.appendChild(grpB);hdr.appendChild(toggleZ);hdr.appendChild(delB);
   card.appendChild(hdr);
 
+  /* ── Panneau de groupement (fusion sous une référence choisie) ── */
+  var grpPanel=el('div','ref-panel');
+  card.appendChild(grpPanel);
+  zone.dom.grpPanel=grpPanel;
+  function buildGroupPanel(){
+    grpPanel.innerHTML='';
+    var others=allZones().filter(function(z){return z!==zone});
+    if(!others.length){
+      grpPanel.appendChild(el('div','ref-label','Aucun autre désordre à grouper.'));
+      var closeOnly=el('div','ref-actions');
+      var cb0=el('button','ref-cancel','Fermer');cb0.type='button';
+      closeOnly.appendChild(cb0);grpPanel.appendChild(closeOnly);
+      cb0.addEventListener('click',function(){grpPanel.classList.remove('open')});
+      return;
+    }
+    function lbl(z){
+      var l=zoneLieu(z),li=S.lieux.indexOf(l)+1;
+      return 'Lieu '+li+' › Désordre '+(zoneIndex(z)+1)+(z.nom?' — '+z.nom:'');
+    }
+    var oSel=document.createElement('select');
+    others.forEach(function(z){
+      var o=document.createElement('option');o.value=allZones().indexOf(z);
+      o.textContent=lbl(z);oSel.appendChild(o);
+    });
+    var rSel=document.createElement('select');
+    function fillRef(){
+      rSel.innerHTML='';
+      var other=allZones()[parseInt(oSel.value,10)];
+      var a=document.createElement('option');a.value='this';
+      a.textContent='Désordre '+(zoneIndex(zone)+1)+(zone.nom?' — '+zone.nom:'')+'  (celui-ci)';
+      var b=document.createElement('option');b.value='other';
+      b.textContent='Désordre '+(zoneIndex(other)+1)+(other&&other.nom?' — '+other.nom:'');
+      rSel.appendChild(a);rSel.appendChild(b);
+    }
+    fillRef();
+    oSel.addEventListener('change',fillRef);
+    function addRow(t,selEl){
+      var row=el('div','ref-row');
+      row.appendChild(el('div','ref-label',t));
+      row.appendChild(selEl);
+      grpPanel.appendChild(row);
+    }
+    addRow('Grouper avec',oSel);
+    addRow('Conserver la référence de',rSel);
+    var note=el('div','ref-label','Les observations, photos et repères des deux désordres seront réunis sous la référence choisie.');
+    note.style.cssText='text-transform:none;letter-spacing:0;font-weight:400;color:#7a8894;margin-top:2px';
+    grpPanel.appendChild(note);
+    var actions=el('div','ref-actions');
+    var okB=el('button','ref-apply','Grouper');okB.type='button';
+    var caB=el('button','ref-cancel','Fermer');caB.type='button';
+    actions.appendChild(okB);actions.appendChild(caB);
+    grpPanel.appendChild(actions);
+    caB.addEventListener('click',function(){grpPanel.classList.remove('open')});
+    okB.addEventListener('click',function(){
+      var other=allZones()[parseInt(oSel.value,10)];
+      if(!other){grpPanel.classList.remove('open');return;}
+      grpPanel.classList.remove('open');
+      mergeZones(rSel.value==='this'?zone:other, rSel.value==='this'?other:zone);
+    });
+  }
+  grpB.addEventListener('click',function(e){
+    e.stopPropagation();
+    if(grpPanel.classList.contains('open')){grpPanel.classList.remove('open');return;}
+    buildGroupPanel();grpPanel.classList.add('open');
+  });
+
   var body=el('div','zone-body');
-  body.appendChild(el('div','sec','Description sommaire du désordre'));
-  var desc=document.createElement('textarea');desc.className='std';desc.rows=2;desc.placeholder='Contexte, accès, état général…';
+  body.appendChild(el('div','sec','Description sommaire de la structure'));
+  var desc=document.createElement('textarea');desc.className='std';desc.rows=2;desc.placeholder='ex : plancher bois, cloison briques, plafond…';
   body.appendChild(desc);
-
-  buildPlanUI(zone.plan,body,'Plan de la zone',false);
-
-  body.appendChild(el('div','sec','Photos générales de la zone'));
-  var prow=el('div','row2');
-  var pc=el('button','abtn','📷 Prendre');pc.type='button';
-  var pl=el('button','abtn','🖼 Photothèque');pl.type='button';
-  prow.appendChild(pc);prow.appendChild(pl);
-  body.appendChild(prow);
-  var pgrid=el('div','photo-grid');
-  body.appendChild(pgrid);
-  zone.dom.photoGrid=pgrid;
 
   body.appendChild(el('div','hr'));
   var dList=el('div');
@@ -23803,7 +23896,6 @@ function createZone(lieu){
 
   zone.dom.card=card;zone.dom.titleInput=ti;zone.dom.descInput=desc;zone.dom.numSpan=numSpan;zone.dom.toggleZ=toggleZ;
 
-  /* ── Toggle collapse zone ── */
   function applyZoneCollapse(collapsed){
     body.classList.toggle('collapsed',collapsed);
     toggleZ.classList.toggle('collapsed',collapsed);
@@ -23811,6 +23903,7 @@ function createZone(lieu){
     zone.collapsed=collapsed;
   }
   toggleZ.addEventListener('click',function(e){e.stopPropagation();applyZoneCollapse(!zone.collapsed);markDirty()});
+  zone.dom.applyCollapse=applyZoneCollapse;
   if(zone.collapsed)applyZoneCollapse(true);
 
   ti.addEventListener('input',function(){zone.nom=ti.value;typeVal.textContent=ti.value||'—';markDirty()});
@@ -23819,42 +23912,74 @@ function createZone(lieu){
   conclu.addEventListener('input',function(){zone.conclusion=conclu.value;markDirty()});
   conclDesTa.addEventListener('input',function(){zone.conclusionDesordre=conclDesTa.value;markDirty()});
   delB.addEventListener('click',function(){
-    var i=lieu.zones.indexOf(zone);
-    if(i>=0)lieu.zones.splice(i,1);
+    var l=zoneLieu(zone);
+    if(l){var i=l.zones.indexOf(zone);if(i>=0)l.zones.splice(i,1)}
     card.remove();renumberAll();markDirty();
   });
-  pc.addEventListener('click',function(){pickFile({capture:'environment'},function(fs){Array.prototype.forEach.call(fs,function(f){readImageResized(f,function(src){addZonePhotoObj(zone,{src:src,name:f.name});markDirty()})})})});
-  pl.addEventListener('click',function(){pickFile({multiple:true},function(fs){Array.prototype.forEach.call(fs,function(f){readImageResized(f,function(src){addZonePhotoObj(zone,{src:src,name:f.name});markDirty()})})})});
-  makeDraggable(pl,function(fs){Array.prototype.forEach.call(fs,function(f){readImageResized(f,function(src){addZonePhotoObj(zone,{src:src,name:f.name});markDirty()})});},'image/*');
   addD.addEventListener('click',function(){createDesordre(zone);markDirty()});
 
   if(!isLoading)createDesordre(zone);
-  renumberAll();
-
   return zone;
 }
-function addZonePhotoObj(zone,p){
-  var photo={src:p.src,name:p.name||'photo'};
-  zone.photos.push(photo);
-  var th=el('div','pthumb','<img src="'+photo.src+'">');
-  var x=el('button','xbtn','✕');x.type='button';
-  th.appendChild(x);
-  zone.dom.photoGrid.appendChild(th);
-  x.addEventListener('click',function(){
-    var i=zone.photos.indexOf(photo);
-    if(i>=0)zone.photos.splice(i,1);
-    th.remove();markDirty();
+
+/* ── Fusion de deux désordres sous la référence conservée ── */
+function mergeZones(kept,removed){
+  if(!kept||!removed||kept===removed)return;
+  var keptNum=zoneIndex(kept)+1, remNum=zoneIndex(removed)+1;
+  /* 1. Les observations du désordre absorbé rejoignent celui conservé (DOM + données) */
+  removed.desordres.slice().forEach(function(d){
+    kept.desordres.push(d);
+    kept.dom.dList.appendChild(d.dom.box);
   });
+  removed.desordres=[];
+  /* 2. Champs de la fiche : on ne perd rien — on complète les champs vides,
+        on concatène si les deux sont renseignés, on retient l'urgence la plus forte. */
+  function mergeText(a,b){
+    a=(a||'').trim();b=(b||'').trim();
+    if(!a)return b;
+    if(!b||a===b)return a;
+    return a+'\n'+b;
+  }
+  kept.description=mergeText(kept.description,removed.description);
+  kept.origine=mergeText(kept.origine,removed.origine);
+  kept.conclusion=mergeText(kept.conclusion,removed.conclusion);
+  kept.conclusionDesordre=mergeText(kept.conclusionDesordre,removed.conclusionDesordre);
+  var rank={'FAIBLE':0,'MOYENNE':1,'ÉLEVÉE':2};
+  var urg=(rank[removed.urgence]||0)>(rank[kept.urgence]||0)?removed.urgence:kept.urgence;
+  /* 3. Rafraîchir les champs affichés */
+  kept.dom.descInput.value=kept.description;
+  kept.dom.origineInput.value=kept.origine;
+  kept.dom.concluInput.value=kept.conclusion;
+  kept.dom.conclusionDesordreInput.value=kept.conclusionDesordre;
+  if(kept.dom.setUrgence)kept.dom.setUrgence(urg);
+  /* 4. Retirer le désordre absorbé */
+  var l=zoneLieu(removed);
+  if(l){var i=l.zones.indexOf(removed);if(i>=0)l.zones.splice(i,1)}
+  if(removed.dom.card)removed.dom.card.remove();
+  if(kept.collapsed&&kept.dom.applyCollapse)kept.dom.applyCollapse(false);
+  renumberAll();markDirty();
+  toast('Désordres '+Math.min(keptNum,remNum)+' et '+Math.max(keptNum,remNum)+' groupés sous « Désordre '+(zoneIndex(kept)+1)+' » ✓');
 }
 
-/* ═══ DÉSORDRE ═══ */
+/* ── Renumérotation globale : lieux, désordres (n° global) et observations ── */
+function renumberAll(){
+  S.lieux.forEach(function(l,li){
+    if(l.dom&&l.dom.numSpan)l.dom.numSpan.textContent='Lieu '+(li+1);
+  });
+  allZones().forEach(function(z,zi){
+    if(z.dom&&z.dom.numSpan)z.dom.numSpan.textContent='Désordre '+(zi+1);
+    z.desordres.forEach(function(d,j){
+      if(d.dom&&d.dom.badge)d.dom.badge.textContent='Observation '+(zi+1)+'.'+(j+1);
+    });
+  });
+}
 function createDesordre(zone){
-  var d={titre:'',localisation:'',observations:[],dplan:makePlanState(),photos:[],dom:{}};
+  var d={titre:'',localisation:'',observations:[],photos:[],dom:{}};
   zone.desordres.push(d);
 
   var box=el('div','desordre');
   var hdr=el('div','d-hdr');
-  var badge=el('span','dbadge','Observation');
+  var badge=el('span','dbadge','Observation '+(zoneIndex(zone)+1)+'.'+zone.desordres.length);
   var ti=document.createElement('input');ti.type='text';ti.placeholder='Fissure, Infiltration…';
   var toggleD=el('button','d-toggle','▼');toggleD.type='button';toggleD.title='Déplier / Replier';
   var delB=el('button','xs','✕');delB.type='button';
@@ -23905,14 +24030,14 @@ function createDesordre(zone){
     box.remove();renumberAll();markDirty();
   });
   addO.addEventListener('click',function(){addObs(d,'');markDirty()});
-  pc.addEventListener('click',function(){pickFile({capture:'environment'},function(fs){Array.prototype.forEach.call(fs,function(f){readImageResized(f,function(src){addAnnoPhoto(d,{src:src,name:f.name},false);markDirty()})})})});
-  pl.addEventListener('click',function(){pickFile({multiple:true},function(fs){Array.prototype.forEach.call(fs,function(f){readImageResized(f,function(src){addAnnoPhoto(d,{src:src,name:f.name},false);markDirty()})})})});
-  makeDraggable(pl,function(fs){Array.prototype.forEach.call(fs,function(f){readImageResized(f,function(src){addAnnoPhoto(d,{src:src,name:f.name},false);markDirty()})});},'image/*');
+  pc.addEventListener('click',function(){pickFile({capture:'environment'},function(fs){Array.prototype.forEach.call(fs,function(f){readAsDataURL(f,function(src){addAnnoPhoto(d,{src:src,name:f.name},false);markDirty()})})})});
+  pl.addEventListener('click',function(){pickFile({multiple:true},function(fs){Array.prototype.forEach.call(fs,function(f){readAsDataURL(f,function(src){addAnnoPhoto(d,{src:src,name:f.name},false);markDirty()})})})});
+  makeDraggable(pl,function(fs){Array.prototype.forEach.call(fs,function(f){readAsDataURL(f,function(src){addAnnoPhoto(d,{src:src,name:f.name},false);markDirty()})});},'image/*');
 
   if(!isLoading)addObs(d,'');
-  renumberAll();
   return d;
 }
+
 
 /* ═══ OBSERVATIONS ═══ */
 function addObs(d,initial){
@@ -23935,8 +24060,17 @@ function addObs(d,initial){
 }
 
 /* ═══ PHOTO ANNOTÉE ═══ */
+function getPhotoOwner(photo){
+  var zs=allZones();
+  for(var i=0;i<zs.length;i++){
+    for(var j=0;j<zs[i].desordres.length;j++){
+      if(zs[i].desordres[j].photos.indexOf(photo)>=0)return zs[i].desordres[j];
+    }
+  }
+  return null;
+}
 function addAnnoPhoto(d,p,restored){
-  var photo={src:p.src,name:p.name||'photo',photoSize:p.photoSize||'standard',annotated:p.annotated||null,canvas:null,state:null};
+  var photo={src:p.src,name:p.name||'photo',photoSize:p.photoSize||'standard',annotated:p.annotated||null,ref:p.ref||null,canvas:null,state:null};
   d.photos.push(photo);
 
   var block=el('div','anno-block');
@@ -23946,9 +24080,150 @@ function addAnnoPhoto(d,p,restored){
   var bStd=el('button','ps-btn'+(photo.photoSize==='standard'?' on':''),'Std');bStd.type='button';
   var bGrd=el('button','ps-btn'+(photo.photoSize==='grande'?' on':''),'Grande');bGrd.type='button';
   var shareB=el('button','ps-btn','💾');shareB.type='button';shareB.title='Enregistrer la photo (photothèque ou Fichiers)';
+  var refB=el('button','ps-btn','📍 Réf');refB.type='button';refB.title='Référencer la photo (désordre / observation / repère)';
+  var refBadge=el('span','ref-badge','');
   var del=el('button','del','✕');del.type='button';
-  hdr.appendChild(fn);hdr.appendChild(lbl);hdr.appendChild(bStd);hdr.appendChild(bGrd);hdr.appendChild(shareB);hdr.appendChild(del);
+  hdr.appendChild(fn);hdr.appendChild(lbl);hdr.appendChild(bStd);hdr.appendChild(bGrd);hdr.appendChild(refB);hdr.appendChild(refBadge);hdr.appendChild(shareB);hdr.appendChild(del);
   block.appendChild(hdr);
+
+  /* ── Panneau de référence (désordre / observation / repère) ── */
+  var refPanel=el('div','ref-panel');
+  block.appendChild(refPanel);
+  function updateRefBadge(){
+    if(photo.ref&&photo.ref.num){
+      refBadge.textContent='📍 R'+photo.ref.num;
+      refBadge.title='Repère '+photo.ref.num+' — plan du lieu';
+      refBadge.classList.add('on');
+    }else{
+      refBadge.textContent='';refBadge.classList.remove('on');
+    }
+  }
+  updateRefBadge();
+  function buildRefPanel(){
+    refPanel.innerHTML='';
+    var curD=getPhotoOwner(photo);
+    var lSel=document.createElement('select');
+    var zSel=document.createElement('select');
+    var oSel=document.createElement('select');
+    var mSel=document.createElement('select');
+    function addRow(labelTxt,selectEl){
+      var row=el('div','ref-row');
+      row.appendChild(el('div','ref-label',labelTxt));
+      row.appendChild(selectEl);
+      refPanel.appendChild(row);
+    }
+    /* ── Lieux ── */
+    S.lieux.forEach(function(l,i){
+      var o=document.createElement('option');o.value=i;
+      o.textContent='Lieu '+(i+1)+(l.nom?' — '+l.nom:'');
+      lSel.appendChild(o);
+    });
+    function curLieu(){return S.lieux[parseInt(lSel.value,10)]}
+    function curZone(){var l=curLieu();return l?l.zones[parseInt(zSel.value,10)]:null}
+    function curObs(){var z=curZone();return z?z.desordres[parseInt(oSel.value,10)]:null}
+    /* ── Désordres du lieu sélectionné (numérotation globale) ── */
+    function fillZones(){
+      zSel.innerHTML='';
+      var l=curLieu();if(!l)return;
+      l.zones.forEach(function(z,j){
+        var o=document.createElement('option');o.value=j;
+        o.textContent='Désordre '+(zoneIndex(z)+1)+(z.nom?' — '+z.nom:'');
+        zSel.appendChild(o);
+      });
+    }
+    /* ── Observations du désordre sélectionné ── */
+    function fillObs(){
+      oSel.innerHTML='';
+      var z=curZone();if(!z)return;
+      var gi=zoneIndex(z)+1;
+      z.desordres.forEach(function(dd,k){
+        var o=document.createElement('option');o.value=k;
+        o.textContent='Observation '+gi+'.'+(k+1)+(dd.titre?' — '+dd.titre:'');
+        oSel.appendChild(o);
+      });
+    }
+    /* ── Repères : plan du lieu + plan de l'observation ── */
+    function fillMarkers(){
+      mSel.innerHTML='';
+      var none=document.createElement('option');none.value='';none.textContent='— aucun repère —';
+      mSel.appendChild(none);
+      var l=curLieu();
+      if(l)(l.plan&&l.plan.markers||[]).forEach(function(m){
+        var o=document.createElement('option');o.value='l:'+m.num;
+        o.textContent='Repère '+m.num+' — plan du lieu';
+        mSel.appendChild(o);
+      });
+    }
+    /* ── Pré-sélection : emplacement actuel de la photo ── */
+    var cl=0,cz=0,co=0;
+    S.lieux.forEach(function(l,i){
+      l.zones.forEach(function(z,j){
+        var k=z.desordres.indexOf(curD);
+        if(k>=0){cl=i;cz=j;co=k;}
+      });
+    });
+    lSel.value=String(cl);
+    fillZones();zSel.value=String(cz);
+    fillObs();oSel.value=String(co);
+    fillMarkers();
+    if(photo.ref&&photo.ref.num){
+      /* 'zone' = ancien format, désormais porté par le lieu */
+      mSel.value='l:'+photo.ref.num;
+      if(mSel.selectedIndex<0)mSel.value='';
+    }
+    lSel.addEventListener('change',function(){fillZones();fillObs();fillMarkers()});
+    zSel.addEventListener('change',function(){fillObs();fillMarkers()});
+    oSel.addEventListener('change',fillMarkers);
+    addRow('Lieu',lSel);
+    addRow('Désordre',zSel);
+    addRow('Observation',oSel);
+    addRow('Repère sur plan',mSel);
+    var actions=el('div','ref-actions');
+    var applyB=el('button','ref-apply','Appliquer');applyB.type='button';
+    var cancelB=el('button','ref-cancel','Fermer');cancelB.type='button';
+    actions.appendChild(applyB);actions.appendChild(cancelB);
+    refPanel.appendChild(actions);
+    cancelB.addEventListener('click',function(){refPanel.classList.remove('open')});
+    applyB.addEventListener('click',function(){
+      var oTarget=curObs();
+      if(!oTarget){refPanel.classList.remove('open');return;}
+      var mv=mSel.value,newRef=null;
+      if(mv){
+        var parts=mv.split(':');
+        newRef={src:parts[0]==='l'?'lieu':'obs',num:parseInt(parts[1],10)};
+      }
+      var owner=getPhotoOwner(photo);
+      if(oTarget!==owner){
+        /* Déplacement physique : la photo est recréée dans l'observation cible
+           (annotations dessinées préservées via l'état courant du canvas) */
+        var pdata={
+          name:photo.name,src:photo.src,photoSize:photo.photoSize,
+          annotated:photo.canvas?photo.canvas.toDataURL('image/jpeg',.82):(photo.annotated||photo.src),
+          ref:newRef
+        };
+        if(owner){
+          var idx=owner.photos.indexOf(photo);
+          if(idx>=0)owner.photos.splice(idx,1);
+        }
+        block.remove();
+        addAnnoPhoto(oTarget,pdata,true);
+        var tz=curZone();
+        toast('Photo déplacée vers Observation '+(zoneIndex(tz)+1)+'.'+(tz.desordres.indexOf(oTarget)+1)+' ✓');
+        markDirty();
+        return;
+      }
+      photo.ref=newRef;
+      updateRefBadge();
+      refPanel.classList.remove('open');
+      toast(newRef?'Référence enregistrée ✓':'Référence retirée');
+      markDirty();
+    });
+  }
+  refB.addEventListener('click',function(){
+    if(refPanel.classList.contains('open')){refPanel.classList.remove('open');return;}
+    buildRefPanel();
+    refPanel.classList.add('open');
+  });
 
   var cw=el('div','anno-cv');
   var cv=document.createElement('canvas');
@@ -24202,6 +24477,14 @@ function buildDocx(){
   var nbs={top:nb,bottom:nb,left:nb,right:nb};
 
   function txt(t,opts){opts=opts||{};return new D.TextRun({text:t||'',bold:opts.bold,color:opts.color||'222222',size:opts.size||19,font:'Arial',italics:opts.italics})}
+  function txtML(t,opts){
+    opts=opts||{};
+    var s=(t===undefined||t===null||t==='')?'—':String(t);
+    return s.split('\n').map(function(line,i){
+      return new D.TextRun({text:line.trim(),bold:opts.bold,color:opts.color||'222222',
+        size:opts.size||19,font:'Arial',italics:opts.italics,break:i>0?1:undefined});
+    });
+  }
   function para(children,opts){opts=opts||{};return new D.Paragraph({children:children,spacing:opts.spacing,alignment:opts.alignment,border:opts.border})}
   function gap(n){return new D.Paragraph({spacing:{after:n||120}})}
   function multiline(t,opts){return t.split('\n').map(function(line){return para([txt(line.trim(),opts)])})}
@@ -24225,21 +24508,6 @@ function buildDocx(){
   function label(t){
     return para([txt(t.toUpperCase(),{bold:true,color:BLUE_L,size:16})],{spacing:{before:140,after:50}});
   }
-  function metaRow(l1,v1,l2,v2){
-    var cw=Math.floor(W/4);
-    function cell(t,isL){return new D.TableCell({borders:bds,width:{size:cw,type:D.WidthType.DXA},
-      shading:{fill:isL?BLUE_BG:'FFFFFF',type:D.ShadingType.CLEAR},margins:{top:70,bottom:70,left:110,right:110},
-      children:[para([txt(t||'—',{bold:isL,color:isL?BLUE:'222222'})])]})}
-    var cells=[cell(l1,true),cell(v1,false)];
-    if(l2!==undefined){cells.push(cell(l2,true));cells.push(cell(v2,false))}
-    return new D.TableRow({children:cells});
-  }
-  function metaFull(l,v){
-    return new D.TableRow({children:[
-      new D.TableCell({borders:bds,width:{size:Math.floor(W/4),type:D.WidthType.DXA},shading:{fill:BLUE_BG,type:D.ShadingType.CLEAR},margins:{top:70,bottom:70,left:110,right:110},children:[para([txt(l,{bold:true,color:BLUE})])]}),
-      new D.TableCell({borders:bds,width:{size:Math.floor(W*3/4),type:D.WidthType.DXA},columnSpan:3,shading:{fill:'FFFFFF',type:D.ShadingType.CLEAR},margins:{top:70,bottom:70,left:110,right:110},children:multiline(v||'')})
-    ]});
-  }
   function obsTable(obs){
     return new D.Table({width:{size:W,type:D.WidthType.DXA},columnWidths:[400,W-400],
       rows:obs.map(function(o,i){return new D.TableRow({children:[
@@ -24250,14 +24518,14 @@ function buildDocx(){
       ]})})
     });
   }
-  function ficheSynthBlock(d){
+  function ficheSynthBlock(d,subtitle){
     var URG_COLORS={'FAIBLE':'70AD47','MOYENNE':'ED7D31','ÉLEVÉE':'C00000'};
     var ucol=URG_COLORS[d.urgence]||'999999';
-    var content=[para([txt('FICHE DE SYNTHÈSE',{bold:true,color:BLUE,size:18})],{spacing:{after:90}})];
-    content.push(para([txt('Origine du désordre  ',{bold:true,color:GRAY,size:17}),txt(d.origine||'—',{size:18})],{spacing:{after:60}}));
+    var content=[para([txt('FICHE DE SYNTHÈSE'+(subtitle?' — '+subtitle:''),{bold:true,color:BLUE,size:18})],{spacing:{after:90}})];
+    content.push(para([txt('Origine du désordre  ',{bold:true,color:GRAY,size:17})].concat(txtML(d.origine,{size:18})),{spacing:{after:60}}));
     content.push(para([txt('Urgence  ',{bold:true,color:GRAY,size:17}),txt(d.urgence||'—',{bold:true,color:ucol,size:18})],{spacing:{after:60}}));
-    content.push(para([txt('Principe de réparation  ',{bold:true,color:GRAY,size:17}),txt(d.conclusion||'—',{size:18})],{spacing:{after:60}}));
-    content.push(para([txt('Conclusion  ',{bold:true,color:GRAY,size:17}),txt(d.conclusionDesordre||'—',{size:18})],{spacing:{after:0}}));
+    content.push(para([txt('Principe de réparation  ',{bold:true,color:GRAY,size:17})].concat(txtML(d.conclusion,{size:18})),{spacing:{after:60}}));
+    content.push(para([txt('Conclusion  ',{bold:true,color:GRAY,size:17})].concat(txtML(d.conclusionDesordre,{size:18})),{spacing:{after:0}}));
     return new D.Table({width:{size:W,type:D.WidthType.DXA},columnWidths:[W],rows:[new D.TableRow({children:[new D.TableCell({
       borders:{top:bd,bottom:bd,right:bd,left:{style:D.BorderStyle.SINGLE,size:14,color:BLUE_L}},
       width:{size:W,type:D.WidthType.DXA},shading:{fill:BLUE_BG2,type:D.ShadingType.CLEAR},margins:{top:90,bottom:90,left:150,right:150},
@@ -24354,55 +24622,57 @@ function buildDocx(){
     push(para([txt('',{size:15,color:GRAY,italics:true})],{spacing:{after:0}}));
   });
 
-  /* Numérotation des désordres continue sur l'ensemble des lieux (D1, D2…),
-     pour rester cohérente avec le tableau récapitulatif final. */
-  var zoneCounter=0;
-  data.lieux.forEach(function(lieu,li){
+  (data.lieux||[]).forEach(function(lieu,li){
+    /* ── Bandeau du LIEU ── */
     pushSync(function(){
       push(banner((li+1)+'. Lieu — '+(lieu.lieu||''),BLUE));
-      push(gap(80));
+      push(gap(60));
     });
-    lieu.zones.forEach(function(zone){
-      var zi=zoneCounter++;
+    if(lieu.plan&&lieu.plan.image){
+      pushSync(function(){push(label('Plan du lieu'))});
+      pushImg(lieu.plan.image,440);
       pushSync(function(){
-        push(banner((zi+1)+'. Désordre — '+(zone.zone||''),BLUE_L));
+        if(lieu.plan.markers&&lieu.plan.markers.length)push(para([txt('Repères : '+lieu.plan.markers.map(function(m){return'Repère '+m.num}).join(' — '),{color:GRAY,size:16,italics:true})]));
+      });
+    }
+    if(lieu.photos_lieu&&lieu.photos_lieu.length){
+      pushSync(function(){push(label('Photos générales du lieu'))});
+      lieu.photos_lieu.forEach(function(p){pushImg(p.src,300)});
+    }
+
+    /* ── Désordres du lieu ── */
+    (lieu.zones||[]).forEach(function(zone){
+      var num=zone.numero;
+      pushSync(function(){
+        push(gap(140));
+        push(banner('Désordre '+num+' — '+(zone.zone||''),BLUE_L));
         push(gap(60));
         if(zone.description){multiline(zone.description,{italics:true,color:GRAY}).forEach(push)}
       });
-      if(zone.plan&&zone.plan.image){
-        pushSync(function(){push(label('Plan de la zone'))});
-        pushImg(zone.plan.image,440);
-        pushSync(function(){
-          if(zone.plan.markers&&zone.plan.markers.length)push(para([txt('Repères : '+zone.plan.markers.map(function(m){return'Repère '+m.num}).join(' — '),{color:GRAY,size:16,italics:true})]));
-        });
-      }
-      if(zone.photos_zone&&zone.photos_zone.length){
-        pushSync(function(){push(label('Photos générales de la zone'))});
-        zone.photos_zone.forEach(function(p){pushImg(p.src,300)});
-      }
+
       zone.desordres.forEach(function(d){
         pushSync(function(){
           push(gap(100));
-          push(dHeader('Observation '+(zi+1)+'.'+d.numero,d.titre));
+          push(dHeader('Observation '+num+'.'+d.numero,d.titre));
           if(d.localisation){push(gap(50));push(locBlock(d.localisation))}
           if(d.observations&&d.observations.length){push(label('Constats'));push(obsTable(d.observations))}
         });
-        if(d.dplan&&d.dplan.image){
-          pushSync(function(){push(label('Localisation sur plan'))});
-          pushImg(d.dplan.image,340);
-          pushSync(function(){
-            if(d.dplan.markers&&d.dplan.markers.length)push(para([txt('Repère(s) : '+d.dplan.markers.map(function(m){return m.num}).join(', '),{color:GRAY,size:16,italics:true})]));
-          });
-        }
         if(d.photos&&d.photos.length){
           pushSync(function(){push(label('Photos'))});
           d.photos.forEach(function(p){
             pushImg(p.annotated||p.src,p.photoSize==='grande'?460:300);
+            pushSync(function(){
+              if(p.ref&&p.ref.num){
+                push(para([txt('📍 Repère '+p.ref.num+' — plan du lieu',{color:GRAY,size:16,italics:true})],{alignment:D.AlignmentType.CENTER,spacing:{after:80}}));
+              }
+            });
           });
         }
       });
+
       pushSync(function(){
-        push(gap(80));push(ficheSynthBlock(zone));
+        push(gap(80));
+        push(ficheSynthBlock(zone));
         push(gap(160));
       });
     });
@@ -24411,18 +24681,18 @@ function buildDocx(){
   pushSync(function(){
     var URG_COLORS={'FAIBLE':'70AD47','MOYENNE':'ED7D31','ÉLEVÉE':'C00000'};
     var allD=[];
-    var zc=0;
-    data.lieux.forEach(function(lieu){
-      lieu.zones.forEach(function(zone){
-        var zi=zc++;
-        if(zone.zone||zone.origine||zone.conclusion)allD.push({d:{titre:zone.zone,origine:zone.origine,urgence:zone.urgence,conclusion:zone.conclusion},ref:'D'+(zi+1)});
+    (data.lieux||[]).forEach(function(lieu){
+      (lieu.zones||[]).forEach(function(zone){
+        if(zone.zone||zone.origine||zone.conclusion){
+          allD.push({d:{titre:zone.zone,origine:zone.origine,urgence:zone.urgence,conclusion:zone.conclusion},ref:'D'+zone.numero});
+        }
       });
     });
     if(!allD.length)return;
     push(new D.Paragraph({children:[new D.PageBreak()]}));
     push(banner('TABLEAU RÉCAPITULATIF DES DÉSORDRES', BLUE));
     push(gap(100));
-    var cw=[800,1850,2250,1200,3260];
+    var cw=[1050,1800,2200,1200,3110];
     function hCell(t,w){return new D.TableCell({borders:bds,width:{size:w,type:D.WidthType.DXA},shading:{fill:BLUE,type:D.ShadingType.CLEAR},
       margins:{top:80,bottom:80,left:100,right:100},verticalAlign:D.VerticalAlign.CENTER,
       children:[para([txt(t,{bold:true,color:'FFFFFF',size:16})],{alignment:D.AlignmentType.CENTER})]})}
@@ -24491,12 +24761,12 @@ function checkAutoSave(){
       }catch(e){}
     }
     if(data){
-      var lieuxArr=data.lieux||(data.zones?[{lieu:'',zones:data.zones}]:[]);
-      var nbLieux=lieuxArr.length;
-      var nb=lieuxArr.reduce(function(s,l){return s+(l.zones?l.zones.length:0)},0);
-      if(nb>0||nbLieux>0||(data.meta&&data.meta.adresse)){
+      var nb=0;
+      if(data.lieux)data.lieux.forEach(function(l){nb+=(l.zones||[]).length});
+      else nb=(data.zones||[]).length;
+      if(nb>0||(data.meta&&data.meta.adresse)){
         _pendingRestore=data;
-        $('restore-text').textContent='Une session sauvegardée automatiquement a été trouvée ('+nbLieux+' lieu(x), '+nb+' désordre(s)'+(data.meta&&data.meta.adresse?' — '+data.meta.adresse:'')+'). La reprendre ?';
+        $('restore-text').textContent='Une session sauvegardée automatiquement a été trouvée ('+nb+' désordre(s)'+(data.meta&&data.meta.adresse?' — '+data.meta.adresse:'')+'). La reprendre ?';
         $('restore-modal').className='modal show';
         return true;
       }
@@ -24507,7 +24777,7 @@ function checkAutoSave(){
 var _pendingRestore=null;
 
 /* ═══ ÉVÉNEMENTS GLOBAUX ═══ */
-$('btn-add-lieu').addEventListener('click',function(){createLieu();markDirty()});
+$('btn-add-zone').addEventListener('click',function(){createLieu();markDirty()});
 $('btn-json').addEventListener('click',saveJSON);
 $('btn-word').addEventListener('click',exportWord);
 $('btn-load').addEventListener('click',function(){$('session-file').click()});
@@ -24550,7 +24820,7 @@ $('btn-discard').addEventListener('click',function(){
 
 /* ═══ INIT ═══ */
 /* Démarre une session vierge de façon déterministe :
-   vide TOUJOURS le conteneur et l'état avant de créer le premier lieu,
+   vide TOUJOURS le conteneur et l'état avant de créer le premier désordre,
    ce qui empêche tout doublon même en cas d'état résiduel. */
 function startFreshSession(){
   S.lieux=[];
