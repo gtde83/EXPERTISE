@@ -23393,6 +23393,7 @@ function serialize(){
           gi++;
           return {
             numero:gi, zone:z.nom, description:z.description, collapsed:z.collapsed||false,
+            reperes:(z.reperes||[]).slice(),
             gid:z.gid,
             origine:z.origine||'', urgence:z.urgence||'MOYENNE',
             conclusion:z.conclusion||'', conclusionDesordre:z.conclusionDesordre||'',
@@ -23455,6 +23456,8 @@ function loadFromJSON(data){
     (ld.zones||[]).forEach(function(zd){
       var zone=createZone(lieu);
       zone.nom=zd.zone||'';zone.description=zd.description||'';
+      zone.reperes=(zd.reperes||[]).slice();
+      if(zone.dom.updateRepBadge)zone.dom.updateRepBadge();
       if(zd.gid)zone.gid=zd.gid;
       zone.dom.titleInput.value=zone.nom;
       zone.dom.typeVal.textContent=zone.nom||'—';
@@ -23743,7 +23746,7 @@ function addLieuPhotoObj(lieu,p){
 
 /* ═══ DÉSORDRE ═══ */
 function createZone(lieu){
-  var zone={nom:'',description:'',desordres:[],origine:'',urgence:'MOYENNE',conclusion:'',conclusionDesordre:'',
+  var zone={nom:'',description:'',desordres:[],reperes:[],origine:'',urgence:'MOYENNE',conclusion:'',conclusionDesordre:'',
             gid:'g'+Date.now().toString(36)+'_'+(++GID_SEQ),collapsed:false,dom:{}};
   lieu.zones.push(zone);
 
@@ -23751,11 +23754,65 @@ function createZone(lieu){
   var hdr=el('div','zone-hdr');
   var numSpan=el('span','zone-num','Désordre '+allZones().length);
   var ti=document.createElement('input');ti.type='text';ti.placeholder='Fissuration, Infiltration, Affaissement…';
+  var repB=el('button','grp-btn','📍 Repères');repB.type='button';repB.title='Repères du plan du lieu où se situe ce désordre';
+  var repBadge=el('span','ref-badge','');
   var grpB=el('button','grp-btn','🔗 Grouper');grpB.type='button';grpB.title='Grouper ce désordre avec un autre';
   var toggleZ=el('button','zone-toggle','▼');toggleZ.type='button';toggleZ.title='Déplier / Replier';
   var delB=el('button','xs','✕ Supprimer');delB.type='button';
-  hdr.appendChild(numSpan);hdr.appendChild(ti);hdr.appendChild(grpB);hdr.appendChild(toggleZ);hdr.appendChild(delB);
+  hdr.appendChild(numSpan);hdr.appendChild(ti);hdr.appendChild(repB);hdr.appendChild(repBadge);hdr.appendChild(grpB);hdr.appendChild(toggleZ);hdr.appendChild(delB);
   card.appendChild(hdr);
+
+  /* ── Panneau des repères du désordre (repères posés sur le plan du lieu) ── */
+  var repPanel=el('div','ref-panel');
+  card.appendChild(repPanel);
+  function updateRepBadge(){
+    if(zone.reperes&&zone.reperes.length){
+      repBadge.textContent='📍 R'+zone.reperes.join(', R');
+      repBadge.title='Repère(s) '+zone.reperes.join(', ')+' du plan du lieu';
+      repBadge.classList.add('on');
+    }else{repBadge.textContent='';repBadge.classList.remove('on')}
+  }
+  zone.dom.updateRepBadge=updateRepBadge;
+  function buildRepPanel(){
+    repPanel.innerHTML='';
+    var l=zoneLieu(zone);
+    var markers=(l&&l.plan&&l.plan.markers)||[];
+    if(!markers.length){
+      var w=el('div','ref-label','Aucun repère sur le plan du lieu — posez d\'abord des repères en tapant sur le plan.');
+      w.style.cssText='text-transform:none;letter-spacing:0;font-weight:400;color:#7a8894';
+      repPanel.appendChild(w);
+    }else{
+      var row=el('div','ref-row');
+      row.appendChild(el('div','ref-label','Repères de ce désordre <span class="sec-note">— cochez-en autant que nécessaire</span>'));
+      var box=el('div','grp-box');
+      markers.forEach(function(m){
+        var lab=el('label','grp-item');
+        var cb=document.createElement('input');cb.type='checkbox';
+        cb.checked=zone.reperes.indexOf(m.num)>=0;
+        cb.addEventListener('change',function(){
+          var i=zone.reperes.indexOf(m.num);
+          if(cb.checked){if(i<0)zone.reperes.push(m.num)}
+          else if(i>=0)zone.reperes.splice(i,1);
+          zone.reperes.sort(function(a,b){return a-b});
+          updateRepBadge();markDirty();
+        });
+        lab.appendChild(cb);
+        lab.appendChild(document.createTextNode('📍 Repère '+m.num+' — plan du lieu'));
+        box.appendChild(lab);
+      });
+      row.appendChild(box);
+      repPanel.appendChild(row);
+    }
+    var acts=el('div','ref-actions');
+    var cb2=el('button','ref-cancel','Fermer');cb2.type='button';
+    acts.appendChild(cb2);repPanel.appendChild(acts);
+    cb2.addEventListener('click',function(){repPanel.classList.remove('open')});
+  }
+  repB.addEventListener('click',function(e){
+    e.stopPropagation();
+    if(repPanel.classList.contains('open')){repPanel.classList.remove('open');return;}
+    buildRepPanel();repPanel.classList.add('open');
+  });
 
   /* ── Panneau de groupement (fusion sous une référence choisie) ── */
   var grpPanel=el('div','ref-panel');
@@ -23944,6 +24001,9 @@ function mergeZones(kept,removed){
   kept.origine=mergeText(kept.origine,removed.origine);
   kept.conclusion=mergeText(kept.conclusion,removed.conclusion);
   kept.conclusionDesordre=mergeText(kept.conclusionDesordre,removed.conclusionDesordre);
+  removed.reperes.forEach(function(n){if(kept.reperes.indexOf(n)<0)kept.reperes.push(n)});
+  kept.reperes.sort(function(a,b){return a-b});
+  if(kept.dom.updateRepBadge)kept.dom.updateRepBadge();
   var rank={'FAIBLE':0,'MOYENNE':1,'ÉLEVÉE':2};
   var urg=(rank[removed.urgence]||0)>(rank[kept.urgence]||0)?removed.urgence:kept.urgence;
   /* 3. Rafraîchir les champs affichés */
@@ -24631,9 +24691,6 @@ function buildDocx(){
     if(lieu.plan&&lieu.plan.image){
       pushSync(function(){push(label('Plan du lieu'))});
       pushImg(lieu.plan.image,440);
-      pushSync(function(){
-        if(lieu.plan.markers&&lieu.plan.markers.length)push(para([txt('Repères : '+lieu.plan.markers.map(function(m){return'Repère '+m.num}).join(' — '),{color:GRAY,size:16,italics:true})]));
-      });
     }
     if(lieu.photos_lieu&&lieu.photos_lieu.length){
       pushSync(function(){push(label('Photos générales du lieu'))});
@@ -24645,7 +24702,8 @@ function buildDocx(){
       var num=zone.numero;
       pushSync(function(){
         push(gap(140));
-        push(banner('Désordre '+num+' — '+(zone.zone||''),BLUE_L));
+        var rp=(zone.reperes&&zone.reperes.length)?('   ·   Repère'+(zone.reperes.length>1?'s':'')+' '+zone.reperes.join(', ')):'';
+        push(banner('Désordre '+num+' — '+(zone.zone||'')+rp,BLUE_L));
         push(gap(60));
         if(zone.description){multiline(zone.description,{italics:true,color:GRAY}).forEach(push)}
       });
@@ -24662,9 +24720,9 @@ function buildDocx(){
           d.photos.forEach(function(p){
             pushImg(p.annotated||p.src,p.photoSize==='grande'?460:300);
             pushSync(function(){
-              if(p.ref&&p.ref.num){
-                push(para([txt('📍 Repère '+p.ref.num+' — plan du lieu',{color:GRAY,size:16,italics:true})],{alignment:D.AlignmentType.CENTER,spacing:{after:80}}));
-              }
+              var cap='Observation '+num+'.'+d.numero+(d.titre?' — '+d.titre:'');
+              if(p.ref&&p.ref.num)cap+='  ·  📍 Repère '+p.ref.num;
+              push(para([txt(cap,{color:GRAY,size:16,italics:true})],{alignment:D.AlignmentType.CENTER,spacing:{after:80}}));
             });
           });
         }
@@ -24672,7 +24730,7 @@ function buildDocx(){
 
       pushSync(function(){
         push(gap(80));
-        push(ficheSynthBlock(zone));
+        push(ficheSynthBlock(zone,'Désordre '+num+(zone.zone?' — '+zone.zone:'')));
         push(gap(160));
       });
     });
